@@ -1,0 +1,17 @@
+{
+    "status": "valid",
+    "result": "deliverable",
+    "_deprecation_notice": "Using result is deprecated, use status instead",
+    "score": 90,
+    "email": "alejoho37@gmail.com",
+    "regexp": True,
+    "gibberish": False,
+    "disposable": False,
+    "webmail": True,
+    "mx_records": True,
+    "smtp_server": True,
+    "smtp_check": True,
+    "accept_all": False,
+    "block": False,
+    "sources": [],
+}
