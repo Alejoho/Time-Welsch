@@ -1,3 +1,7 @@
 body {
     background-color: blanchedalmond;
 }
+
+.invalid-feedback {
+    display: block;
+}

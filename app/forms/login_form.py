@@ -7,6 +7,6 @@ class LoginForm(FlaskForm):
     name = StringField(
         "Name", validators=[Length(5, 10, "Need to be between 5 and 10")]
     )
-    age = IntegerField("Age")
-    sex = StringField("Sex")
+    age = IntegerField("Age", validators=[DataRequired("Need to enter this")])
+    # sex = StringField("Sex")
     submit = SubmitField("Submit")

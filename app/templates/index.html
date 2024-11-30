@@ -10,13 +10,26 @@
 
 <div class="form-floating mb-4">
 
-    {{ field(class="form-control", id=field.id, placeholder=field.name | capitalize()) }}
+    {{ field(class="form-control", class_="is-invalid" if field.errors else "", id=field.id, placeholder=field.name |
+    capitalize()) }}
     {{ field.label(for=field.id) }}
+    {% for error in field.errors %}
+    <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
 </div>
 
 {% endmacro %}
 
 <br><br>
+
+{% if name %}
+
+<h1>Hi {{ name }}</h1>
+
+{% else %}
+
+
+
 
 <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
     <h1>Fill the form</h1>
@@ -31,15 +44,20 @@
             color: #dc3545;
         }
     </style> -->
-    <form method="post">
+    <form method="post" novalidate>
         {{ form.hidden_tag() }}
         {{ input(form.name) }}
         {{ input(form.age) }}
+        {#
         {{ input(form.sex) }}
-
-        {{ form.submit(class="btn btn-secondary") }}
+        #}
+        <div class="form-group">
+            {{ form.submit(class="btn btn-secondary") }}
+        </div>
     </form>
 
 </div>
+
+{% endif %}
 
 {% endblock %}
