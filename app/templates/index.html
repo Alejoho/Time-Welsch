@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
+<!-- TODO: How can i get the content of the label to put in the placeholder of the input -->
+<!-- TODO: How to add a conditional class -->
 
 
 
 {% block content %}
 
 {% macro input(field) %}
-<br><br>
-<div class="form-floating mb-2">
-    <!-- TODO: How can i get the content of the label to put in the placeholder of the input -->
-    <!-- TODO: How to add a conditional class -->
+
+<div class="form-floating mb-4">
 
     {{ field(class="form-control", id=field.id, placeholder=field.name | capitalize()) }}
     {{ field.label(for=field.id) }}
@@ -16,9 +16,11 @@
 
 {% endmacro %}
 
+<br><br>
+
 <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
     <h1>Fill the form</h1>
-    <br />
+    <br>
     <!-- <style>
         .is-invalid .form-control {
             border-color: #dc3545;
