@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
 
+{% block head %}
+
+<script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("registerForm").submit();
+    }
+</script>
+{% endblock %}
+
+
 {% block content %}
 
 {% macro input(field) %}
@@ -24,19 +35,22 @@
 
 {% else %}
 
-
-
-
 <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
     <h1>Fill the form</h1>
     <br>
 
-    <form method="post" novalidate>
+    <form method="post" novalidate id="registerForm">
         {{ form.hidden_tag() }}
         {{ input(form.username) }}
         {{ input(form.email) }}
         <div class="form-group">
-            {{ form.submit(class="btn btn-secondary") }}
+            {#{{ form.submit(class="btn btn-secondary g-recaptcha",
+            data-sitekey="site_key",
+            data-callback="onSubmit",
+            data-action="submit") }}#}
+
+            <button class="btn btn-secondary g-recaptcha" ,data-sitekey="{{ site_key }}" ,data-callback="onSubmit"
+                ,data-action="submit">Submit</button>
         </div>
     </form>
 

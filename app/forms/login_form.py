@@ -46,4 +46,3 @@ class LoginForm(FlaskForm):
             EmailExistence("This email doesn't exist"),
         ],
     )
-    submit = SubmitField("Submit")
