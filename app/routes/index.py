@@ -7,13 +7,10 @@ bp = Blueprint("index_routes", __name__)
 @bp.route("/", methods=["GET", "POST"])
 def index():
     form = LoginForm()
-    name = None
+    username = None
 
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ""
+        username = form.username.data
+        form.username.data = ""
 
-    for error in form.name.errors:
-        print(error)
-
-    return render_template("index.html", form=form, name=name)
+    return render_template("index.html", form=form, username=username)

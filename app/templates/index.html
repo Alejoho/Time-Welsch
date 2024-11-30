@@ -22,9 +22,9 @@
 
 <br><br>
 
-{% if name %}
+{% if username %}
 
-<h1>Hi {{ name }}</h1>
+<h1>Hi {{ username }}</h1>
 
 {% else %}
 
@@ -34,23 +34,11 @@
 <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
     <h1>Fill the form</h1>
     <br>
-    <!-- <style>
-        .is-invalid .form-control {
-            border-color: #dc3545;
-        }
 
-        .invalid-feedback {
-            display: block;
-            color: #dc3545;
-        }
-    </style> -->
     <form method="post" novalidate>
         {{ form.hidden_tag() }}
-        {{ input(form.name) }}
-        {{ input(form.age) }}
-        {#
-        {{ input(form.sex) }}
-        #}
+        {{ input(form.username) }}
+        {{ input(form.email) }}
         <div class="form-group">
             {{ form.submit(class="btn btn-secondary") }}
         </div>
