@@ -10,11 +10,11 @@
 
 <div class="form-floating mb-4">
 
-    {{ field(class="form-control", class_="is-invalid" if field.errors else "", id=field.id, placeholder=field.name |
-    capitalize()) }}
+    {{ field(class="form-control position-relative " + ("is-invalid" if field.errors else ""), id=field.id,
+    placeholder=field.label.text)}}
     {{ field.label(for=field.id) }}
     {% for error in field.errors %}
-    <div class="invalid-feedback">{{ error }}</div>
+    <div class="invalid-feedback ms-1 position-absolute">{{ error }}</div>
     {% endfor %}
 </div>
 
