@@ -1,5 +1,11 @@
 {% extends "layout.html" %}
 
+{% block head %}
+{#
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+#}
+{% endblock %}
+
 {% block content %}
 
 {% macro input(field) %}
@@ -7,7 +13,7 @@
 <div class="form-floating mb-4">
 
     {{ field(class="form-control position-relative " + ("is-invalid" if field.errors else ""), id=field.id,
-    placeholder=field.label.text)}}
+    placeholder=field.label.text) }}
     {{ field.label(for=field.id) }}
     {% if field.errors %}
     <div class="invalid-feedback ms-1 position-absolute">{{ field.errors[0] }}</div>
@@ -24,9 +30,6 @@
 
 {% else %}
 
-
-
-
 <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
     <h1>Fill the form</h1>
     <br>
@@ -35,6 +38,9 @@
         {{ form.hidden_tag() }}
         {{ input(form.username) }}
         {{ input(form.email) }}
+        <div class="form-group">
+            {{ form.recaptcha }}
+        </div>
         <div class="form-group">
             {{ form.submit(class="btn btn-secondary") }}
         </div>

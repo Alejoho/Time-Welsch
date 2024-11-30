@@ -1,5 +1,5 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField
+from flask_wtf import FlaskForm, RecaptchaField
+from wtforms import StringField, EmailField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from flask import current_app
 import requests
@@ -34,7 +34,7 @@ class LoginForm(FlaskForm):
     username = StringField(
         "Username",
         validators=[
-            DataRequired("Need to enter the email"),
+            DataRequired("Need to enter the username"),
             Length(5, 20, "Need to be between 5 and 20"),
         ],
     )
@@ -46,4 +46,5 @@ class LoginForm(FlaskForm):
             EmailExistence("This email doesn't exist"),
         ],
     )
+    recaptcha = RecaptchaField()
     submit = SubmitField("Submit")
