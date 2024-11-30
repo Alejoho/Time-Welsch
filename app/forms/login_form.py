@@ -12,6 +12,8 @@ class EmailExistence(object):
         self.message = message
 
     def __call__(self, form, field):
+        if field.errors:
+            return
         url = f'https://api.hunter.io/v2/email-verifier?email={field.data}&api_key={current_app.config["HUNTER_API_KEY"]}'
         try:
             response = requests.get(url)
