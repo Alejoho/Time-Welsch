@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, url_for
 from app.forms import LoginForm
+import smtplib
+import os
 
 bp = Blueprint("index_routes", __name__)
 
@@ -17,8 +19,17 @@ def index():
         form.email.data = ""
 
         serializer = current_app.config["SERIALIZER"]
-
         token = serializer.dumps(email, "email_confirmation")
+        link = url_for("confirm_email", token=token)
+
+        message = (
+            f"{username} please follow this link to activate your account:\n{link}"
+        )
+
+        email_server = smtplib.SMTP("smtp.gmail.com", 587)
+        email_server.starttls()
+        email_server.login(os.getenv("GMAIL_ACCOUNT"), os.getenv("GMAIL_PASSWORD"))
+        email_server.sendmail(os.getenv("GMAIL_ACCOUNT"), email, message)
 
     return render_template("index.html", form=form, username=username, token=token)
 
@@ -28,7 +39,7 @@ def confirm_email(token):
     serializer = current_app.config["SERIALIZER"]
 
     try:
-        email = serializer.loads(token, salt="email_confirmation", max_age=10)
+        email = serializer.loads(token, salt="email_confirmation", max_age=60)
     except:
         return "Something went wrong with the confirmation try again"
 
