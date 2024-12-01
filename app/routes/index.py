@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, current_app, url_for
+from email.mime.text import MIMEText
 from app.forms import LoginForm
 import smtplib
 import os
@@ -22,9 +23,16 @@ def index():
         token = serializer.dumps(email, "email_confirmation")
         link = f"127.0.0.1:5000{url_for("index_routes.confirm_email", token=token)}"
 
-        message = f"{username} please follow this link to activate your account: {link}"
+        message_body = (
+            f"{username} please follow this link to activate your account: {link}"
+        )
 
-        print(message)
+        print(message_body)
+
+        message = MIMEText(message_body)
+        message["From"] = os.getenv("GMAIL_ACCOUNT")
+        message["To"] = email
+        message["Subject"] = "Account Activation"
 
         # email_server = smtplib.SMTP("smtp.gmail.com", 587)
         with smtplib.SMTP("smtp.gmail.com", 587) as email_server:
@@ -33,7 +41,9 @@ def index():
             print("server started")
             email_server.login(os.getenv("GMAIL_ACCOUNT"), os.getenv("GMAIL_PASSWORD"))
             print("server logged")
-            email_server.sendmail(os.getenv("GMAIL_ACCOUNT"), email, message)
+            email_server.sendmail(
+                os.getenv("GMAIL_ACCOUNT"), email, message.as_string()
+            )
             print("email sent")
 
     return render_template("index.html", form=form, username=username, token=token)
