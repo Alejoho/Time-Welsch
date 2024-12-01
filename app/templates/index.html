@@ -10,7 +10,6 @@
 </script>
 {% endblock %}
 
-
 {% block content %}
 
 {% macro input(field) %}
@@ -44,13 +43,8 @@
         {{ input(form.username) }}
         {{ input(form.email) }}
         <div class="form-group">
-            {#{{ form.submit(class="btn btn-secondary g-recaptcha",
-            data-sitekey="site_key",
-            data-callback="onSubmit",
-            data-action="submit") }}#}
-
-            <button class="btn btn-secondary g-recaptcha" ,data-sitekey="{{ site_key }}" ,data-callback="onSubmit"
-                ,data-action="submit">Submit</button>
+            <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                data-action="submit">Submit</button>
         </div>
     </form>
 

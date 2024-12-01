@@ -43,6 +43,6 @@ class LoginForm(FlaskForm):
         validators=[
             DataRequired("Need to enter the email"),
             Email("Invalid email format"),
-            EmailExistence("This email doesn't exist"),
+            # EmailExistence("This email doesn't exist"),
         ],
     )
