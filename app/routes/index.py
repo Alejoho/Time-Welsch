@@ -20,16 +20,21 @@ def index():
 
         serializer = current_app.config["SERIALIZER"]
         token = serializer.dumps(email, "email_confirmation")
-        link = url_for("confirm_email", token=token)
+        link = f"127.0.0.1:5000{url_for("index_routes.confirm_email", token=token)}"
 
-        message = (
-            f"{username} please follow this link to activate your account:\n{link}"
-        )
+        message = f"{username} please follow this link to activate your account: {link}"
 
-        email_server = smtplib.SMTP("smtp.gmail.com", 587)
-        email_server.starttls()
-        email_server.login(os.getenv("GMAIL_ACCOUNT"), os.getenv("GMAIL_PASSWORD"))
-        email_server.sendmail(os.getenv("GMAIL_ACCOUNT"), email, message)
+        print(message)
+
+        # email_server = smtplib.SMTP("smtp.gmail.com", 587)
+        with smtplib.SMTP("smtp.gmail.com", 587) as email_server:
+            print("server ready")
+            email_server.starttls()
+            print("server started")
+            email_server.login(os.getenv("GMAIL_ACCOUNT"), os.getenv("GMAIL_PASSWORD"))
+            print("server logged")
+            email_server.sendmail(os.getenv("GMAIL_ACCOUNT"), email, message)
+            print("email sent")
 
     return render_template("index.html", form=form, username=username, token=token)
 
