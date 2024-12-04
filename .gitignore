@@ -1,2 +1,11 @@
 other/
 ._*
+
+.venv_win/
+.venv_mac/
+
+__pycache__/
+
+.vscode/
+
+.env
