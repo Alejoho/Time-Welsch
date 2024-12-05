@@ -16,3 +16,8 @@ def about_author():
 @bp.get("/por_qué_este_libro")
 def why_this_book():
     return render_template("why_this_book.html")
+
+
+@bp.route("/contáctame", methods=["GET", "POST"])
+def contact_me():
+    return render_template("contact_me.html")
