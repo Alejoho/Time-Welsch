@@ -4,8 +4,8 @@ bp = Blueprint("home_routes", __name__)
 
 
 @bp.get("/")
-def home():
-    return render_template("test.html")
+def index():
+    return render_template("index.html")
 
 
 @bp.get("/sobre_el_autor")

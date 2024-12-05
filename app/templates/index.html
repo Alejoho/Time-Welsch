@@ -1,1 +1,52 @@
 <!-- TODO: Make the index page of the app -->
+
+
+{% extends "layout.html" %}
+
+{% block title %}Time Welsch{% endblock %}
+
+{% block description %}The home page of the app{% endblock %}
+
+{% block body %}
+<br>
+<div class="container content">
+    <!-- Header Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1>Welcome to the Time Welsch <br> CS50 Final Project</h1>
+            <p>Your guide to mastering English verb tenses with Daniel Welsch's book.</p>
+        </div>
+    </div>
+    <!-- Book Cover Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <img src="{{ url_for('static',filename='images/book cover.jpg') }}" alt="Book Cover"
+                class="book-cover rounded mx-auto d-block" width="913" height="1369">
+        </div>
+    </div>
+    <!-- About the Author Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2 class="mt-md-5">About the Author</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6"> <img src="{{ url_for('static',filename='images/daniel welsch.jpg') }}"
+                        alt="Daniel Welsch" class="author-img rounded mx-auto d-block" width="1080" height="1080">
+                </div>
+                <div class="col-md-6 text-left">
+                    <p>Daniel Welsch is an accomplished author, blogger, podcaster, and travel writer. Originally from
+                        Phoenix, Arizona, USA, Daniel now resides in Barcelona, Spain. He is passionate about teaching
+                        English and helping learners around the world improve their language skills.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sign In / Register Section -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 text-center">
+            <h2 class="mt-md-5">Get Started</h2>
+            <p>If you already have an account, <a href="login.html">sign in here</a>.</p>
+            <p>If you want to start learning, <a href="register.html">register here</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

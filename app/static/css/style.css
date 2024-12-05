@@ -18,3 +18,9 @@ body h2 {
     margin-bottom: 1rem;
     margin-top: 1.5rem;
 }
+
+.author-img,
+.book-cover {
+    max-width: 100%;
+    height: auto;
+}
