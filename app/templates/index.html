@@ -1,6 +1,3 @@
-<!-- TODO: Make the index page of the app -->
-
-
 {% extends "layout.html" %}
 
 {% block title %}Time Welsch{% endblock %}
@@ -13,46 +10,53 @@
     <!-- Header Section -->
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            <h1>Welcome to the Time Welsch <br> CS50 Final Project</h1>
-            <p>Your guide to mastering English verb tenses with Daniel Welsch's book.</p>
+            <h1>Bienvenido a Time Welsch<br>Proyecto final de CS50</h1>
+            <p class="text-left">Tu guía para dominar los tiempos verbales en inglés con el libro de Daniel Welsch. Este
+                recurso integral ofrece explicaciones claras, ejemplos prácticos y ejercicios interesantes diseñados
+                para mejorar tu comprensión y uso de los tiempos verbales en inglés. <a
+                    href="{{ url_for('home_routes.why_this_book') }}"
+                    class="link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">¿Por
+                    qué este libro?</a></p>
         </div>
     </div>
     <!-- Book Cover Section -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-md-4">
         <div class="col-md-6 text-center">
             <img src="{{ url_for('static',filename='images/book cover.jpg') }}" alt="Book Cover"
                 class="book-cover rounded mx-auto d-block" width="913" height="1369">
         </div>
     </div>
     <!-- About the Author Section -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center  mb-md-4">
         <div class="col-md-8 text-center">
-            <h2 class="mt-md-5">About the Author</h2>
+            <h2 class="mt-md-5">Sobre el Autor</h2>
             <div class="row justify-content-center">
-                <div class="col-md-6"> <img src="{{ url_for('static',filename='images/daniel welsch.jpg') }}"
-                        alt="Daniel Welsch" class="author-img rounded mx-auto d-block" width="1080" height="1080">
+                <div class="col-md-6">
+                    <img src="{{ url_for('static',filename='images/daniel welsch.jpg') }}" alt="Daniel Welsch"
+                        class="author-img rounded mx-auto d-block mb-md-4" width="1080" height="1080">
                 </div>
-                <div class="col-md-6 text-left">
-                    <p>Daniel Welsch is an accomplished author, blogger, podcaster, and travel writer. Originally from
-                        Phoenix, Arizona, USA, Daniel now resides in Barcelona, Spain. He is passionate about teaching
-                        English and helping learners around the world improve their language skills.</p>
-                </div>
+                <p class="text-left">Daniel Welsch es un autor, bloguero, podcaster y escritor de viajes. Originario de
+                    Phoenix, Arizona, EE. UU., Daniel ahora reside en Barcelona, ​​España. Le apasiona enseñar inglés y
+                    ayudar a estudiantes de todo el mundo a mejorar sus habilidades lingüísticas. <a
+                        href="{{ url_for('home_routes.about_author') }}"
+                        class="link-offset-2-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Conoce
+                        más sobre Daniel</a>.</p>
             </div>
         </div>
     </div>
     <!-- Sign In / Register Section -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-8 text-center">
-            <h2 class="mt-md-5">Get Started</h2>
+            <h2 class="mt-md-5">Comienza Ya</h2>
             <div class="row">
                 <!-- Sign In Card -->
                 <div class="col-md-6 d-flex align-items-stretch">
                     <div class="card">
                         <div class="card-body d-flex flex-column align-items-center">
-                            <h5 class="card-title">Already have an account?</h5>
-                            <p class="card-text">Sign in to continue your learning journey and access exclusive content
-                                tailored just for you.</p>
-                            <a href="login.html" class="btn btn-primary mt-auto w-50">Sign In</a>
+                            <h5 class="card-title">¿Ya tienes una cuenta?</h5>
+                            <p class="card-text">Inicia sesión para continuar tu recorrido de aprendizaje y acceder a
+                                contenido exclusivo diseñado especialmente para ti.</p>
+                            <a href="login.html" class="btn btn-primary mt-auto w-50">Inicia sesión</a>
                         </div>
                     </div>
                 </div>
@@ -60,10 +64,10 @@
                 <div class="col-md-6 d-flex align-items-stretch">
                     <div class="card">
                         <div class="card-body d-flex flex-column align-items-center">
-                            <h5 class="card-title">New here?</h5>
-                            <p class="card-text">Join our community to start learning with Daniel Welsch's comprehensive
-                                guide to English verb tenses.</p>
-                            <a href="register.html" class="btn btn-success mt-auto w-50">Register Now</a>
+                            <h5 class="card-title">¿Nuevo aquí?</h5>
+                            <p class="card-text">Únase a nuestra comunidad para comenzar a aprender con la guía completa
+                                de Daniel Welsch sobre los tiempos verbales en inglés.</p>
+                            <a href="register.html" class="btn btn-success mt-auto w-50">Regístrate ahora</a>
                         </div>
                     </div>
                 </div>
