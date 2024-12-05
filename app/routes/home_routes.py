@@ -21,3 +21,15 @@ def why_this_book():
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     return render_template("contact_me.html")
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login():
+    # TODO: Make the logic to login a user
+    pass
+
+
+@bp.route("/register", methods=["GET", "POST"])
+def register():
+    # TODO: Make the logic to register a user
+    pass
