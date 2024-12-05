@@ -10,7 +10,7 @@ def home():
 
 @bp.get("/sobre_el_autor")
 def about_author():
-    return render_template("author.html")
+    return render_template("about_author.html")
 
 
 @bp.get("/por_qué_este_libro")

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+
+{% block description%}This page talks about the autor of the book in which the content of this app is based.{% endblock
+%}
+
+
+{% block title %}Sobre el autor{% endblock %}
+
+
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>Sobre el autor</h1>
+            <p><strong>Daniel Welsch</strong> es un autor, bloguero, podcaster y escritor de viajes. Originario de
+                Phoenix, Arizona, EE. UU., Daniel ahora reside en Barcelona, ​​España. Le apasiona enseñar inglés y
+                ayudar a estudiantes de todo el mundo a mejorar sus habilidades lingüísticas..</p>
+            <div class="row justify-content-center my-5">
+                <div class="col-md-8">
+                    <img src="{{ url_for('static',filename='images/daniel welsch.jpg') }}"
+                        class="img-fluid rounded mx-auto d-block" alt="foto del autor">
+                </div>
+            </div>
+            <p>Daniel es autor de varios libros sobre gramática inglesa y aprendizaje del idioma, entre ellos el popular
+                "La Guía de los Tiempos Verbales". También dirige blogs educativos como madridingles.net y
+                aprendemasingles.com, donde comparte recursos y consejos valiosos para hispanohablantes que están
+                aprendiendo inglés.</p>
+
+            <p>Además de escribir, Daniel presenta el podcast "Aprende Más Inglés", que cuenta con más de 300 episodios,
+                y ocasionalmente crea contenido en YouTube. Su trabajo ha aparecido en publicaciones destacadas como
+                Esquire y Lonely Planet.</p>
+
+            <p>Para más información sobre Daniel y sus proyectos, puedes visitar su página web <a
+                    href="https://danielwelsch.com" target="_blank">danielwelsch</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
