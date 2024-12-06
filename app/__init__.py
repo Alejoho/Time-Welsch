@@ -12,6 +12,7 @@ def create_app():
 
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+    app.config["HUNTER_API_KEY"] = os.getenv("HUNTER_API_KEY")
 
     db.init_app(app)
 
