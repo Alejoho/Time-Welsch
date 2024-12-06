@@ -1,1 +1,46 @@
-<!-- TODO: Make the login form -->
+{% extends "layout.html" %}
+
+<!-- CHECK: Look up how to move this macro to a separate file -->
+{% macro input(field) %}
+<div class="form-floating mb-4">
+    {{ field(class="form-control position-relative " + ("is-invalid" if field.errors else ""), id=field.id,
+    placeholder=field.label.text)}}
+    {{ field.label(for=field.id) }}
+    {% if field.errors %}
+    <div class="invalid-feedback ms-1 position-absolute">{{ field.errors[0] }}</div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{% block description %}This is the login page{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("registerForm").submit();
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h1 class="text-center mt-5">Login</h1>
+            <form method="post" novalidate id="registerForm">
+                {{ form.hidden_tag() }}
+                {{ input(form.username) }}
+                {{ input(form.password) }}
+                <div class="form-group">
+                    <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                        data-action="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

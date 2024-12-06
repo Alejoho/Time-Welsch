@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app, request, abort, redirect
+from app.forms import LoginForm
+import requests
 
 bp = Blueprint("home_routes", __name__)
 
@@ -23,10 +25,40 @@ def contact_me():
     return render_template("contact_me.html")
 
 
+def verify_recaptcha(recaptcha_response):
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": current_app.config["RECAPTCHA_PRIVATE_KEY"],
+        "response": recaptcha_response,
+    }
+    response = requests.post(url, data=data)
+    result = response.json()
+
+    return result["success"] and result["score"] >= 0.5
+
+
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-    # TODO: Make the logic to login a user
-    pass
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        form.username.data = ""
+        password = form.password.data
+        form.password.data = ""
+        recaptcha_response = request.form.get("g-recaptcha-response")
+
+        if not verify_recaptcha(recaptcha_response):
+            return abort(401)
+
+        # TODO: Make the logic to login a user with the flask_login package
+
+        print("The user is logged in!!!")
+        return redirect("index")
+
+    return render_template(
+        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+    )
 
 
 @bp.route("/register", methods=["GET", "POST"])
