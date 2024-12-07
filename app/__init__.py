@@ -26,8 +26,15 @@ def create_app():
     db.init_app(app)
     csrf.init_app(app)
     migrate.init_app(app, db)
-    # login_manager.init_app(app)
-    # login_manager.login_view = "home_routes.login"
+    login_manager.init_app(app)
+    login_manager.login_view = "home_routes.login"
+
+    # LATER: Use the new way of sqlalchemy to query the db
+    @login_manager.user_loader
+    def load_user(user_id):
+        from app.models import User
+
+        return User.query.get_or_404(int(user_id))
 
     from app.routes import home_routes_bp
 
