@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, current_app, request, abort, redir
 from app.forms import LoginForm, RegisterFrom
 import requests
 from app.models import User
+from app import db
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy import select
 
 bp = Blueprint("home_routes", __name__)
 
@@ -64,10 +67,40 @@ def login():
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
-    # TODO: Complete the logic to register a user
     form = RegisterFrom()
 
     if form.validate_on_submit():
+
+        # TODO: Check the captcha score
+
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+        )
+
+        db.session.add(user)
+
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+
+            existing_user = db.session.scalar(
+                select(User)
+                .where(
+                    (User.username == form.username.data)
+                    | (User.email == form.email.data)
+                )
+                .one()
+            )
+
+            if existing_user.username == form.username.data:
+                form.username.errors.append("Este nombre de usuario ya esta en uso")
+            if existing_user.email == form.email.data:
+                form.email.errors.append("Una cuenta ya está usando este correo")
+
+        # TODO: Create the logic to create the confirmation link and send the email with it
 
         return render_template("confirmation.html")
 
