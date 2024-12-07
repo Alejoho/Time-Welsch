@@ -139,14 +139,18 @@ def register():
 @bp.get("/confirm_email/<token>")
 def confirm_email(token):
     serializer = current_app.config["SERIALIZER"]
-
+    email = None
     try:
-        serializer.loads(token, salt="email_confirmation", max_age=60)
+        email = serializer.loads(token, salt="email_confirmation", max_age=60)
     except:
         # CHECK: If something went wrong with the confirmation. How can the user try again.
         # Because the user has already been saved to the db. maybe render a page with a link
         # to try again or if the user closed the page. When he tries to login send the
         # confirmation again
         return "Something went wrong with the confirmation try again"
+
+    user = db.session.scalars(select(User).where(User.email == email)).one()
+    user.confirmation = True
+    db.session.commit
 
     return redirect(url_for("home_routes.login"))
