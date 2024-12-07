@@ -65,13 +65,27 @@ def login():
     )
 
 
+def verify_recaptcha(recaptcha_response):
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": current_app.config["RECAPTCHA_PRIVATE_KEY"],
+        "response": recaptcha_response,
+    }
+    response = requests.post(url, data=data)
+    result = response.json()
+
+    return result["success"] and result["score"] >= 0.5
+
+
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterFrom()
 
     if form.validate_on_submit():
+        recaptcha_response = request.form.get("g-recaptcha-response")
 
-        # TODO: Check the captcha score
+        if not verify_recaptcha(recaptcha_response):
+            return abort(401)
 
         user = User(
             username=form.username.data,
@@ -83,6 +97,7 @@ def register():
 
         try:
             db.session.commit()
+            pass
         except IntegrityError:
             db.session.rollback()
 
