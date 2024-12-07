@@ -1,10 +1,19 @@
-from flask import Blueprint, render_template, current_app, request, abort, redirect
+from flask import (
+    Blueprint,
+    render_template,
+    current_app,
+    request,
+    abort,
+    redirect,
+    url_for,
+)
 from app.forms import LoginForm, RegisterFrom
 import requests
 from app.models import User
 from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
+from flask_mailman import EmailMessage
 
 bp = Blueprint("home_routes", __name__)
 
@@ -77,6 +86,13 @@ def verify_recaptcha(recaptcha_response):
     return result["success"] and result["score"] >= 0.5
 
 
+def generate_activation_link(recipient):
+    serializer = current_app.config["SERIALIZER"]
+    token = serializer.dumps(recipient, "email_confirmation")
+    link = f"{request.host_url.rstrip('/')}{url_for("home_routes.confirm_email", token=token)}"
+    return link
+
+
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterFrom()
@@ -97,7 +113,6 @@ def register():
 
         try:
             db.session.commit()
-            pass
         except IntegrityError:
             db.session.rollback()
 
@@ -115,10 +130,35 @@ def register():
             if existing_user.email == form.email.data:
                 form.email.errors.append("Una cuenta ya está usando este correo")
 
-        # TODO: Create the logic to create the confirmation link and send the email with it
+        activation_link = generate_activation_link(user.email)
+
+        msg = EmailMessage(
+            "Account Activation",
+            f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
+            current_app.config["MAIL_USERNAME"],
+            [user.email],
+        )
+
+        msg.send()
 
         return render_template("confirmation.html")
 
     return render_template(
         "register.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
     )
+
+
+@bp.get("/confirm_email/<token>")
+def confirm_email(token):
+    serializer = current_app.config["SERIALIZER"]
+
+    try:
+        serializer.loads(token, salt="email_confirmation", max_age=60)
+    except:
+        # TODO: If something went wrong with the confirmation. How can the user try again.
+        # Because the user has already been saved to the db. maybe render a page with a link
+        # to try again or if the user closed the page. When he tries to login send the
+        # confirmation again
+        return "Something went wrong with the confirmation try again"
+
+    return redirect(url_for("home_routes.login"))
