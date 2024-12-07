@@ -3,6 +3,9 @@ from wtforms import StringField, EmailField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 from flask import current_app
 import requests
+from app import db
+from sqlalchemy import select
+from app.models import User
 
 
 class EmailExistence(object):
@@ -30,15 +33,52 @@ class EmailExistence(object):
             raise ValidationError(self.message)
 
 
-# TODO: Add a validation for the username that should be unique
-# TODO: Add a validation for the email that should be unique
+class UniqueUsername(object):
+    def __init__(self, message):
+        if not message:
+            message = "This username is taken"
+        self.message = message
+
+    def __call__(self, form, field):
+        user = db.session.scalars(
+            select(User).where(User.username == field.data)
+        ).one_or_none()
+
+        if user:
+            raise ValidationError(self.message)
+
+
+class UniqueEmail(object):
+    def __init__(self, message):
+        if not message:
+            message = "An account already use this email"
+        self.message = message
+
+    def __call__(self, form, field):
+        user = db.session.scalars(
+            select(User).where(User.username == field.data)
+        ).one_or_none()
+
+        if user:
+            raise ValidationError(self.message)
+
+
+# CHECK: The UniqueUsername validation
+# CHECK: The UniqueEmail validation
 class RegisterFrom(FlaskForm):
-    username = StringField("Username", validators=[DataRequired("Campo requerido")])
+    username = StringField(
+        "Username",
+        validators=[
+            DataRequired("Campo requerido"),
+            UniqueUsername("Este nombre de usuario ya esta en uso"),
+        ],
+    )
     email = EmailField(
         "Email",
         validators=[
             DataRequired("Campo requerido"),
             Email("Formato de correo inválido"),
+            UniqueEmail("Una cuenta ya está usando este correo"),
             EmailExistence("El correo introducido no existe"),
         ],
     )
