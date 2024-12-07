@@ -154,3 +154,8 @@ def confirm_email(token):
     db.session.commit
 
     return redirect(url_for("home_routes.login"))
+
+
+@bp.get("/confirmacion")
+def confirmation():
+    return render_template("confirmation.html")

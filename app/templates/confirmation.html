@@ -1,4 +1,40 @@
 {% extends "layout.html" %}
+
+
+{% block head %}
+<style>
+    /*
+    .container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
+    */
+    .custom {
+        height: 70vh;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+
 {% block body %}
-You need to confirm your registration
+<div class="container d-flex justify-content-center align-items-center custom">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="card-title">Confirm Your Account</h1>
+                    <p class="card-text">Thank you for registering! Please check your email to confirm your new
+                        account.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
