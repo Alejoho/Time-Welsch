@@ -54,3 +54,9 @@ body h2 {
 .invalid-feedback {
     top: 90%;
 }
+
+
+.footer {
+    background-color: #343a40;
+    color: white;
+}
