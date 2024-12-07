@@ -1,0 +1,10 @@
+{% macro input(field) %}
+<div class="form-floating mb-4">
+    {{ field(class="form-control position-relative " + ("is-invalid" if field.errors else ""), id=field.id,
+    placeholder=field.label.text)}}
+    {{ field.label(for=field.id,class_="form-label") }}
+    {% if field.errors %}
+    <div class="invalid-feedback ms-1 position-absolute">{{ field.errors[0] }}</div>
+    {% endif %}
+</div>
+{% endmacro %}
