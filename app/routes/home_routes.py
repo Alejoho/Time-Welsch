@@ -74,18 +74,6 @@ def login():
     )
 
 
-def verify_recaptcha(recaptcha_response):
-    url = "https://www.google.com/recaptcha/api/siteverify"
-    data = {
-        "secret": current_app.config["RECAPTCHA_PRIVATE_KEY"],
-        "response": recaptcha_response,
-    }
-    response = requests.post(url, data=data)
-    result = response.json()
-
-    return result["success"] and result["score"] >= 0.5
-
-
 def generate_activation_link(recipient):
     serializer = current_app.config["SERIALIZER"]
     token = serializer.dumps(recipient, "email_confirmation")
@@ -155,7 +143,7 @@ def confirm_email(token):
     try:
         serializer.loads(token, salt="email_confirmation", max_age=60)
     except:
-        # TODO: If something went wrong with the confirmation. How can the user try again.
+        # CHECK: If something went wrong with the confirmation. How can the user try again.
         # Because the user has already been saved to the db. maybe render a page with a link
         # to try again or if the user closed the page. When he tries to login send the
         # confirmation again
