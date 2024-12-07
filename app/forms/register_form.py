@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField
+from wtforms import StringField, EmailField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 from flask import current_app
 import requests
@@ -30,6 +30,8 @@ class EmailExistence(object):
             raise ValidationError(self.message)
 
 
+# TODO: Add a validation for the username that should be unique
+# TODO: Add a validation for the email that should be unique
 class RegisterFrom(FlaskForm):
     username = StringField("Username", validators=[DataRequired("Campo requerido")])
     email = EmailField(
@@ -50,4 +52,3 @@ class RegisterFrom(FlaskForm):
     confirmation = PasswordField(
         "Confirmation", validators=[DataRequired("Campo requerido")]
     )
-    submit = SubmitField()

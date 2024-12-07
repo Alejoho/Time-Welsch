@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, current_app, request, abort, redirect
-from app.forms import LoginForm
+from app.forms import LoginForm, RegisterFrom
 import requests
+from app.models import User
 
 bp = Blueprint("home_routes", __name__)
 
@@ -63,5 +64,13 @@ def login():
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
-    # TODO: Make the logic to register a user
-    pass
+    # TODO: Complete the logic to register a user
+    form = RegisterFrom()
+
+    if form.validate_on_submit():
+
+        return render_template("confirmation.html")
+
+    return render_template(
+        "register.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+    )
