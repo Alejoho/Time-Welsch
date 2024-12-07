@@ -14,10 +14,12 @@ from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from flask_mailman import EmailMessage
+from flask_login import login_user
 
 bp = Blueprint("home_routes", __name__)
 
 
+# TODO: Change all the endpoints to spanish
 @bp.get("/")
 def index():
     return render_template("index.html")
@@ -50,30 +52,6 @@ def verify_recaptcha(recaptcha_response):
     return result["success"] and result["score"] >= 0.5
 
 
-@bp.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        username = form.username.data
-        form.username.data = ""
-        password = form.password.data
-        form.password.data = ""
-        recaptcha_response = request.form.get("g-recaptcha-response")
-
-        if not verify_recaptcha(recaptcha_response):
-            return abort(401)
-
-        # TODO: Make the logic to login a user with the flask_login package
-
-        print("The user is logged in!!!")
-        return redirect("index")
-
-    return render_template(
-        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
-    )
-
-
 def generate_activation_link(recipient):
     serializer = current_app.config["SERIALIZER"]
     token = serializer.dumps(recipient, "email_confirmation")
@@ -81,6 +59,46 @@ def generate_activation_link(recipient):
     return link
 
 
+def send_confirmation_email(recipient):
+    activation_link = generate_activation_link(recipient)
+
+    msg = EmailMessage(
+        "Account Activation",
+        f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
+        current_app.config["MAIL_USERNAME"],
+        [recipient],
+    )
+
+    msg.send()
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        recaptcha_response = request.form.get("g-recaptcha-response")
+
+        if not verify_recaptcha(recaptcha_response):
+            return abort(401)
+
+        user = db.session.scalars(
+            select(User).where(User.username == form.username.data)
+        ).first()
+
+        if user.confirmation:
+            login_user(user)
+            return redirect(url_for("home_routes.index"))
+        else:
+            send_confirmation_email(user.email)
+            return redirect(url_for("home_routes.confirmation"))
+
+    return render_template(
+        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+    )
+
+
+# TODO: avoid reseting the passwords fields when submiting the form
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterFrom()
@@ -104,32 +122,21 @@ def register():
         except IntegrityError:
             db.session.rollback()
 
-            existing_user = db.session.scalar(
-                select(User)
-                .where(
+            existing_user = db.session.scalars(
+                select(User).where(
                     (User.username == form.username.data)
                     | (User.email == form.email.data)
                 )
-                .one()
-            )
+            ).one_or_none()
 
             if existing_user.username == form.username.data:
                 form.username.errors.append("Este nombre de usuario ya esta en uso")
             if existing_user.email == form.email.data:
                 form.email.errors.append("Una cuenta ya está usando este correo")
 
-        activation_link = generate_activation_link(user.email)
+        send_confirmation_email(user.email)
 
-        msg = EmailMessage(
-            "Account Activation",
-            f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
-            current_app.config["MAIL_USERNAME"],
-            [user.email],
-        )
-
-        msg.send()
-
-        return render_template("confirmation.html")
+        return redirect(url_for("home_routes.confirmation"))
 
     return render_template(
         "register.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
@@ -141,7 +148,7 @@ def confirm_email(token):
     serializer = current_app.config["SERIALIZER"]
     email = None
     try:
-        email = serializer.loads(token, salt="email_confirmation", max_age=60)
+        email = serializer.loads(token, salt="email_confirmation", max_age=600)
     except:
         # CHECK: If something went wrong with the confirmation. How can the user try again.
         # Because the user has already been saved to the db. maybe render a page with a link
@@ -151,7 +158,7 @@ def confirm_email(token):
 
     user = db.session.scalars(select(User).where(User.email == email)).one()
     user.confirmation = True
-    db.session.commit
+    db.session.commit()
 
     return redirect(url_for("home_routes.login"))
 
