@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField
-from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Email, ValidationError, Length
 from flask import current_app
 import requests
 from app import db
@@ -70,6 +70,7 @@ class RegisterFrom(FlaskForm):
         "Username",
         validators=[
             DataRequired("Campo requerido"),
+            Length(5, 50, "El nombre the usuario debe tener entre 5 y 50 caracteres"),
             UniqueUsername("Este nombre de usuario ya esta en uso"),
         ],
     )
@@ -86,6 +87,10 @@ class RegisterFrom(FlaskForm):
         "Password",
         validators=[
             DataRequired("Campo requerido"),
+            Length(
+                min=8,
+                message="La contraseña debe tener más de 8 caracteres",
+            ),
             EqualTo("confirmation", "Las contraseñas deben coincidir"),
         ],
     )
