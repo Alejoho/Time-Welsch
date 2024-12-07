@@ -56,15 +56,13 @@ class UniqueEmail(object):
 
     def __call__(self, form, field):
         user = db.session.scalars(
-            select(User).where(User.username == field.data)
+            select(User).where(User.email == field.data)
         ).one_or_none()
 
         if user:
             raise ValidationError(self.message)
 
 
-# CHECK: The UniqueUsername validation
-# CHECK: The UniqueEmail validation
 class RegisterFrom(FlaskForm):
     username = StringField(
         "Username",
