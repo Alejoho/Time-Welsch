@@ -14,7 +14,13 @@ from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from flask_login import login_user, login_required, current_user, logout_user
-from .complements import confirm_token, send_confirmation_email, verify_recaptcha
+from .complements import (
+    confirm_token,
+    send_confirmation_email,
+    verify_recaptcha,
+    handle_confirmation_error,
+)
+from itsdangerous import SignatureExpired, BadSignature, BadData
 
 
 bp = Blueprint("home_routes", __name__)
@@ -55,6 +61,8 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
+        # TODO: when a user register keep it logged out until it confirm it account.
+        # when it do so, redirect it to the login page or login it at the moment
         login_user(user)
         return redirect(url_for("home_routes.index"))
 
@@ -113,14 +121,20 @@ def register():
 @bp.get("/confirm_email/<token>")
 @login_required
 def confirm_email(token):
-    # FIXME: Improved the excep blocks here and in the confirm_token function
     try:
         email = confirm_token(token)
-    except:
-        flash(
-            "The confirmation link you have tried is invalid or has expired.", "danger"
+    except SignatureExpired:
+        return handle_confirmation_error(
+            "The confirmation link you have tried has expired."
         )
-        return redirect(url_for("home_routes.resend_confirmation"))
+    except BadSignature:
+        return handle_confirmation_error(
+            "The confirmation link you have tried is invalid."
+        )
+    except BadData:
+        return handle_confirmation_error(
+            "The confirmation link you have tried is invalid beacuse of bad data."
+        )
 
     if current_user.confirmation:
         flash("Account already confirmed.", "success")
