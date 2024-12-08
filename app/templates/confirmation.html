@@ -27,12 +27,12 @@ the vertical scroll bar from show -->
 {% block content %}
 <div class="d-flex justify-content-center align-items-center custom">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="card text-center">
                 <div class="card-body">
                     <h1 class="card-title">Confirm Your Account</h1>
-                    <p class="card-text">You have not confirmed your account. Please check your inbox(and your span
-                        folder if need it) to activate your new account.</p>
+                    <p class="card-text">{{ "You have not confirmed your account. " if not register else "" }}Please
+                        check your inbox(and your span folder if need it) to activate your new account.</p>
                     <p class="card-text">Didn't get the email or have any trouble? <a
                             href="{{ url_for('home_routes.resend_confirmation') }}">Resend</a>.</p>
                 </div>

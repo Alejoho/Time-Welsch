@@ -61,10 +61,8 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
-        # TODO: when a user register keep it logged out until it confirm it account.
-        # when it do so, redirect it to the login page or login it at the moment
         login_user(user)
-        return redirect(url_for("home_routes.index"))
+        return redirect(url_for("main_routes.my_route"))
 
     return render_template(
         "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
@@ -142,7 +140,7 @@ def confirm_email(token):
         current_user.confirmation = True
         db.session.commit()
         flash("You have confirmed your account.", "success")
-    return redirect(url_for("home_routes.index"))
+    return redirect(url_for("main_routes.my_route"))
 
 
 # CHECK: what would happen if a send multiple confirmation email
@@ -158,13 +156,14 @@ def resend_confirmation():
 @login_required
 def unconfirmed():
     if current_user.confirmation:
-        return redirect(url_for("home_routes.index"))
+        return redirect(url_for("main_routes.my_route"))
     return render_template("confirmation.html")
 
 
 @bp.get("/confirmacion")
+@login_required
 def confirmation():
-    return render_template("confirmation.html")
+    return render_template("confirmation.html", register=True)
 
 
 @bp.get("/logout")
