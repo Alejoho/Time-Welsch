@@ -23,21 +23,7 @@
     {% include "navbar.html" %}
 
     <div class="container">
-        <!-- TODO: Correct the looking of the flashed messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="row">
-            <div class="col-md-8">
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-                    {{message}}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-        {% endwith %}
+        {% include "flash_message.html" %}
 
         {% block body %}{% endblock %}
 
