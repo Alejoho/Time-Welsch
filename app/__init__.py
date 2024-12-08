@@ -48,9 +48,9 @@ def create_app():
         return User.query.get_or_404(int(user_id))
 
     from app.routes import home_routes_bp
+    from app.routes import error_routes_bp
 
     app.register_blueprint(home_routes_bp)
-
-    # TODO: Add error pages
+    app.register_blueprint(error_routes_bp)
 
     return app
