@@ -22,24 +22,26 @@
 <body>
     {% include "navbar.html" %}
 
-    <!-- TODO: Include here a general div.container. I need to remove the div.container for all the templates -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="row">
-        <div class="col-md-12">
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-                <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-                {{message}}
+    <div class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-8">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                    {{message}}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block body %}{% endblock %}
+
     </div>
-    {% endif %}
-    {% endwith %}
-
-    {% block body %}{% endblock %}
-
     {% include "footer.html" %}
     <script src="{{ url_for('static',filename='Bootstrap/bootstrap.bundle.js') }}"></script>
 </body>
