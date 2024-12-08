@@ -19,12 +19,10 @@ class EmailExistence(object):
         try:
             response = requests.get(url)
         except:
-            raise ValidationError("Something went wrong")
+            raise ValidationError("Verificación de correo fallida")
 
         if response.status_code != 200:
-            raise ValidationError(
-                "Unable to verify email address. Please check your connection or try again later"
-            )
+            raise ValidationError("Verificación de correo fallida. Inténtalo de nuevo")
 
         data = response.json()
         if not data.get("data", {}).get("result") == "deliverable":

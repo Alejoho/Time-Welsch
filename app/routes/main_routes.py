@@ -8,10 +8,7 @@ bp = Blueprint("main_routes", __name__)
 
 # TODO: Look up if is there a way to aply a decorator to a whole blueprint
 @bp.get("/mi-ruta")
-
 # FIXME: Fix the flash message of the login required decorator
-
-
 @login_required
 @check_confirmed
 def my_route():

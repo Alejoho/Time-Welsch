@@ -27,7 +27,6 @@ from urllib.parse import urlparse
 bp = Blueprint("home_routes", __name__)
 
 
-# TODO: Change all the endpoints to spanish
 @bp.get("/")
 def index():
     return render_template("index.html")
@@ -48,34 +47,8 @@ def contact_me():
     return render_template("contact_me.html")
 
 
-@bp.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        recaptcha_response = request.form.get("g-recaptcha-response")
-
-        if not verify_recaptcha(recaptcha_response):
-            return abort(401)
-
-        user = db.session.scalars(
-            select(User).where(User.username == form.username.data)
-        ).first()
-
-        login_user(user)
-
-        next_page = request.args.get("next")
-        if not next_page or urlparse(next_page).netloc != "":
-            next_page = url_for("main_routes.my_route")
-        return redirect(next_page)
-
-    return render_template(
-        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
-    )
-
-
 # TODO: avoid reseting the passwords fields when submiting the form
-@bp.route("/register", methods=["GET", "POST"])
+@bp.route("/registrarse", methods=["GET", "POST"])
 def register():
     form = RegisterFrom()
     # CHECK: Is there a more easy way to disable the reCaptcha. Like some value in the config of the app
@@ -121,43 +94,43 @@ def register():
     )
 
 
-@bp.get("/confirm_email/<token>")
+@bp.get("/confirmar_email/<token>")
 @login_required
 def confirm_email(token):
     try:
         email = confirm_token(token)
     except SignatureExpired:
         return handle_confirmation_error(
-            "The confirmation link you have tried has expired."
+            "El link de confirmación que intentaste ha expirado."
         )
     except BadSignature:
         return handle_confirmation_error(
-            "The confirmation link you have tried is invalid."
+            "El link de confirmación que intentaste es inválido."
         )
     except BadData:
         return handle_confirmation_error(
-            "The confirmation link you have tried is invalid beacuse of bad data."
+            "El link de confirmación que intentaste es inválido debido a malos datos."
         )
 
     if current_user.confirmation:
-        flash("Account already confirmed.", "success")
+        flash("Cuenta ya confirmada.", "success")
     else:
         current_user.confirmation = True
         db.session.commit()
-        flash("You have confirmed your account.", "success")
+        flash("Has confirmado tu cuenta.", "success")
     return redirect(url_for("main_routes.my_route"))
 
 
 # CHECK: what would happen if a send multiple confirmation email
-@bp.get("/resend-confirmation")
+@bp.get("/reenviar_confirmacion")
 @login_required
 def resend_confirmation():
     send_confirmation_email(current_user.email)
-    flash("A new confirmation email has been sent.", "success")
+    flash("Un nuevo link de confirmacion ha sido enviado.", "success")
     return redirect(url_for("home_routes.confirmation"))
 
 
-@bp.route("/unconfirmed")
+@bp.route("/no_confirmado")
 @login_required
 def unconfirmed():
     if current_user.confirmation:
@@ -173,7 +146,33 @@ def confirmation():
     return render_template("confirmation.html", register=True)
 
 
-@bp.get("/logout")
+@bp.route("/iniciar_sesion", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        recaptcha_response = request.form.get("g-recaptcha-response")
+
+        if not verify_recaptcha(recaptcha_response):
+            return abort(401)
+
+        user = db.session.scalars(
+            select(User).where(User.username == form.username.data)
+        ).first()
+
+        login_user(user)
+
+        next_page = request.args.get("next")
+        if not next_page or urlparse(next_page).netloc != "":
+            next_page = url_for("main_routes.my_route")
+        return redirect(next_page)
+
+    return render_template(
+        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+    )
+
+
+@bp.get("/cerrar_sesion")
 @login_required
 def logout():
     logout_user()

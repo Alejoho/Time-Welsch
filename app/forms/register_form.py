@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, EqualTo, Email, Length
 
 class RegisterFrom(FlaskForm):
     username = StringField(
-        "Username",
+        "Usuario",
         validators=[
             DataRequired("Campo requerido"),
             Length(5, 50, "El nombre the usuario debe tener entre 5 y 50 caracteres"),
@@ -23,7 +23,7 @@ class RegisterFrom(FlaskForm):
         ],
     )
     password = PasswordField(
-        "Password",
+        "Contraseña",
         validators=[
             DataRequired("Campo requerido"),
             Length(
@@ -34,5 +34,5 @@ class RegisterFrom(FlaskForm):
         ],
     )
     confirmation = PasswordField(
-        "Confirmation", validators=[DataRequired("Campo requerido")]
+        "Repite Contraseña", validators=[DataRequired("Campo requerido")]
     )

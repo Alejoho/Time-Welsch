@@ -30,11 +30,11 @@ the vertical scroll bar from show -->
         <div class="col-md-7">
             <div class="card text-center">
                 <div class="card-body">
-                    <h1 class="card-title">Confirm Your Account</h1>
-                    <p class="card-text">{{ "You have not confirmed your account. " if not register else "" }}Please
-                        check your inbox(and your span folder if need it) to activate your new account.</p>
-                    <p class="card-text">Didn't get the email or have any trouble? <a
-                            href="{{ url_for('home_routes.resend_confirmation') }}">Resend</a>.</p>
+                    <h1 class="card-title">Confirma tu cuenta</h1>
+                    <p class="card-text">{{ "No has confirmado tu cuenta. " if not register else "" }}Por favor revisa
+                        tu buzón de entrada(y tu carpeta de span si es necesario) para activar tu nueva cuenta.</p>
+                    <p class="card-text">¿No recibiste el correo o existe algún problema? <a
+                            href="{{ url_for('home_routes.resend_confirmation') }}">Reenviar</a>.</p>
                 </div>
             </div>
         </div>
