@@ -3,6 +3,7 @@ from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
 from itsdangerous import URLSafeTimedSerializer
 from flask_mailman import EmailMessage
+import requests
 
 
 def check_confirmed(func):
@@ -14,6 +15,18 @@ def check_confirmed(func):
         return func(*args, **kwargs)
 
     return decorated_function
+
+
+def verify_recaptcha(recaptcha_response):
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = {
+        "secret": current_app.config["RECAPTCHA_PRIVATE_KEY"],
+        "response": recaptcha_response,
+    }
+    response = requests.post(url, data=data)
+    result = response.json()
+
+    return result["success"] and result["score"] >= 0.5
 
 
 def generate_activation_link(recipient):

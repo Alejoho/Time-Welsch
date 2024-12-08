@@ -9,15 +9,13 @@ from flask import (
     flash,
 )
 from app.forms import LoginForm, RegisterFrom
-import requests
 from app.models import User
 from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
-from flask_mailman import EmailMessage
 from flask_login import login_user, login_required, current_user, logout_user
-from itsdangerous import URLSafeTimedSerializer
-from .complements import check_confirmed, confirm_token, send_confirmation_email
+from .complements import confirm_token, send_confirmation_email, verify_recaptcha
+
 
 bp = Blueprint("home_routes", __name__)
 
@@ -45,18 +43,6 @@ def why_this_book():
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     return render_template("contact_me.html")
-
-
-def verify_recaptcha(recaptcha_response):
-    url = "https://www.google.com/recaptcha/api/siteverify"
-    data = {
-        "secret": current_app.config["RECAPTCHA_PRIVATE_KEY"],
-        "response": recaptcha_response,
-    }
-    response = requests.post(url, data=data)
-    result = response.json()
-
-    return result["success"] and result["score"] >= 0.5
 
 
 @bp.route("/login", methods=["GET", "POST"])
