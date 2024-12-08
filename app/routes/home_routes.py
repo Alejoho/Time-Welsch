@@ -17,6 +17,7 @@ from sqlalchemy import select
 from flask_mailman import EmailMessage
 from flask_login import login_user, login_required, current_user
 from itsdangerous import URLSafeTimedSerializer
+from .complements import check_confirmed
 
 bp = Blueprint("home_routes", __name__)
 
@@ -24,6 +25,7 @@ bp = Blueprint("home_routes", __name__)
 # TODO: Change all the endpoints to spanish
 @bp.get("/")
 @login_required
+@check_confirmed
 def index():
     return render_template("index.html")
 
@@ -102,12 +104,8 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
-        if user.confirmation:
-            login_user(user)
-            return redirect(url_for("home_routes.index"))
-        else:
-            send_confirmation_email(user.email)
-            return redirect(url_for("home_routes.confirmation"))
+        login_user(user)
+        return redirect(url_for("home_routes.index"))
 
     return render_template(
         "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
@@ -188,6 +186,15 @@ def resend_confirmation():
     send_confirmation_email(current_user.email)
     flash("A new confirmation email has been sent.", "success")
     return redirect(url_for("home_routes.confirmation"))
+
+
+@bp.route("/unconfirmed")
+@login_required
+def unconfirmed():
+    if current_user.confirmation:
+        return redirect(url_for("home_routes.index"))
+    flash("Please confirm your account!", "warning")
+    return render_template("confirmation.html")
 
 
 # just for testing. delete later on
