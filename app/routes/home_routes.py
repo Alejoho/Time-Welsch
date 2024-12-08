@@ -6,6 +6,7 @@ from flask import (
     abort,
     redirect,
     url_for,
+    flash,
 )
 from app.forms import LoginForm, RegisterFrom
 import requests
@@ -14,13 +15,15 @@ from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from flask_mailman import EmailMessage
-from flask_login import login_user
+from flask_login import login_user, login_required, current_user
+from itsdangerous import URLSafeTimedSerializer
 
 bp = Blueprint("home_routes", __name__)
 
 
 # TODO: Change all the endpoints to spanish
 @bp.get("/")
+@login_required
 def index():
     return render_template("index.html")
 
@@ -53,9 +56,11 @@ def verify_recaptcha(recaptcha_response):
 
 
 def generate_activation_link(recipient):
-    serializer = current_app.config["SERIALIZER"]
-    token = serializer.dumps(recipient, "email_confirmation")
-    link = f"{request.host_url.rstrip('/')}{url_for("home_routes.confirm_email", token=token)}"
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    token = serializer.dumps(
+        recipient, salt=current_app.config["SECURITY_PASSWORD_SALT"]
+    )
+    link = url_for("home_routes.confirm_email", token=token, _external=True)
     return link
 
 
@@ -70,6 +75,17 @@ def send_confirmation_email(recipient):
     )
 
     msg.send()
+
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    try:
+        email = serializer.loads(
+            token, salt=current_app.config["SECURITY_PASSWORD_SALT"], max_age=expiration
+        )
+    except:
+        return False
+    return email
 
 
 @bp.route("/login", methods=["GET", "POST"])
@@ -136,6 +152,8 @@ def register():
 
         send_confirmation_email(user.email)
 
+        login_user(user)
+
         return redirect(url_for("home_routes.confirmation"))
 
     return render_template(
@@ -144,25 +162,35 @@ def register():
 
 
 @bp.get("/confirm_email/<token>")
+@login_required
 def confirm_email(token):
-    serializer = current_app.config["SERIALIZER"]
-    email = None
     try:
-        email = serializer.loads(token, salt="email_confirmation", max_age=600)
+        email = confirm_token(token)
     except:
-        # CHECK: If something went wrong with the confirmation. How can the user try again.
-        # Because the user has already been saved to the db. maybe render a page with a link
-        # to try again or if the user closed the page. When he tries to login send the
-        # confirmation again
-        return "Something went wrong with the confirmation try again"
+        # CHECK: This logic if something went wrong
+        flash(
+            "The confirmation link you have tried is invalid or has expired.", "danger"
+        )
+        return redirect(url_for("home_routes.resend_confirmation"))
 
-    user = db.session.scalars(select(User).where(User.email == email)).one()
-    user.confirmation = True
-    db.session.commit()
+    if current_user.confirmed:
+        flash("Account already confirmed.", "success")
+    else:
+        current_user.confirmation = True
+        db.session.commit()
+        flash("You have confirmed your account.", "success")
+    return redirect(url_for("home_routes.index"))
 
-    return redirect(url_for("home_routes.login"))
+
+@bp.get("/resend-confirmation")
+@login_required
+def resend_confirmation():
+    send_confirmation_email(current_user.email)
+    flash("A new confirmation email has been sent.", "success")
+    return redirect(url_for("home_routes.confirmation"))
 
 
+# just for testing. delete later on
 @bp.get("/confirmacion")
 def confirmation():
     return render_template("confirmation.html")

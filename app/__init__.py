@@ -18,9 +18,10 @@ login_manager = LoginManager()
 
 
 def create_app():
-
+    # TODO: Load the configuration from an object
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+    app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
     app.config["HUNTER_API_KEY"] = os.getenv("HUNTER_API_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 
@@ -33,6 +34,7 @@ def create_app():
     app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
     app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 
+    # TODO: Put the serializer in the file where its use
     serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
     app.config["SERIALIZER"] = serializer
 
@@ -53,5 +55,7 @@ def create_app():
     from app.routes import home_routes_bp
 
     app.register_blueprint(home_routes_bp)
+
+    # TODO: Add error pages
 
     return app

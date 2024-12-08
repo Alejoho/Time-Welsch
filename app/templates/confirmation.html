@@ -22,7 +22,7 @@
 </style>
 {% endblock %}
 
-
+<!-- TODO: Change the message of the card depending if the page before this was the registeror the login -->
 {% block body %}
 <div class="container d-flex justify-content-center align-items-center custom">
     <div class="row justify-content-center">
@@ -30,8 +30,10 @@
             <div class="card text-center">
                 <div class="card-body">
                     <h1 class="card-title">Confirm Your Account</h1>
-                    <p class="card-text">Thank you for registering! Please check your email to confirm your new
-                        account.</p>
+                    <p class="card-text">You have not confirmed your account. Please check your inbox(and your span
+                        folder if need it) to activate your new account.</p>
+                    <p class="card-text">Didn't get the email? <a
+                            href="{{ url_for('home_routes.resend_confirmation') }}">Resend</a>.</p>
                 </div>
             </div>
         </div>
