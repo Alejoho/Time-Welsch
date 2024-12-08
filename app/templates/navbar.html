@@ -9,12 +9,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_routes.my_route') }}">Mi Ruta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_routes.summary') }}">Resumen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_routes.exercises') }}">Ejercicios</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.why_this_book') }}">¿Por qué este libro?</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.about_author') }}">Sobre el autor</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.contact_me') }}">Contáctame</a>
                 </li>

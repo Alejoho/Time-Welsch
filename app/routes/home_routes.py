@@ -27,10 +27,6 @@ def index():
 
 
 @bp.get("/sobre_el_autor")
-# FIXME: Fix the flash message of the login required decorator
-@login_required
-# CHECK: This decorator
-@check_confirmed
 def about_author():
     return render_template("about_author.html")
 
@@ -117,6 +113,7 @@ def register():
 @bp.get("/confirm_email/<token>")
 @login_required
 def confirm_email(token):
+    # FIXME: Improved the excep blocks here and in the confirm_token function
     try:
         email = confirm_token(token)
     except:
@@ -148,11 +145,9 @@ def resend_confirmation():
 def unconfirmed():
     if current_user.confirmation:
         return redirect(url_for("home_routes.index"))
-    flash("Please confirm your account!", "warning")
     return render_template("confirmation.html")
 
 
-# just for testing. delete later on
 @bp.get("/confirmacion")
 def confirmation():
     return render_template("confirmation.html")
