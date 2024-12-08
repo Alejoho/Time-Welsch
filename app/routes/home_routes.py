@@ -15,7 +15,7 @@ from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from flask_mailman import EmailMessage
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from itsdangerous import URLSafeTimedSerializer
 from .complements import check_confirmed, confirm_token, send_confirmation_email
 
@@ -24,14 +24,15 @@ bp = Blueprint("home_routes", __name__)
 
 # TODO: Change all the endpoints to spanish
 @bp.get("/")
-@login_required
-# CHECK: This decorator
-@check_confirmed
 def index():
     return render_template("index.html")
 
 
 @bp.get("/sobre_el_autor")
+# FIXME: Fix the flash message of the login required decorator
+@login_required
+# CHECK: This decorator
+@check_confirmed
 def about_author():
     return render_template("about_author.html")
 
@@ -133,13 +134,12 @@ def confirm_email(token):
     try:
         email = confirm_token(token)
     except:
-        # CHECK: This logic if something went wrong
         flash(
             "The confirmation link you have tried is invalid or has expired.", "danger"
         )
         return redirect(url_for("home_routes.resend_confirmation"))
 
-    if current_user.confirmed:
+    if current_user.confirmation:
         flash("Account already confirmed.", "success")
     else:
         current_user.confirmation = True
@@ -148,6 +148,7 @@ def confirm_email(token):
     return redirect(url_for("home_routes.index"))
 
 
+# CHECK: what would happen if a send multiple confirmation email
 @bp.get("/resend-confirmation")
 @login_required
 def resend_confirmation():
@@ -169,3 +170,10 @@ def unconfirmed():
 @bp.get("/confirmacion")
 def confirmation():
     return render_template("confirmation.html")
+
+
+@bp.get("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home_routes.login"))

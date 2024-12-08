@@ -16,6 +16,6 @@ class LoginForm(FlaskForm):
         "Password",
         validators=[
             DataRequired("Campo requerido"),
-            PasswordChecker("Contraseña incorrecta", username),
+            PasswordChecker("Contraseña incorrecta", "username"),
         ],
     )

@@ -20,6 +20,11 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home_routes.logout') }}">Cerrar Sesión</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.login') }}">Iniciar Sesión</a>
                 </li>
@@ -27,6 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.register') }}">Registrarse</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>

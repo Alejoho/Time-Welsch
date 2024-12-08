@@ -7,7 +7,7 @@ from wtforms.validators import ValidationError
 
 
 class EmailExistence(object):
-    def __init__(self, message):
+    def __init__(self, message=None):
         if not message:
             message = "Email doesn't exist"
         self.message = message
@@ -32,7 +32,7 @@ class EmailExistence(object):
 
 
 class UniqueUsername(object):
-    def __init__(self, message):
+    def __init__(self, message=None):
         if not message:
             message = "This username is taken"
         self.message = message
@@ -47,7 +47,7 @@ class UniqueUsername(object):
 
 
 class UniqueEmail(object):
-    def __init__(self, message):
+    def __init__(self, message=None):
         if not message:
             message = "An account already use this email"
         self.message = message
@@ -62,7 +62,7 @@ class UniqueEmail(object):
 
 
 class UserExistance(object):
-    def __init__(self, message):
+    def __init__(self, message=None):
         if not message:
             self.message = "The username don't exist"
         self.message = message
@@ -77,19 +77,20 @@ class UserExistance(object):
 
 
 class PasswordChecker(object):
-    def __init__(self, message, username):
+    def __init__(self, message=None, username_field=None):
         if not message:
             self.message = "Password incorrect"
         self.message = message
-        self.username = username
+        self.username_field = username_field
 
     def __call__(self, form, field):
-        if not self.username:
+        username = getattr(form, self.username_field).data
+        if not username:
             return
 
         try:
-            user = db.session.scalar(
-                select(User).where(User.username == self.username)
+            user = db.session.scalars(
+                select(User).where(User.username == username)
             ).one()
         except:
             return
