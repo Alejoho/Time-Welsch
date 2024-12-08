@@ -12,10 +12,7 @@ bp = Blueprint("main_routes", __name__)
 # FIXME: Fix the flash message of the login required decorator
 
 
-# TODO: how to redirect a user to its desired page after it logged in because
-# of the login_required decorator
 @login_required
-# CHECK: This decorator
 @check_confirmed
 def my_route():
     return render_template("main/my_route.html")

@@ -21,6 +21,7 @@ from .complements import (
     handle_confirmation_error,
 )
 from itsdangerous import SignatureExpired, BadSignature, BadData
+from urllib.parse import urlparse
 
 
 bp = Blueprint("home_routes", __name__)
@@ -62,7 +63,11 @@ def login():
         ).first()
 
         login_user(user)
-        return redirect(url_for("main_routes.my_route"))
+
+        next_page = request.args.get("next")
+        if not next_page or urlparse(next_page).netloc != "":
+            next_page = url_for("main_routes.my_route")
+        return redirect(next_page)
 
     return render_template(
         "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
@@ -73,7 +78,7 @@ def login():
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterFrom()
-
+    # CHECK: Is there a more easy way to disable the reCaptcha. Like some value in the config of the app
     if form.validate_on_submit():
         recaptcha_response = request.form.get("g-recaptcha-response")
 
@@ -160,6 +165,8 @@ def unconfirmed():
     return render_template("confirmation.html")
 
 
+# TODO: Create a decorator to check if the user is already confirmed and launch a 401 unauthorized
+# status code. This to avoid the user to revisit the routes related to the confirmation process
 @bp.get("/confirmacion")
 @login_required
 def confirmation():
