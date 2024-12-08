@@ -17,7 +17,7 @@ from sqlalchemy import select
 from flask_mailman import EmailMessage
 from flask_login import login_user, login_required, current_user
 from itsdangerous import URLSafeTimedSerializer
-from .complements import check_confirmed
+from .complements import check_confirmed, confirm_token, send_confirmation_email
 
 bp = Blueprint("home_routes", __name__)
 
@@ -25,6 +25,7 @@ bp = Blueprint("home_routes", __name__)
 # TODO: Change all the endpoints to spanish
 @bp.get("/")
 @login_required
+# CHECK: This decorator
 @check_confirmed
 def index():
     return render_template("index.html")
@@ -55,39 +56,6 @@ def verify_recaptcha(recaptcha_response):
     result = response.json()
 
     return result["success"] and result["score"] >= 0.5
-
-
-def generate_activation_link(recipient):
-    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-    token = serializer.dumps(
-        recipient, salt=current_app.config["SECURITY_PASSWORD_SALT"]
-    )
-    link = url_for("home_routes.confirm_email", token=token, _external=True)
-    return link
-
-
-def send_confirmation_email(recipient):
-    activation_link = generate_activation_link(recipient)
-
-    msg = EmailMessage(
-        "Account Activation",
-        f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
-        current_app.config["MAIL_USERNAME"],
-        [recipient],
-    )
-
-    msg.send()
-
-
-def confirm_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-    try:
-        email = serializer.loads(
-            token, salt=current_app.config["SECURITY_PASSWORD_SALT"], max_age=expiration
-        )
-    except:
-        return False
-    return email
 
 
 @bp.route("/login", methods=["GET", "POST"])

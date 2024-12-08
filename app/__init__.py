@@ -6,7 +6,6 @@ from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mailman import Mail
-from itsdangerous import URLSafeTimedSerializer
 
 load_dotenv()
 
@@ -33,10 +32,6 @@ def create_app():
     app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS")
     app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
     app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
-
-    # TODO: Put the serializer in the file where its use
-    serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-    app.config["SERIALIZER"] = serializer
 
     db.init_app(app)
     csrf.init_app(app)

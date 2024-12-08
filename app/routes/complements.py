@@ -1,6 +1,8 @@
 from functools import wraps
-from flask import flash, redirect, url_for
+from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
+from itsdangerous import URLSafeTimedSerializer
+from flask_mailman import EmailMessage
 
 
 def check_confirmed(func):
@@ -12,3 +14,36 @@ def check_confirmed(func):
         return func(*args, **kwargs)
 
     return decorated_function
+
+
+def generate_activation_link(recipient):
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    token = serializer.dumps(
+        recipient, salt=current_app.config["SECURITY_PASSWORD_SALT"]
+    )
+    link = url_for("home_routes.confirm_email", token=token, _external=True)
+    return link
+
+
+def send_confirmation_email(recipient):
+    activation_link = generate_activation_link(recipient)
+
+    msg = EmailMessage(
+        "Account Activation",
+        f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
+        current_app.config["MAIL_USERNAME"],
+        [recipient],
+    )
+
+    msg.send()
+
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    try:
+        email = serializer.loads(
+            token, salt=current_app.config["SECURITY_PASSWORD_SALT"], max_age=expiration
+        )
+    except:
+        return False
+    return email
