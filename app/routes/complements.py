@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import flash, redirect, url_for, current_app
+from flask import flash, redirect, url_for, current_app, abort
 from flask_login import current_user
 from itsdangerous import URLSafeTimedSerializer
 from flask_mailman import EmailMessage
@@ -12,6 +12,16 @@ def check_confirmed(func):
         if current_user.confirmation is False:
             flash("Please confirm your account!", "warning")
             return redirect(url_for("home_routes.unconfirmed"))
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+
+def block_confirmed(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.confirmation is True:
+            return abort(401)
         return func(*args, **kwargs)
 
     return decorated_function

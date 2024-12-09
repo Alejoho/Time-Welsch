@@ -19,6 +19,7 @@ from .complements import (
     send_confirmation_email,
     verify_recaptcha,
     handle_confirmation_error,
+    block_confirmed,
 )
 from itsdangerous import SignatureExpired, BadSignature, BadData
 from urllib.parse import urlparse
@@ -121,9 +122,9 @@ def confirm_email(token):
     return redirect(url_for("main_routes.my_route"))
 
 
-# CHECK: what would happen if a send multiple confirmation email
 @bp.get("/reenviar_confirmacion")
 @login_required
+@block_confirmed
 def resend_confirmation():
     send_confirmation_email(current_user.email)
     flash("Un nuevo link de confirmacion ha sido enviado.", "success")
@@ -132,16 +133,16 @@ def resend_confirmation():
 
 @bp.route("/no_confirmado")
 @login_required
+@block_confirmed
 def unconfirmed():
     if current_user.confirmation:
         return redirect(url_for("main_routes.my_route"))
     return render_template("confirmation.html")
 
 
-# TODO: Create a decorator to check if the user is already confirmed and launch a 401 unauthorized
-# status code. This to avoid the user to revisit the routes related to the confirmation process
 @bp.get("/confirmacion")
 @login_required
+@block_confirmed
 def confirmation():
     return render_template("confirmation.html", register=True)
 
