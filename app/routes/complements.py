@@ -6,17 +6,6 @@ from flask_mailman import EmailMessage
 import requests
 
 
-def check_confirmed(func):
-    @wraps(func)
-    def decorated_function(*args, **kwargs):
-        if current_user.confirmation is False:
-            flash("Please confirm your account!", "warning")
-            return redirect(url_for("home_routes.unconfirmed"))
-        return func(*args, **kwargs)
-
-    return decorated_function
-
-
 def block_confirmed(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
