@@ -14,7 +14,6 @@ def check_confirmed():
 
 
 @bp.get("/mi-ruta")
-# FIXME: Fix the flash message of the login required decorator
 def my_route():
     return render_template("main/my_route.html")
 
