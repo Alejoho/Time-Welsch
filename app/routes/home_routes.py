@@ -20,6 +20,7 @@ from .complements import (
     verify_recaptcha,
     handle_confirmation_error,
     block_confirmed,
+    redirect_authenticated_users,
 )
 from itsdangerous import SignatureExpired, BadSignature, BadData
 from urllib.parse import urlparse
@@ -50,6 +51,7 @@ def contact_me():
 
 # TODO: avoid reseting the passwords fields when submiting the form
 @bp.route("/registrarse", methods=["GET", "POST"])
+@redirect_authenticated_users
 def register():
     form = RegisterFrom()
     # CHECK: Is there a more easy way to disable the reCaptcha. Like some value in the config of the app
@@ -97,6 +99,7 @@ def register():
 
 @bp.get("/confirmar_email/<token>")
 @login_required
+@block_confirmed
 def confirm_email(token):
     try:
         email = confirm_token(token)
@@ -148,6 +151,7 @@ def confirmation():
 
 
 @bp.route("/iniciar_sesion", methods=["GET", "POST"])
+@redirect_authenticated_users
 def login():
     form = LoginForm()
 
@@ -161,6 +165,7 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
+        # LATER: How to implement the keep me logged in
         login_user(user)
 
         next_page = request.args.get("next")
@@ -174,7 +179,6 @@ def login():
 
 
 @bp.get("/cerrar_sesion")
-@login_required
 def logout():
     logout_user()
     return redirect(url_for("home_routes.login"))

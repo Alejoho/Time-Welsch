@@ -6,6 +6,16 @@ from flask_mailman import EmailMessage
 import requests
 
 
+def redirect_authenticated_users(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.is_authenticated:
+            return redirect(url_for("main_routes.my_route"))
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+
 def block_confirmed(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
