@@ -49,16 +49,16 @@ def contact_me():
     return render_template("contact_me.html")
 
 
-# TODO: avoid reseting the passwords fields when submiting the form
 @bp.route("/registrarse", methods=["GET", "POST"])
 @redirect_authenticated_users
 def register():
     form = RegisterFrom()
-    # CHECK: Is there a more easy way to disable the reCaptcha. Like some value in the config of the app
+
     if form.validate_on_submit():
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
+            flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
             return abort(401)
 
         user = User(
@@ -159,6 +159,7 @@ def login():
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
+            flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
             return abort(401)
 
         user = db.session.scalars(
