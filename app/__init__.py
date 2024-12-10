@@ -30,12 +30,11 @@ def create_app():
     login_manager.login_message = "Por favor inicia sessión para acceder a esta página."
     login_manager.login_message_category = "info"
 
-    # LATER: Use the new way of sqlalchemy to query the db
     @login_manager.user_loader
     def load_user(user_id):
         from app.models import User
 
-        return User.query.get_or_404(int(user_id))
+        return db.session.get(User, int(user_id))
 
     from app.routes import home_routes_bp
     from app.routes import error_routes_bp
