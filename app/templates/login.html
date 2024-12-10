@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% from "macros.html" import input %}
 
-{% block description %}Inicio de session{% endblock %}
+{% block description %}Inicio de sesión{% endblock %}
 
-{% block title %}Iniciar Sessión{% endblock %}
+{% block title %}Iniciar Sesión{% endblock %}
 
 {% block head %}
 <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
@@ -17,7 +17,7 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-4">
-        <h1 class="text-center mt-5">Login</h1>
+        <h1 class="text-center mt-5">Iniciar Sesión</h1>
         <form method="post" novalidate id="registerForm">
             {{ form.hidden_tag() }}
             {{ input(form.username) }}
