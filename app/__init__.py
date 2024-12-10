@@ -19,19 +19,7 @@ login_manager = LoginManager()
 def create_app():
     # TODO: Load the configuration from an object
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-    app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
-    app.config["HUNTER_API_KEY"] = os.getenv("HUNTER_API_KEY")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-
-    app.config["RECAPTCHA_PUBLIC_KEY"] = os.getenv("RECAPTCHA_PUBLIC_KEY")
-    app.config["RECAPTCHA_PRIVATE_KEY"] = os.getenv("RECAPTCHA_PRIVATE_KEY")
-
-    app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-    app.config["MAIL_PORT"] = os.getenv("MAIL_PORT")
-    app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS")
-    app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
-    app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+    app.config.from_object(os.getenv("APP_SETTINGS"))
 
     db.init_app(app)
     csrf.init_app(app)
