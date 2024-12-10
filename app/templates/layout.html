@@ -20,16 +20,18 @@
     {% block head %}{% endblock %}
 </head>
 
-<body>
+<body class="d-flex flex-column">
     {% include "navbar.html" %}
 
-    <div class="container">
+    <div class="container expand">
+
         {% include "flash_message.html" %}
 
         {% block content %}{% endblock %}
 
     </div>
     {% include "footer.html" %}
+
     <script src="{{ url_for('static',filename='Bootstrap/bootstrap.bundle.js') }}"></script>
 </body>
 
