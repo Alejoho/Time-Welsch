@@ -27,6 +27,8 @@ def create_app():
     mail.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = "home_routes.login"
+    login_manager.login_message = "Por favor inicia sessión para acceder a esta página."
+    login_manager.login_message_category = "info"
 
     # LATER: Use the new way of sqlalchemy to query the db
     @login_manager.user_loader
