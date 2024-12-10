@@ -25,7 +25,7 @@ from .complements import (
 from itsdangerous import SignatureExpired, BadSignature, BadData
 from urllib.parse import urlparse
 
-# LATER: Separate the login and register routes from the home_routes
+# OFFLINE: Separate the login and register routes from the home_routes
 
 bp = Blueprint("home_routes", __name__)
 

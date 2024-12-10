@@ -67,6 +67,12 @@ html {
     height: 100%;
 }
 
+/* This is for the main content of the body to take the reaminig space left by the navbar and the footer */
 .expand {
     flex: 1;
+}
+
+/* This if for the pages with short content to allow them appear in the middle of the screen */
+.custom {
+    height: 100%;
 }
