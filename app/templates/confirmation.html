@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
+{% block description %}{{ "" if register else "No has confirmado tu nueva cuenta. " }}Necesitas confirmar tu nueva
+cuenta{%
+endblock %}
+
+{% block title %}{{"Confirmar cuenta" if register else "Cuenta no confirmada" }}{% endblock %}
 
 {% block head %}
 <style>
