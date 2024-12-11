@@ -54,7 +54,7 @@ def login():
 @bp.get("/cerrar_sesion")
 def logout():
     logout_user()
-    return redirect(url_for("home_routes.login"))
+    return redirect(url_for("login_routes.login"))
 
 
 @bp.post("/demo_confirm")

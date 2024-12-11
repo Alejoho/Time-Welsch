@@ -43,7 +43,7 @@ def generate_activation_link(recipient):
     token = serializer.dumps(
         recipient, salt=current_app.config["SECURITY_PASSWORD_SALT"]
     )
-    link = url_for("home_routes.confirm_email", token=token, _external=True)
+    link = url_for("register_routes.confirm_email", token=token, _external=True)
     return link
 
 
@@ -71,4 +71,4 @@ def confirm_token(token, expiration=3600):
 
 def handle_confirmation_error(message):
     flash(message, "danger")
-    return redirect(url_for("home_routes.confirmation"))
+    return redirect(url_for("register_routes.confirmation"))

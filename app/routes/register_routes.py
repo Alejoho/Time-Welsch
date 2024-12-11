@@ -68,7 +68,7 @@ def register():
 
         login_user(user)
 
-        return redirect(url_for("home_routes.confirmation"))
+        return redirect(url_for("register_routes.confirmation"))
 
     return render_template(
         "register.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
@@ -109,7 +109,7 @@ def confirm_email(token):
 def resend_confirmation():
     send_confirmation_email(current_user.email)
     flash("Un nuevo link de confirmacion ha sido enviado.", "success")
-    return redirect(url_for("home_routes.confirmation"))
+    return redirect(url_for("register_routes.confirmation"))
 
 
 @bp.route("/no_confirmado")

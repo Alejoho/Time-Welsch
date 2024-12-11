@@ -10,7 +10,7 @@ bp = Blueprint("main_routes", __name__)
 def check_confirmed():
     if current_user.confirmation is False:
         flash("Please confirm your account!", "warning")
-        return redirect(url_for("home_routes.unconfirmed"))
+        return redirect(url_for("register_routes.unconfirmed"))
 
 
 @bp.get("/mi-ruta")
