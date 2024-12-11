@@ -184,3 +184,19 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("home_routes.login"))
+
+
+@bp.post("/demo_confirm")
+def demo_confirm():
+    user = db.session.scalars(select(User).where(User.username == "demo_confirm")).one()
+    login_user(user)
+    return redirect(url_for("main_routes.my_route"))
+
+
+@bp.post("/demo_unconfirm")
+def demo_unconfirm():
+    user = db.session.scalars(
+        select(User).where(User.username == "demo_unconfirm")
+    ).one()
+    login_user(user)
+    return redirect(url_for("main_routes.my_route"))
