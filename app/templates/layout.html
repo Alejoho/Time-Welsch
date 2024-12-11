@@ -1,4 +1,3 @@
-<!-- OFFLINE: Organize the templates into different folders -->
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -21,16 +20,16 @@
 </head>
 
 <body class="d-flex flex-column">
-    {% include "navbar.html" %}
+    {% include "commons/navbar.html" %}
 
     <div class="container expand">
 
-        {% include "flash_message.html" %}
+        {% include "commons/flash_message.html" %}
 
         {% block content %}{% endblock %}
 
     </div>
-    {% include "footer.html" %}
+    {% include "commons/footer.html" %}
 
     <script src="{{ url_for('static',filename='Bootstrap/bootstrap.bundle.js') }}"></script>
 </body>

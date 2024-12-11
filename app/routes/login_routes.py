@@ -47,7 +47,9 @@ def login():
         return redirect(next_page)
 
     return render_template(
-        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+        "register_login/login.html",
+        form=form,
+        site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"],
     )
 
 

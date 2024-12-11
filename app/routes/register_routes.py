@@ -71,7 +71,9 @@ def register():
         return redirect(url_for("register_routes.confirmation"))
 
     return render_template(
-        "register.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
+        "register_login/register.html",
+        form=form,
+        site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"],
     )
 
 
@@ -118,11 +120,11 @@ def resend_confirmation():
 def unconfirmed():
     if current_user.confirmation:
         return redirect(url_for("main_routes.my_route"))
-    return render_template("confirmation.html")
+    return render_template("register_login/confirmation.html")
 
 
 @bp.get("/confirmacion")
 @login_required
 @block_confirmed
 def confirmation():
-    return render_template("confirmation.html", register=True)
+    return render_template("register_login/confirmation.html", register=True)
