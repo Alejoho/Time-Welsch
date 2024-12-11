@@ -24,7 +24,7 @@ endblock %}
                     <p class="card-text">{{ "No has confirmado tu cuenta. " if not register else "" }}Por favor revisa
                         tu buzón de entrada (y tu carpeta de span si es necesario) para activar tu nueva cuenta.</p>
                     <p class="card-text">¿No recibiste el correo o existe algún problema? <a
-                            href="{{ url_for('home_routes.resend_confirmation') }}">Reenviar</a>.</p>
+                            href="{{ url_for('register_routes.resend_confirmation') }}">Reenviar</a>.</p>
                 </div>
             </div>
         </div>
