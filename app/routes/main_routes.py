@@ -9,10 +9,12 @@ bp = Blueprint("main_routes", __name__)
 @login_required
 def check_confirmed():
     if current_user.confirmation is False:
-        flash("Please confirm your account!", "warning")
+        flash("Por favor confirma tu cuenta!", "warning")
         return redirect(url_for("register_routes.unconfirmed"))
 
 
+# TODO: Desing the route page with all the chapters and its descriptions. But only
+# completely implement the two first chapters
 @bp.get("/mi-ruta")
 def my_route():
     return render_template("main/my_route.html")

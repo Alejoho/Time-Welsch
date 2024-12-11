@@ -1,4 +1,4 @@
-# TODO: Look up how to organize my imports
+# LATER: Look up how to organize my imports
 
 from urllib.parse import urlparse
 from flask import (

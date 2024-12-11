@@ -10,6 +10,7 @@ def redirect_authenticated_users(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if current_user.is_authenticated:
+            flash("Tu sesión ya está iniciada", "info")
             return redirect(url_for("main_routes.my_route"))
         return func(*args, **kwargs)
 
