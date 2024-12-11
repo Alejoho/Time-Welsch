@@ -65,9 +65,11 @@ def create_app():
     from app.routes import home_routes_bp
     from app.routes import error_routes_bp
     from app.routes import main_routes_bp
+    from app.routes import login_routes_bp
 
     app.register_blueprint(home_routes_bp)
     app.register_blueprint(error_routes_bp)
     app.register_blueprint(main_routes_bp)
+    app.register_blueprint(login_routes_bp)
 
     return app

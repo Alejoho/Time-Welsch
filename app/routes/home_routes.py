@@ -8,12 +8,12 @@ from flask import (
     url_for,
     flash,
 )
-from app.forms import LoginForm, RegisterFrom
+from app.forms import RegisterFrom
 from app.models import User
 from app import db
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
-from flask_login import login_user, login_required, current_user, logout_user
+from flask_login import login_user, login_required, current_user
 from .complements import (
     confirm_token,
     send_confirmation_email,
@@ -23,7 +23,6 @@ from .complements import (
     redirect_authenticated_users,
 )
 from itsdangerous import SignatureExpired, BadSignature, BadData
-from urllib.parse import urlparse
 
 # OFFLINE: Separate the login and register routes from the home_routes
 
@@ -149,54 +148,3 @@ def unconfirmed():
 @block_confirmed
 def confirmation():
     return render_template("confirmation.html", register=True)
-
-
-@bp.route("/iniciar_sesion", methods=["GET", "POST"])
-@redirect_authenticated_users
-def login():
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        recaptcha_response = request.form.get("g-recaptcha-response")
-
-        if not verify_recaptcha(recaptcha_response):
-            flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
-            return abort(401)
-
-        user = db.session.scalars(
-            select(User).where(User.username == form.username.data)
-        ).first()
-
-        # LATER: How to implement the keep me logged in
-        login_user(user)
-
-        next_page = request.args.get("next")
-        if not next_page or urlparse(next_page).netloc != "":
-            next_page = url_for("main_routes.my_route")
-        return redirect(next_page)
-
-    return render_template(
-        "login.html", form=form, site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"]
-    )
-
-
-@bp.get("/cerrar_sesion")
-def logout():
-    logout_user()
-    return redirect(url_for("home_routes.login"))
-
-
-@bp.post("/demo_confirm")
-def demo_confirm():
-    user = db.session.scalars(select(User).where(User.username == "demo_confirm")).one()
-    login_user(user)
-    return redirect(url_for("main_routes.my_route"))
-
-
-@bp.post("/demo_unconfirm")
-def demo_unconfirm():
-    user = db.session.scalars(
-        select(User).where(User.username == "demo_unconfirm")
-    ).one()
-    login_user(user)
-    return redirect(url_for("main_routes.my_route"))
