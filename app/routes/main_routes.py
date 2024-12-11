@@ -28,3 +28,8 @@ def summary():
 @bp.get("/ejercicios")
 def exercises():
     return render_template("main/exercises.html")
+
+
+@bp.get("/chapter_one")
+def chapter_one():
+    return render_template("chapters/chapter_one.html")

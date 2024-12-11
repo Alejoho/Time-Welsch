@@ -48,7 +48,7 @@ def create_app():
     #### flask-login ####
     #####################
 
-    login_manager.login_view = "home_routes.login"
+    login_manager.login_view = "login_routes.login"
     login_manager.login_message = "Por favor inicia sessión para acceder a esta página."
     login_manager.login_message_category = "info"
 
