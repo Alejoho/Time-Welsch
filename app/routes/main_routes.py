@@ -33,3 +33,8 @@ def exercises():
 @bp.get("/chapter_one")
 def chapter_one():
     return render_template("chapters/chapter_one.html")
+
+
+@bp.get("/chapter_two")
+def chapter_two():
+    return render_template("chapters/chapter_two.html")
