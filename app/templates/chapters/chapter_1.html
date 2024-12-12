@@ -1,4 +1,8 @@
 {% extends "layout.html" %}
+{% block title %}Capítulo 1{% endblock %}
+{% block description %}Poner algo{% endblock %}
+
+
 {% block head %}
 <style>
     body {
@@ -16,32 +20,30 @@
 {% endblock %}
 
 {% block content %}
+
 <br>
 <div class="row">
     <!-- index -->
     <div class="col-md-4 d-none d-md-block sidebar rounded-3">
 
-        <nav id="chapter-index" class="navbar flex-column align-items-start">
+        <nav id="chapter-index" class="nav navbar nav-pills flex-column align-items-start">
             <a class="navbar-brand" href="#">Las formas de los verbos</a>
-            <nav class="nav flex-column">
-                <a class="nav-link " href="#section1">¿Cuáles son las formas de los verbos en inglés?</a>
-                <nav class="nav flex-column ms-4">
-                    <a class="nav-link" href="#section2">El Infinitivo</a>
-                    <a class="nav-link" href="#section3">Tercera Persona Singular</a>
-                    <a class="nav-link" href="#section4">El Pasado Simple</a>
-                    <a class="nav-link" href="#section5">El Participio Pasado</a>
-                    <a class="nav-link" href="#section6">El Gerundio</a>
-                </nav>
-            </nav>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="#section7">Y eso es todo…</a>
-            </nav>
+            <a class="nav-link " href="#section1">¿Cuáles son las formas de los verbos en inglés?</a>
+            <div class="ms-3">
+                <a class="nav-link" href="#section2">El Infinitivo</a>
+                <a class="nav-link" href="#section3">Tercera Persona Singular</a>
+                <a class="nav-link" href="#section4">El Pasado Simple</a>
+                <a class="nav-link" href="#section5">El Participio Pasado</a>
+                <a class="nav-link" href="#section6">El Gerundio</a>
+            </div>
+            <a class="nav-link" href="#section7">Y eso es todo…</a>
         </nav>
     </div>
 
     <!-- main content -->
 
-    <main class="col-md-8 ms-sm-auto px-md-4">
+    <main class="col-md-8 ms-sm-auto px-md-4" data-bs-spy="scroll" data-bs-target="#chapter-index"
+        data-bs-smooth-scroll="true">
         <!-- page 10 -->
 
         <h1>Las formas de los verbos</h1>

@@ -32,14 +32,14 @@ def exercises():
 
 @bp.get("/chapter_one")
 def chapter_one():
-    return render_template("chapters/chapter_one.html")
+    return render_template("chapters/chapter_1.html")
 
 
-@bp.get("/chapter_two")
+@bp.get("/chapter_test_1")
 def chapter_two():
-    return render_template("chapters/chapter_two.html")
+    return render_template("chapters/chapter_test_1.html")
 
 
-@bp.get("/chapter_three")
+@bp.get("/chapter_test_2")
 def chapter_three():
-    return render_template("chapters/chapter_three.html")
+    return render_template("chapters/chapter_test_2.html")
