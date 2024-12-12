@@ -1,5 +1,6 @@
 body {
     background-color: blanchedalmond;
+    position: relative;
 }
 
 body p {
@@ -62,17 +63,25 @@ body h2 {
 }
 
 
+/* This three style rules are for the footer to appear at the bottom even with pages with short content */
 body,
 html {
     height: 100%;
 }
 
-/* This is for the main content of the body to take the reaminig space left by the navbar and the footer */
 .expand {
     flex: 1;
 }
 
-/* This if for the pages with short content to allow them appear in the middle of the screen */
 .custom {
     height: 100%;
+}
+
+/* To stick the sidebar index of the chapters */
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
 }
