@@ -2,18 +2,17 @@
 also if the current chapte isn't finished don't add the next chapter button to the start of the page -->
 
 {% extends "layout.html" %}
-{% block title %}Capítulo 1{% endblock %}
+{% block title %}Capítulo 2{% endblock %}
 {% block description %}Poner algo{% endblock %}
 
 
 {% block content %}
-
 <div class="row mt-4">
     <!-- index -->
     <div class="col-md-4 d-none d-md-block sidebar rounded-3">
 
         <nav id="chapter-index" class="nav navbar nav-pills flex-column align-items-start">
-            <a class="navbar-brand" href="#">Las formas de los verbos</a>
+            <a class="navbar-brand" href="#">Las formas de los verbos version 2</a>
             <a class="nav-link " href="#section1">¿Cuáles son las formas de los verbos en inglés?</a>
             <div class="ms-3">
                 <a class="nav-link" href="#section2">El Infinitivo</a>
@@ -30,7 +29,6 @@ also if the current chapte isn't finished don't add the next chapter button to t
 
     <main class="col-md-8 ms-sm-auto px-md-4" data-bs-spy="scroll" data-bs-target="#chapter-index"
         data-bs-smooth-scroll="true">
-
         <!-- page 10 -->
 
         <h1>Las formas de los verbos</h1>
@@ -248,5 +246,21 @@ also if the current chapte isn't finished don't add the next chapter button to t
             <p>Vamos allá…</p>
         </div>
     </main>
+
+    <hr class="my-2">
+
+    <div class="row mt-4 mb-3">
+        <div class="d-flex justify-content-evenly">
+            <div>
+                <p><strong>Anterior</strong>: <a href="{{ url_for('main_routes.show_chapter',number=1) }}">Chapter
+                        One</a></p>
+            </div>
+            <div>
+                <p><strong>Siguiente</strong>: <a href="{{ url_for('main_routes.show_chapter',number=3) }}">Chapter
+                        Three</a></p>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
