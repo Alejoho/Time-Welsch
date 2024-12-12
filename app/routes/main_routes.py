@@ -38,3 +38,8 @@ def chapter_one():
 @bp.get("/chapter_two")
 def chapter_two():
     return render_template("chapters/chapter_two.html")
+
+
+@bp.get("/chapter_three")
+def chapter_three():
+    return render_template("chapters/chapter_three.html")
