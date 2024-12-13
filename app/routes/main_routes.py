@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
+from app import chapters
 
 
 bp = Blueprint("main_routes", __name__)
@@ -11,6 +12,11 @@ def check_confirmed():
     if current_user.confirmation is False:
         flash("Por favor confirma tu cuenta!", "warning")
         return redirect(url_for("register_routes.unconfirmed"))
+
+
+@bp.context_processor
+def inject_chapters():
+    return dict(chapters=chapters)
 
 
 # TODO: Desing the route page with all the chapters and its descriptions. But only
