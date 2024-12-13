@@ -1,0 +1,16 @@
+<hr class="mt-4">
+
+<div class="row mt-4">
+    <div class="d-flex justify-content-evenly">
+        <div>
+            <p><strong>Anterior</strong>:
+                {% if number > 0 %}
+                <a href="{{ url_for('main_routes.show_chapter',number=number-1) }}">Chapter One</a>{% endif %}
+            </p>
+        </div>
+        <div>
+            <p><strong>Siguiente</strong>: <a href="{{ url_for('main_routes.show_chapter',number=number+1) }}">Chapter
+                    Three</a></p>
+        </div>
+    </div>
+</div>

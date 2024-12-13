@@ -47,4 +47,4 @@ def chapter_three():
 
 @bp.get("/chapter/<number>")
 def show_chapter(number):
-    return render_template(f"chapters/chapter_{number}.html", number=number)
+    return render_template(f"chapters/chapter_{number}.html", number=int(number))

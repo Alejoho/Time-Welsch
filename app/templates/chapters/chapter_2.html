@@ -246,21 +246,8 @@ also if the current chapte isn't finished don't add the next chapter button to t
             <p>Vamos allá…</p>
         </div>
     </main>
-
-    <hr class="my-2">
-
-    <div class="row mt-4 mb-3">
-        <div class="d-flex justify-content-evenly">
-            <div>
-                <p><strong>Anterior</strong>: <a href="{{ url_for('main_routes.show_chapter',number=1) }}">Chapter
-                        One</a></p>
-            </div>
-            <div>
-                <p><strong>Siguiente</strong>: <a href="{{ url_for('main_routes.show_chapter',number=3) }}">Chapter
-                        Three</a></p>
-            </div>
-        </div>
-    </div>
-
 </div>
+
+{% include "commons/chapter_nav.html" %}
+
 {% endblock %}
