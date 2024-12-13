@@ -33,3 +33,8 @@ def exercises():
 @bp.get("/chapter/<number>")
 def show_chapter(number):
     return render_template(f"chapters/chapter_{number}.html", number=int(number))
+
+
+@bp.get("/test")
+def test():
+    return render_template("chapters/chapter_1.html", number=1)
