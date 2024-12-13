@@ -25,6 +25,7 @@ class EmailExistence(object):
             raise ValidationError("Verificación de correo fallida. Inténtalo de nuevo")
 
         data = response.json()
+        # LATER: Improve this logic
         if not data.get("data", {}).get("result") == "deliverable":
             raise ValidationError(self.message)
 
