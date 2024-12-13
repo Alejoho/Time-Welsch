@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
+
 {% block title %}Capítulo 3{% endblock %}
+
 {% block description %}Poner algo{% endblock %}
 
+{% block head %}
+<script defer src="{{ url_for('static',filename='js/chapter_index.js') }}"></script>
+{% endblock %}
 
 {% block content %}
 
