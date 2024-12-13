@@ -30,21 +30,6 @@ def exercises():
     return render_template("main/exercises.html")
 
 
-@bp.get("/chapter_one")
-def chapter_one():
-    return render_template("chapters/chapter_1.html")
-
-
-@bp.get("/chapter_two")
-def chapter_two():
-    return render_template("chapters/chapter_2.html")
-
-
-@bp.get("/chapter_test_2")
-def chapter_three():
-    return render_template("chapters/chapter_test_2.html")
-
-
 @bp.get("/chapter/<number>")
 def show_chapter(number):
     return render_template(f"chapters/chapter_{number}.html", number=int(number))

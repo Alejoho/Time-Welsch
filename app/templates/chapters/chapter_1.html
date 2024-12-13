@@ -1,6 +1,3 @@
-<!-- TODO: Add buttons to teh start and the end of the chapter to navigate to previous and next ones.
-also if the current chapte isn't finished don't add the next chapter button to the start of the page -->
-
 {% extends "layout.html" %}
 {% block title %}Capítulo 1{% endblock %}
 {% block description %}Poner algo{% endblock %}
@@ -249,4 +246,7 @@ also if the current chapte isn't finished don't add the next chapter button to t
         </div>
     </main>
 </div>
+
+{% include "commons/chapter_nav.html" %}
+
 {% endblock %}

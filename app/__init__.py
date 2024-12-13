@@ -33,6 +33,8 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(os.getenv("APP_SETTINGS"))
+    app.jinja_env.trim_blocks = True
+    app.jinja_env.lstrip_blocks = True
 
     ####################
     #### extensions ####
