@@ -19,10 +19,26 @@ document.addEventListener("DOMContentLoaded", function () {
         var link = document.createElement("a");
         link.href = "#" + id;
         link.textContent = header.textContent;
-        link.className = "nav-link";
 
-        //append the link to the fragment
-        fragment.appendChild(link)
+        // Differentiate the header, applied the required class and indent
+        // and append it to the fragment
+        if (header.tagName === "H1") {
+            link.className = "navbar-brand";
+            fragment.appendChild(link)
+        }
+        else if (header.tagName === "H2") {
+            link.className = "nav-link";
+            fragment.appendChild(link)
+        }
+        else if (header.tagName === "H3") {
+            if (fragment.lastElementChild.tagName != "div") {
+                const new_div = document.createElement("div")
+                new_div.className = "ms-3"
+                fragment.appendChild(new_div)
+            }
+            link.className = "nav-link";
+            fragment.lastElementChild.appendChild(link)
+        }
     }
 
     //append the fragment to the index
