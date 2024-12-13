@@ -1,20 +1,24 @@
+{# TODO: How to know the lens of the chapters #}
+
 <hr class="mt-4">
 
 <div class="row mt-4">
-    <div class="d-flex flex-column flex-md-row justify-content-evenly">
+    <nav class="d-flex flex-column flex-md-row justify-content-evenly">
         <div>
             <p><strong>Anterior</strong>:
-                {%- if number > 1 -%}
-                <a href="{{ url_for('main_routes.show_chapter',number=number-1) }}">Chapter One</a>
+                {%- if number > 1 %}
+                <a href="{{ url_for('main_routes.show_chapter',number=number-1) }}" class="">Capítulo {{
+                    chapters[number-1].number }}: {{ chapters[number-1].name }}</a>
                 {%- endif -%}
             </p>
         </div>
         <div>
             <p><strong>Siguiente</strong>:
-                {% if number < 23 %}<a href="{{ url_for('main_routes.show_chapter',number=number+1) }}">Chapter
-                    Three</a>
-                    {% endif %}
+                {%- if number < 33 %} <a href="{{ url_for('main_routes.show_chapter',number=number+1) }}" class="">
+                    Capítulo {{
+                    chapters[number+1].number }}: {{ chapters[number+1].name }}</a>
+                    {%- endif -%}
             </p>
         </div>
-    </div>
+    </nav>
 </div>
