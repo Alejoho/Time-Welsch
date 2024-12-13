@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
-{% block title %}Capítulo 3{% endblock %}
+{% block title %}Capítulo {{ chapters[number].number }} - {{ chapters[number].name }}{% endblock %}
 
-{% block description %}Poner algo{% endblock %}
+{% block description %}{{ chapters[number].description }}{% endblock %}
 
 <!-- LATER: Remove the padding for the link and add margin to see the change of the cursor. -->
 <!-- LATER: Change the color for the link and add the pills effect when hover and active -->
@@ -30,6 +30,6 @@
         {% block chapter_content %}{% endblock %}
 
     </main>
-
 </div>
+{% include "commons/chapter_nav.html" %}
 {% endblock %}
