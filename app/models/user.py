@@ -1,6 +1,6 @@
 from app import db
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from pytz import UTC
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     password_hash: Mapped[str] = mapped_column(String(200))
     date_created: Mapped[datetime] = mapped_column(default=datetime.now(UTC))
     confirmation: Mapped[bool] = mapped_column(default=False)
+    current_chapter: Mapped["CurrentChapter"] = relationship()
 
     @property
     def password(self):
