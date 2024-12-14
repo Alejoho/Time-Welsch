@@ -25,6 +25,7 @@ class EmailExistence(object):
             raise ValidationError("Verificación de correo fallida. Inténtalo de nuevo")
 
         data = response.json()
+        # FIXME: Redo the logic of the validation of emails
         if not data.get("data", {}).get("result") == "deliverable":
             raise ValidationError(self.message)
 

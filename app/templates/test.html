@@ -1,3 +1,6 @@
-{% extends "layout.html" %}
+<ol>
 
-{% block description %}this is some page{% endblock %}
+    {% for chapter in chapters %}
+    <li>{{ chapter["name"] }}</li>
+    {% endfor %}
+</ol>

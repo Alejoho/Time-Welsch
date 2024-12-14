@@ -13,8 +13,11 @@ def check_confirmed():
         return redirect(url_for("register_routes.unconfirmed"))
 
 
-# TODO: Desing the route page with all the chapters and its descriptions. But only
-# completely implement the two first chapters
+@bp.context_processor
+def inject_chapters():
+    return dict(chapters=chapters)
+
+
 @bp.get("/mi-ruta")
 def my_route():
     return render_template("main/my_route.html")
@@ -30,16 +33,13 @@ def exercises():
     return render_template("main/exercises.html")
 
 
-@bp.get("/chapter_one")
-def chapter_one():
-    return render_template("chapters/chapter_1.html")
+@bp.get("/chapter/<int:number>")
+def show_chapter(number):
+    if number > 3:
+        return render_template("chapters/chapter_in_process.html", number=number)
+    return render_template(f"chapters/chapter_{number}.html", number=number)
 
 
-@bp.get("/chapter_test_1")
-def chapter_two():
-    return render_template("chapters/chapter_test_1.html")
-
-
-@bp.get("/chapter_test_2")
-def chapter_three():
-    return render_template("chapters/chapter_test_2.html")
+@bp.get("/test")
+def test():
+    return render_template("test.html")
