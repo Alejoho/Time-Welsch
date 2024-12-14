@@ -85,3 +85,9 @@ html {
     position: sticky;
     top: 6rem;
 }
+
+
+.nav-pills .nav-link.active {
+    background-color: #4683b4a9;
+    color: #2c3e50;
+}

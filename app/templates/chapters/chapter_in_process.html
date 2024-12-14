@@ -1,0 +1,13 @@
+{% extends "chapters/chapter_template.html" %}
+
+{% block chapter_content %}
+<div class="text-center d-flex justify-content-center align-items-center custom">
+    <div class="col-md-6">
+        <h1 class="sectionlink">Capítulo en creación</h1>
+        <p>Parece que el capítulo que deseas leer no esta listo.</p>
+        <p><a href="{{ url_for('main_routes.my_route') }}" class="btn btn-secondary">Regresa a mi ruta</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,200 @@
+[
+    {
+        "id": 1,
+        "number": 1,
+        "name": "Las formas de los verbos",
+        "description": "Este capítulo introduce las diferentes formas de los verbos en inglés, como el infinitivo, gerundio, participio pasado, etc. Explica cómo identificar y transformar los verbos entre estas formas. Es una base esencial para entender cómo se construyen y utilizan los tiempos verbales en inglés."
+    },
+    {
+        "id": 2,
+        "number": 2,
+        "name": "Tiempo, aspecto y voz",
+        "description": "Aquí se desglosan los conceptos de tiempo (pasado, presente, futuro), aspecto (simple, continuo, perfecto) y voz (activa, pasiva) en los verbos. Estos conceptos son fundamentales para comprender la estructura y el uso de los tiempos verbales en inglés."
+    },
+    {
+        "id": 3,
+        "number": 3,
+        "name": "Los tiempos simples: presente y pasado",
+        "description": "Este capítulo se centra en los tiempos simples, específicamente el presente simple y el pasado simple. Proporciona reglas de conjugación, ejemplos prácticos y contextos de uso para ayudar a los estudiantes a dominar estos tiempos básicos."
+    },
+    {
+        "id": 4,
+        "number": 4,
+        "name": "Tiempos compuestos: continuo y perfecto",
+        "description": "Se explica en detalle cómo se forman y usan los tiempos compuestos, como el presente continuo y el presente perfecto. El capítulo incluye ejemplos de uso diario y ejercicios para practicar."
+    },
+    {
+        "id": 5,
+        "number": 5,
+        "name": "Ejercicio: Identificar los Tiempos Verbales",
+        "description": "Un capítulo práctico con ejercicios diseñados para ayudar a los estudiantes a identificar y diferenciar los distintos tiempos verbales en inglés. Incluye ejemplos y respuestas para autoevaluación."
+    },
+    {
+        "id": 6,
+        "number": 6,
+        "name": "Presente Simple y Pasado Simple",
+        "description": "Comparación detallada entre el presente simple y el pasado simple. Se presentan las reglas de uso, diferencias clave y ejemplos para entender cuándo y cómo utilizar cada tiempo."
+    },
+    {
+        "id": 7,
+        "number": 7,
+        "name": "Presente simple y continuo",
+        "description": "Este capítulo explica las diferencias entre el presente simple y el presente continuo, y cuándo usar cada uno. Incluye muchos ejemplos y situaciones prácticas."
+    },
+    {
+        "id": 8,
+        "number": 8,
+        "name": "Presente simple y continuo para hablar del futuro",
+        "description": "Se exploran las formas en que el presente simple y el presente continuo se utilizan para hablar del futuro, con ejemplos y situaciones comunes."
+    },
+    {
+        "id": 9,
+        "number": 9,
+        "name": "El futuro: Will y going to",
+        "description": "Explicación de las dos principales formas de expresar el futuro en inglés: 'will' y 'going to'. Se incluyen reglas de uso, diferencias y ejemplos prácticos."
+    },
+    {
+        "id": 10,
+        "number": 10,
+        "name": "Otros Futuros",
+        "description": "Introducción a otras formas de expresar el futuro en inglés, como el presente continuo y diversas expresiones idiomáticas. Proporciona ejemplos y contextos de uso."
+    },
+    {
+        "id": 11,
+        "number": 11,
+        "name": "Presente Perfecto y Pasado Simple",
+        "description": "Este capítulo destaca las diferencias y usos específicos del presente perfecto y el pasado simple. Se incluyen ejemplos y ejercicios para reforzar el aprendizaje."
+    },
+    {
+        "id": 12,
+        "number": 12,
+        "name": "\"Have you ever...?\" y el uso de \"never\"",
+        "description": "Se explica cómo formular preguntas con 'Have you ever...?' y el uso del adverbio 'never' en el contexto del presente perfecto. Incluye ejemplos cotidianos."
+    },
+    {
+        "id": 13,
+        "number": 13,
+        "name": "Como usar For, Since y Ago",
+        "description": "Guía sobre el uso correcto de 'for', 'since' y 'ago' para expresar duraciones y momentos específicos en el tiempo. Incluye reglas claras y ejemplos prácticos."
+    },
+    {
+        "id": 14,
+        "number": 14,
+        "name": "Ejercicio: For, since y ago",
+        "description": "Ejercicios para practicar y consolidar el uso de 'for', 'since' y 'ago'. Proporciona ejemplos y respuestas para autoevaluación."
+    },
+    {
+        "id": 15,
+        "number": 15,
+        "name": "Pasado simple y pasado continuo",
+        "description": "Comparación entre el pasado simple y el pasado continuo, con ejemplos claros y reglas para entender cuándo usar cada tiempo."
+    },
+    {
+        "id": 16,
+        "number": 16,
+        "name": "Presente perfecto continuo",
+        "description": "Explicación detallada del presente perfecto continuo, sus usos y formaciones, con ejemplos prácticos para una mejor comprensión."
+    },
+    {
+        "id": 17,
+        "number": 17,
+        "name": "Pasado Perfecto y Pasado Perfecto Continuo",
+        "description": "Análisis de los tiempos pasado perfecto y pasado perfecto continuo, explicando sus diferencias, usos y proporcionando ejemplos."
+    },
+    {
+        "id": 18,
+        "number": 18,
+        "name": "How long...? How often?",
+        "description": "Uso de preguntas como 'How long...?' y 'How often...?' para hablar de duraciones y frecuencias, con ejemplos de uso común en inglés."
+    },
+    {
+        "id": 19,
+        "number": 19,
+        "name": "Used to and Usually",
+        "description": "Diferencias entre 'used to' y 'usually', y cómo usarlos correctamente para hablar de hábitos y situaciones pasadas. Incluye ejemplos y ejercicios."
+    },
+    {
+        "id": 20,
+        "number": 20,
+        "name": "Las respuestas cortas",
+        "description": "Guía sobre cómo formar y usar respuestas cortas en inglés. Proporciona ejemplos y reglas para mejorar la comunicación en inglés."
+    },
+    {
+        "id": 21,
+        "number": 21,
+        "name": "Activo y Pasivo",
+        "description": "Explicación de las voces activa y pasiva en inglés, cómo se forman y cuándo usarlas, con ejemplos y ejercicios prácticos."
+    },
+    {
+        "id": 22,
+        "number": 22,
+        "name": "Presente simple pasivo",
+        "description": "Uso del presente simple en voz pasiva, con reglas claras, ejemplos y situaciones prácticas para entender su uso."
+    },
+    {
+        "id": 23,
+        "number": 23,
+        "name": "Pasado simple pasivo",
+        "description": "Formación y uso del pasado simple en voz pasiva, con ejemplos detallados y ejercicios para practicar."
+    },
+    {
+        "id": 24,
+        "number": 24,
+        "name": "Otros tiempos pasivos",
+        "description": "Exploración de otros tiempos verbales en voz pasiva, proporcionando reglas de formación, ejemplos y ejercicios."
+    },
+    {
+        "id": 25,
+        "number": 25,
+        "name": "Ejercicio: La voz pasiva",
+        "description": "Conjunto de ejercicios diseñados para practicar la voz pasiva en inglés. Incluye ejemplos y respuestas para autoevaluación."
+    },
+    {
+        "id": 26,
+        "number": 26,
+        "name": "Ejercicios de otros tiempos verbales",
+        "description": "Ejercicios adicionales para practicar y dominar los diferentes tiempos verbales en inglés, con respuestas incluidas para autoevaluación."
+    },
+    {
+        "id": 27,
+        "number": 27,
+        "name": "Conclusión",
+        "description": "Resumen final del libro con conclusiones sobre los tiempos verbales en inglés y consejos para seguir mejorando y practicando."
+    },
+    {
+        "id": 28,
+        "number": 28,
+        "name": "Dónde encontrar más",
+        "description": "Recomendaciones de recursos adicionales, libros y sitios web para seguir aprendiendo y practicando los tiempos verbales en inglés."
+    },
+    {
+        "id": 29,
+        "number": 29,
+        "name": "Apéndice 1: Los verbos irregulares por categorías",
+        "description": "Lista de los verbos irregulares más comunes en inglés, organizados por categorías, con ejemplos de uso."
+    },
+    {
+        "id": 30,
+        "number": 30,
+        "name": "Apéndice 2: Formas verbales - Cómo usar el gerundio",
+        "description": "Explicación detallada sobre el uso del gerundio en inglés, con reglas de formación y ejemplos prácticos."
+    },
+    {
+        "id": 31,
+        "number": 31,
+        "name": "Apéndice 3: Todos los tiempos activos",
+        "description": "Resumen de todos los tiempos verbales activos en inglés, proporcionando ejemplos y reglas claras para su uso."
+    },
+    {
+        "id": 32,
+        "number": 32,
+        "name": "Acerca del Autor",
+        "description": "Información sobre Daniel Welsch, su trayectoria como autor y profesor de inglés, y sus otras publicaciones y recursos educativos."
+    },
+    {
+        "id": 33,
+        "number": 0,
+        "name": "Empty",
+        "description": "Empty"
+    }
+]

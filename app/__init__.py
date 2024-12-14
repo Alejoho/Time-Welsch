@@ -11,6 +11,8 @@ from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mailman import Mail
+from sqlalchemy import select
+
 
 load_dotenv()
 
@@ -23,6 +25,7 @@ csrf = CSRFProtect()
 migrate = Migrate()
 mail = Mail()
 login_manager = LoginManager()
+chapters = []
 
 
 def create_app():
@@ -33,6 +36,8 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(os.getenv("APP_SETTINGS"))
+    app.jinja_env.trim_blocks = True
+    app.jinja_env.lstrip_blocks = True
 
     ####################
     #### extensions ####
@@ -43,6 +48,12 @@ def create_app():
     migrate.init_app(app, db)
     mail.init_app(app)
     login_manager.init_app(app)
+
+    from app.models import Chapter
+
+    with app.app_context():
+        global chapters
+        chapters = db.session.scalars(select(Chapter).order_by(Chapter.number)).all()
 
     #####################
     #### flask-login ####
