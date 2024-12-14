@@ -39,7 +39,7 @@ def exercises():
     return render_template("main/exercises.html")
 
 
-@bp.get("/chapter/<int:number>")
+@bp.get("/capitulo/<int:number>")
 def show_chapter(number):
     if number > 3:
         return render_template("chapters/chapter_in_process.html", number=number)

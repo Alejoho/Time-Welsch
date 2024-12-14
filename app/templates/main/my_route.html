@@ -1,60 +1,36 @@
 {# TODO: Desing the route page with all the chapters and its descriptions. #}
 {% extends "layout.html" %}
 {% block content %}
-my route page
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
-            </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
+        <h1 class="my-4 ms-3">Capítulos</h1>
+        <div class="accordion" id="chaptersAccordion">
+            {%- for chapter in chapters %}
+
+            {%- if chapter.number>0 %}
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center" id="heading{{ chapter.id }}">
+                    <h2 class="my-0">
+                        <button
+                            class="btn btn-link link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter.id }}"
+                            aria-expanded="true" aria-controls="collapse{{ chapter.id }}">
+                            {{ chapter.number }}: {{ chapter.name }}
+                        </button>
+                    </h2>
+                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
+                        class="btn btn-outline-secondary btn-sm">Ir al
+                        capítulo</a>
+                </div>
+                <div id="collapse{{ chapter.id }}" class="collapse" aria-labelledby="heading{{ chapter.id }}">
+                    <div class="card-body">{{ chapter.description }}</div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Accordion Item #2
-            </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Accordion Item #3
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
+            {% endif %}
+
+            {% endfor %}
         </div>
     </div>
 </div>
-
 {% endblock %}
