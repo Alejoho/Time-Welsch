@@ -190,5 +190,11 @@
         "number": 32,
         "name": "Acerca del Autor",
         "description": "Información sobre Daniel Welsch, su trayectoria como autor y profesor de inglés, y sus otras publicaciones y recursos educativos."
+    },
+    {
+        "id": 33,
+        "number": 0,
+        "name": "Empty",
+        "description": "Empty"
     }
 ]
