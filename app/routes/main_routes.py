@@ -38,20 +38,9 @@ def summary():
     return render_template("main/summary.html", completed_chapters=completed_chapters)
 
 
-@bp.get("/ejercicios")
-def exercises():
-    return render_template("main/exercises.html")
-
-
 @bp.get("/capitulo/<int:number>")
 @check_chapter
 def show_chapter(number):
     if number > 3:
         return render_template("chapters/chapter_in_process.html", number=number)
     return render_template(f"chapters/chapter_{number}.html", number=number)
-
-
-@bp.get("/test")
-def test():
-    # TODO: Evaluate the diffenrence between session.execute, session.scalars, session.execute().scalars. and also check the all
-    return render_template("test.html")
