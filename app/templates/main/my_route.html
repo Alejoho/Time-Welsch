@@ -1,38 +1,44 @@
-{# TODO: Create the logic to only allow the user to access the chapters already read and the next one in the list.
--Disabled or enable the button accordingly.
--Add the locked icon and the allow icon to the left of the chapter's title
--Add a button to show or collapse all descriptions#}
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {%
+block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-
         <h1 class="my-4 ms-3">Capítulos</h1>
         <div class="accordion" id="chaptersAccordion">
-            {%- for chapter in chapters %}
-
-            {%- if chapter.number>0 %}
+            {%- for chapter in chapters %} {%- if chapter.number > 0 %}
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center" id="heading{{ chapter.id }}">
-                    <h2 class="my-0">
-                        <button
-                            class="btn btn-link link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter.id }}"
-                            aria-expanded="true" aria-controls="collapse{{ chapter.id }}">
-                            {{ chapter.number }}: {{ chapter.name }}
-                        </button>
-                    </h2>
-                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
-                        class="btn btn-outline-secondary btn-sm">Ir al
-                        capítulo</a>
+                <div class="card-header d-flex justify-content-between align-items-center {{ 'card-header-custom-background' if chapter.number==current_user.current_chapter.current_chapter else ''}}"
+                    id="heading{{ chapter.id }}">
+                    <div class="d-flex align-items-center">
+                        {% if chapter.number < current_user.current_chapter.current_chapter %} <span class="me-2">
+                            ✔️</span>
+                            {% elif chapter.number==current_user.current_chapter.current_chapter
+                            %}
+                            <span class="me-2">📘</span>
+                            {% else %}
+                            <span class="me-2">🔒</span>
+                            {% endif %}
+                            <h2 class="my-0">
+                                <button
+                                    class="btn btn-link link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter.id }}"
+                                    aria-expanded="true" aria-controls="collapse{{ chapter.id }}">
+                                    {{ chapter.number }}: {{ chapter.name }}
+                                </button>
+                            </h2>
+                    </div>
+                    {% if chapter.number <= current_user.current_chapter.current_chapter %} <a
+                        href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
+                        class="btn btn-outline-secondary btn-sm">Ir al capítulo</a>
+                        {% else %}
+                        <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
+                            class="btn btn-outline-secondary btn-sm disabled">Ir al capítulo</a>
+                        {% endif %}
                 </div>
                 <div id="collapse{{ chapter.id }}" class="collapse" aria-labelledby="heading{{ chapter.id }}">
                     <div class="card-body">{{ chapter.description }}</div>
                 </div>
             </div>
-            {% endif %}
-
-            {% endfor %}
+            {% endif %} {% endfor %}
         </div>
     </div>
 </div>

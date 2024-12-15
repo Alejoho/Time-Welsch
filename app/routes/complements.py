@@ -27,6 +27,18 @@ def block_confirmed(func):
     return decorated_function
 
 
+def check_chapter(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        chapter_number = args[0] if args else kwargs.get("number")
+        if chapter_number > current_user.current_chapter.current_chapter:
+            flash("Faltan capítulos por leer.", "info")
+            return redirect(url_for("main_routes.my_route"))
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+
 def verify_recaptcha(recaptcha_response):
     url = "https://www.google.com/recaptcha/api/siteverify"
     data = {

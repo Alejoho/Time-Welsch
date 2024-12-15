@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
 from app import chapters
+from .complements import check_chapter
 
 
 bp = Blueprint("main_routes", __name__)
@@ -12,11 +13,6 @@ def check_confirmed():
     if current_user.confirmation is False:
         flash("Por favor confirma tu cuenta!", "warning")
         return redirect(url_for("register_routes.unconfirmed"))
-
-
-@bp.context_processor
-def inject_chapters():
-    return dict(chapters=chapters)
 
 
 @bp.context_processor
@@ -40,6 +36,7 @@ def exercises():
 
 
 @bp.get("/capitulo/<int:number>")
+@check_chapter
 def show_chapter(number):
     if number > 3:
         return render_template("chapters/chapter_in_process.html", number=number)

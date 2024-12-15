@@ -91,3 +91,7 @@ html {
     background-color: #4683b4a9;
     color: #2c3e50;
 }
+
+.card-header-custom-background {
+    background-color: #EEE8AA;
+}
