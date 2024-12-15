@@ -14,6 +14,7 @@ class CurrentChapter(db.Model):
     current_chapter: Mapped[int] = mapped_column(default=1)
 
     __table_args__ = (
+        # LATER: Match the naming of the completed_chapters table. (UQ_current_chapters_user_id)
         UniqueConstraint("user_id", name="UQ_user_id"),
         ForeignKeyConstraint(["user_id"], ["users.id"], name="FK_user_id"),
     )
