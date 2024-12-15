@@ -1,3 +1,7 @@
+:root {
+    --table-border-radius: 10px
+}
+
 body {
     background-color: blanchedalmond;
     position: relative;
@@ -86,16 +90,79 @@ html {
     top: 6rem;
 }
 
-
+/* CHECK: I think this isn't used in no part */
 .nav-pills .nav-link.active {
     background-color: #4683b4a9;
     color: #2c3e50;
 }
 
+
+/* For the current card on the "mi ruta" page */
 .card-header-custom-background {
     background-color: #EEE8AA;
 }
 
 .card-body-custom-background {
     background-color: #FFFACD;
+}
+
+/* to style the table of the "resumen" page */
+.background-table thead th {
+    background-color: #EEE8AA;
+}
+
+.background-table tbody th,
+.background-table td {
+    background-color: #FFF8DC;
+    /* background-color: #FFF0F5;
+    background-color: #F5FFFA;
+    background-color: #F0F8FF;
+    background-color: #FFF5EE; */
+}
+
+.rounded-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--table-border-radius);
+    /* Adjust the value to your preference */
+    overflow: hidden;
+    /* Ensures the rounded corners are visible */
+    position: relative;
+}
+
+.rounded-table th,
+.rounded-table td {
+    border-radius: 0px;
+    /* Ensure individual cells don’t have rounded corners */
+}
+
+.rounded-table thead th:first-child {
+    border-top-left-radius: var(--table-border-radius);
+    /* Top-left corner */
+}
+
+.rounded-table thead th:last-child {
+    border-top-right-radius: var(--table-border-radius);
+    /* Top-right corner */
+}
+
+.rounded-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--table-border-radius);
+    /* Bottom-left corner */
+}
+
+.rounded-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--table-border-radius);
+    /* Bottom-right corner */
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }

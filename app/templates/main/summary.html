@@ -1,4 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-my summary page
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="my-4 ms-3">Resumen de tu avance</h1>
+        <table class="table table-hover background-table rounded-table">
+            <caption class="visually-hidden">Avance del usuario</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Completado</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Los tiempos simples: presente y pasado</td>
+                    <td>The Bird</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
