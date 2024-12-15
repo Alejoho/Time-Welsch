@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app import chapters
+from app import chapters, db
 from .complements import check_chapter
+from sqlalchemy import select
+from app.models import CompletedChapter
 
 
 bp = Blueprint("main_routes", __name__)
@@ -27,7 +29,13 @@ def my_route():
 
 @bp.get("/resumen")
 def summary():
-    return render_template("main/summary.html")
+    completed_chapters = db.session.scalars(
+        select(CompletedChapter)
+        .where(CompletedChapter.user_id == current_user.id)
+        .order_by(CompletedChapter.completed_date)
+    ).all()
+
+    return render_template("main/summary.html", completed_chapters=completed_chapters)
 
 
 @bp.get("/ejercicios")
@@ -45,4 +53,5 @@ def show_chapter(number):
 
 @bp.get("/test")
 def test():
+    # TODO: Evaluate the diffenrence between session.execute, session.scalars, session.execute().scalars. and also check the all
     return render_template("test.html")

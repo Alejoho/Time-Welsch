@@ -3,32 +3,35 @@
 
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h1 class="my-4 ms-3">Resumen de tu avance</h1>
+        <h1 class="my-4 ms-3">Resumen de tu avance </h1>
         <table class="table table-hover background-table rounded-table">
             <caption class="visually-hidden">Avance del usuario</caption>
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" class="ps-4">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Completado</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody class="table-group-divider hide-first">
+                {% for i in range( chapters | length ) %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <th scope="row" class="ps-4">{{ chapters[i].number }}</th>
+                    <td>{{ chapters[i].name }}</td>
+                    <td>
+                        {# TODO: How to center the content of this column #}
+                        {# TODO: Apply the same logic of the finance ps of cs50 to convert the date to the locale
+                        datetime #}
+                        {# TODO: See how to format the date to the locale(ex. mm/dd/yyyy adn the time as well) #}
+                        {# TODO: Create an space between the date and the time #}
+                        {% if completed_chapters[i-1] is defined %}
+                        {{completed_chapters[i-1].completed_date }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Los tiempos simples: presente y pasado</td>
-                    <td>The Bird</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

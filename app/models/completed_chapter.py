@@ -24,4 +24,4 @@ class CompletedChapter(db.Model):
     )
 
     def __repr__(self):
-        return f"user_id: {self.user_id} - current_id: {self.chapter_id} - {self.date}"
+        return f"user_id: {self.user_id} - current_id: {self.chapter_id} - {self.completed_date}"
