@@ -10,7 +10,7 @@
                 <tr>
                     <th scope="col" class="ps-4">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Completado</th>
+                    <th scope="col" class=" pe-5">Completado</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider hide-first">
@@ -18,8 +18,7 @@
                 <tr>
                     <th scope="row" class="ps-4">{{ chapters[i].number }}</th>
                     <td>{{ chapters[i].name }}</td>
-                    <td>
-                        {# TODO: How to center the content of this column #}
+                    <td class=" pe-5">
                         {# TODO: Apply the same logic of the finance ps of cs50 to convert the date to the locale
                         datetime #}
                         {# TODO: See how to format the date to the locale(ex. mm/dd/yyyy adn the time as well) #}
@@ -27,7 +26,10 @@
                         {% if completed_chapters[i-1] is defined %}
                         {{completed_chapters[i-1].completed_date }}
                         {% else %}
-                        -
+                        <div class="ps-5">
+                            -
+                        </div>
+
                         {% endif %}
                     </td>
                 </tr>
