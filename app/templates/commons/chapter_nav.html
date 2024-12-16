@@ -2,22 +2,24 @@
 
 <nav class="row mt-4">
     <div class="col-md-6 col-sm-12">
+        {% if number > 1 %}
         <p><strong>Anterior</strong>:
-            {%- if number > 1 %}
             <a href="{{ url_for('main_routes.show_chapter',number=number-1) }}"
                 class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Capítulo
                 {{
                 chapters[number-1].number }}: {{ chapters[number-1].name }}</a>
-            {%- endif -%}
         </p>
+        {% endif %}
     </div>
+    {% if current_user.current_chapter.current_chapter > number %}
     <div class="col-md-6 col-sm-12">
         <p><strong>Siguiente</strong>:
             {%- if number < (chapters | length)-1 %} <a href="{{ url_for('main_routes.show_chapter',number=number+1) }}"
                 class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                 Capítulo {{
                 chapters[number+1].number }}: {{ chapters[number+1].name }}</a>
-                {%- endif -%}
+            {%- endif -%}
         </p>
     </div>
+    {% endif %}
 </nav>

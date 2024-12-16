@@ -18,8 +18,8 @@
 
 <div class="row mt-4">
     <!-- index -->
-    <div class="col-md-4 d-none d-md-block sidebar rounded-3">
-
+    <div class="col-md-3 d-none d-md-block sidebar rounded-3">
+{# FIXME: The nav-brand is overflowing the index #}
         <nav id="chapter-index" class="nav navbar flex-column align-items-start">
 
         </nav>
@@ -27,7 +27,7 @@
 
     <!-- main content -->
 
-    <main class="col-md-8 ms-sm-auto px-md-4" data-bs-spy="scroll" data-bs-target="#chapter-index"
+    <main class="col-md-8 px-md-4" data-bs-spy="scroll" data-bs-target="#chapter-index"
         data-bs-smooth-scroll="true">
 
         {% block chapter_content %}{% endblock %}
