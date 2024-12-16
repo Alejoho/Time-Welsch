@@ -11,9 +11,9 @@ from flask import (
 from app.forms import RegisterFrom
 from app.models import User
 from app import db
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy import select
 from flask_login import login_user, login_required, current_user
+
+from app.models import CurrentChapter
 from .complements import (
     confirm_token,
     send_confirmation_email,
@@ -33,12 +33,14 @@ def register():
     form = RegisterFrom()
 
     if form.validate_on_submit():
+        # reCaptcha verification
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
             flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
             return abort(401)
 
+        # insertion of the new user to the db
         user = User(
             username=form.username.data,
             email=form.email.data,
@@ -47,25 +49,25 @@ def register():
 
         db.session.add(user)
 
-        # TODO: Add the row in the current_chapter table for the new user
+        try:
+            db.session.commit()
+        except Exception as err:
+            print(err)
+            db.session.rollback()
+            abort(500)
+
+        # Insertion of the related current_chapter with the new user
+        current_chapter = CurrentChapter(user_id=user.id)
+        db.session.add(current_chapter)
 
         try:
             db.session.commit()
-        except IntegrityError:
+        except Exception as err:
+            print(err)
             db.session.rollback()
+            abort(500)
 
-            existing_user = db.session.scalars(
-                select(User).where(
-                    (User.username == form.username.data)
-                    | (User.email == form.email.data)
-                )
-            ).one_or_none()
-
-            if existing_user.username == form.username.data:
-                form.username.errors.append("Este nombre de usuario ya esta en uso")
-            if existing_user.email == form.email.data:
-                form.email.errors.append("Una cuenta ya está usando este correo")
-
+        # Rest of the steps
         send_confirmation_email(user.email)
 
         login_user(user)
@@ -79,6 +81,8 @@ def register():
     )
 
 
+# TODO: I need to be logged in to be able to confirm my account. Change that.
+# I want even if im loggout confirm the account and then redirect to the login page
 @bp.get("/confirmar_email/<token>")
 @login_required
 @block_confirmed
