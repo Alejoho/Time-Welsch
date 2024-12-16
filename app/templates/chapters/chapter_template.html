@@ -31,7 +31,11 @@
         data-bs-smooth-scroll="true">
 
         {% block chapter_content %}{% endblock %}
-
+        {% if current_user.current_chapter.current_chapter == number %}
+        <div class="d-flex justify-content-md-start justify-content-center mb-4 mt-5">
+            <a href="{{ url_for('main_routes.mark_chapter_as_completed',number=number) }}" class="btn btn-primary btn-lg ms-md-5">Capítulo Completado</a>
+        </div>
+        {% endif %}
     </main>
 </div>
 {% include "commons/chapter_nav.html" %}
