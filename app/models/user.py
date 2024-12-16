@@ -2,7 +2,7 @@ from app import db
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from pytz import UTC
+import pytz
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     username: Mapped[str] = mapped_column(String(50), unique=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
     password_hash: Mapped[str] = mapped_column(String(200))
-    date_created: Mapped[datetime] = mapped_column(default=datetime.now(UTC))
+    date_created: Mapped[datetime] = mapped_column(default=datetime.now(pytz.utc))
     confirmation: Mapped[bool] = mapped_column(default=False)
     current_chapter: Mapped["CurrentChapter"] = relationship()
 

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
+{% block head %} <script defer src="{{ url_for('static',filename='js/locale_time_formatter.js') }}"></script> {% endblock %}
 {% block content %}
-
 <div class="row justify-content-center">
     <div class="col-md-8">
         <h1 class="my-4 ms-3">Resumen de tu avance </h1>
@@ -8,29 +8,22 @@
             <caption class="visually-hidden">Avance del usuario</caption>
             <thead>
                 <tr>
-                    <th scope="col" class="ps-4">#</th>
+                    <th scope="col" class="ps-sm-4">#</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col" class=" pe-5">Completado</th>
+                    <th scope="col" class="px-sm-5">Completado</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider hide-first">
                 {% for i in range( chapters | length ) %}
                 <tr>
-                    <th scope="row" class="ps-4">{{ chapters[i].number }}</th>
+                    <th scope="row" class="ps-sm-4">{{ chapters[i].number }}</th>
                     <td>{{ chapters[i].name }}</td>
-                    <td class=" pe-5">
-                        {# TODO: Apply the same logic of the finance ps of cs50 to convert the date to the locale
-                        datetime #}
-                        {# TODO: See how to format the date to the locale(ex. mm/dd/yyyy adn the time as well) #}
-                        {# TODO: Create an space between the date and the time #}
-                        {% if completed_chapters[i-1] is defined %}
-                        {{completed_chapters[i-1].completed_date }}
-                        {% else %}
-                        <div class="ps-5">
-                            -
-                        </div>
-
-                        {% endif %}
+                    <td class="datetime pe-sm-5">
+                    {% if completed_chapters[i-1] is defined and i-1 >= 0%}
+                    {{completed_chapters[i-1].iso_completed_date }}
+                    {% else %}
+                    <div class="d-flex justify-content-center">-</div>
+                    {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

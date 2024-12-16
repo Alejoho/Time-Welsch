@@ -2,6 +2,7 @@ from app import db
 from sqlalchemy.orm import Mapped
 from sqlalchemy import ForeignKeyConstraint, PrimaryKeyConstraint, Index
 from datetime import datetime
+import pytz
 
 
 class CompletedChapter(db.Model):
@@ -9,6 +10,13 @@ class CompletedChapter(db.Model):
     user_id: Mapped[int]
     chapter_id: Mapped[int]
     completed_date: Mapped[datetime]
+    iso_completed_date: datetime
+
+    @property
+    def iso_completed_date(self):
+        utc_datetime = self.completed_date.replace(tzinfo=pytz.utc)
+        iso_format = utc_datetime.isoformat()
+        return iso_format
 
     __table_args__ = (
         PrimaryKeyConstraint("user_id", "chapter_id", name="PK_completed_chapters"),
