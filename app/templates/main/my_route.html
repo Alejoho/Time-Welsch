@@ -1,52 +1,54 @@
-{% extends "layout.html" %} {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="my-4 ms-3">Capítulos</h1>
-            {# TODO: disable the formate on save for the jinja templates #}
-            {# FIXME: The content to which this link points keeps behind the navbar #}
-            <a href="#heading13" class="btn btn-secondary rounded-3 w-25 me-2">Próximo capítulo</a>
-        </div>
-        <div class="accordion" id="chaptersAccordion">
-            {%- for chapter in chapters %} {%- if chapter.number > 0 %}
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center {{ 'card-header-custom-background' if chapter.number==current_user.current_chapter.current_chapter else ''}}"
-                    id="heading{{ chapter.number }}">
-                    <div class="d-flex align-items-center">
-                        {% if chapter.number < current_user.current_chapter.current_chapter %} <span class="me-2">
-                            ✔️</span>
-                            {% elif chapter.number==current_user.current_chapter.current_chapter
-                            %}
-                            <span class="me-2">📘</span>
-                            {% else %}
-                            <span class="me-2">🔒</span>
-                            {% endif %}
-                            <h2 class="my-0">
-                                <button
-                                    class="btn btn-link link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter.id }}"
-                                    aria-expanded="true" aria-controls="collapse{{ chapter.id }}">
-                                    {{ chapter.number }}: {{ chapter.name }}
-                                </button>
-                            </h2>
-                    </div>
-                    {% if chapter.number <= current_user.current_chapter.current_chapter %} <a
-                        href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
-                        class="btn btn-outline-secondary btn-sm">Ir al capítulo</a>
-                        {% else %}
-                        <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}"
-                            class="btn btn-outline-secondary btn-sm disabled">Ir al capítulo</a>
-                        {% endif %}
-                </div>
-                <div id="collapse{{ chapter.id }}" class="collapse" aria-labelledby="heading{{ chapter.id }}">
-                    <div
-                        class="card-body {{ 'card-body-custom-background' if chapter.number==current_user.current_chapter.current_chapter else ''}}">
-                        {{ chapter.description }}
-                    </div>
-                </div>
+{% extends "layout.html" %} 
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="my-4 ms-3">Capítulos</h1>                
+                {# FIXME: The content to which this link points keeps behind the navbar #}
+                <a href="#heading13" class="btn btn-secondary rounded-3 w-25 me-2">Próximo capítulo</a>
             </div>
-            {% endif %} {% endfor %}
+
+            <div class="accordion" id="chaptersAccordion">
+                {%- for chapter in chapters %} 
+                    {%- if chapter.number > 0 %}
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center {{ 'card-header-custom-background' if chapter.number==current_user.current_chapter.current_chapter else ''}}"
+                                id="heading{{ chapter.number }}">
+                                <div class="d-flex align-items-center">
+                                    {%- if chapter.number < current_user.current_chapter.current_chapter %} 
+                                        <span class="me-2">✔️</span>
+                                    {%- elif chapter.number==current_user.current_chapter.current_chapter %}
+                                        <span class="me-2">📘</span>
+                                    {%- else %}
+                                        <span class="me-2">🔒</span>
+                                    {% endif %}
+
+                                    <h2 class="my-0">
+                                        <button
+                                            class="btn btn-link link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter.id }}"
+                                            aria-expanded="true" aria-controls="collapse{{ chapter.id }}">
+                                            {{ chapter.number }}: {{ chapter.name }}
+                                        </button>
+                                    </h2>
+                                </div>
+                                {%- if chapter.number <= current_user.current_chapter.current_chapter %} 
+                                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}" class="btn btn-outline-secondary btn-sm">Ir al capítulo</a>
+                                {%- else %}
+                                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}" class="btn btn-outline-secondary btn-sm disabled">Ir al capítulo</a>
+                                {% endif %}
+                                
+                            </div>
+
+                            <div id="collapse{{ chapter.id }}" class="collapse" aria-labelledby="heading{{ chapter.id }}">
+                                <div class="card-body {{ 'card-body-custom-background' if chapter.number==current_user.current_chapter.current_chapter else ''}}">
+                                    {{ chapter.description }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %} 
+                {% endfor %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
