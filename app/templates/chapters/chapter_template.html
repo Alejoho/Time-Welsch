@@ -1,8 +1,20 @@
 {% extends "layout.html" %}
 
-{% block title %}Capítulo {{ chapters[number].number }} - {{ chapters[number].name }}{% endblock %}
+{% block title %}
+{% if number %}
+Capítulo {{ chapters[number].number }} - {{ chapters[number].name }}
+{%- else %}
+Capítulo en creación
+{%- endif %}
+{% endblock %}
 
-{% block description %}{{ chapters[number].description }}{% endblock %}
+{% block description %}
+{% if number %}
+{{ chapters[number].description }}
+{%- else %}
+El contenido de este capítulo no está listo
+{%- endif %}
+{% endblock %}
 
 {#
     LATER: Remove the padding for the link and add margin to see the change of the cursor. 

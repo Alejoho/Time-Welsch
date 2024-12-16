@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, abort
 from flask_login import login_required, current_user
 from app import chapters, db
-from .complements import check_chapter
+from .complements import check_chapter, chapter_dont_exist
 from sqlalchemy import select
 from app.models import CompletedChapter
 from datetime import datetime
@@ -43,13 +43,11 @@ def summary():
 @bp.get("/capitulo/<int:number>")
 @check_chapter
 def show_chapter(number):
-    # TODO: Change the logic to check if the current chapter is created
-    if number > 3:
-        return render_template("chapters/chapter_in_process.html", number=number)
+
+    if chapter_dont_exist(number):
+        return render_template("chapters/chapter_in_process.html")
+
     return render_template(f"chapters/chapter_{number}.html", number=number)
-
-
-# TODO: Design the way to mark a chapter as completed
 
 
 # LATER: Change the number variable by chapter_number across the board

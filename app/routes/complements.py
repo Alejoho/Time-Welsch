@@ -3,6 +3,7 @@ from flask import flash, redirect, url_for, current_app, abort
 from flask_login import current_user
 from itsdangerous import URLSafeTimedSerializer
 from flask_mailman import EmailMessage
+from jinja2 import TemplateNotFound
 import requests
 
 
@@ -85,3 +86,12 @@ def confirm_token(token, expiration=3600):
 def handle_confirmation_error(message):
     flash(message, "danger")
     return redirect(url_for("register_routes.confirmation"))
+
+
+def chapter_dont_exist(number):
+    template_name = f"chapters/chapter_{number}.html"
+    try:
+        current_app.jinja_env.get_template(template_name)
+        return False
+    except TemplateNotFound:
+        return True
