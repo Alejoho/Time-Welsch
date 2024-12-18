@@ -81,8 +81,6 @@ def register():
     )
 
 
-# TODO: I need to be logged in to be able to confirm my account. Change that.
-# I want even if im loggout confirm the account and then redirect to the login page
 @bp.get("/confirmar_email/<token>")
 @login_required
 @block_confirmed_users
@@ -102,12 +100,22 @@ def confirm_email(token):
             "El link de confirmación que intentaste es inválido debido a malos datos."
         )
 
-    if current_user.confirmation:
-        flash("Cuenta ya confirmada.", "success")
+    # CHECK: The user is logged in (it has not been confirmed) so the current_user variable is instanciated.
+    # I query the db and return a result with the same user and set the confirm field to true.
+    # After I the commit the confirm field is updated in the current user as well?
+
+    user = User.query.where(User.email == email).one()
+
+    if user.confirmation:
+        flash("Cuenta ya confirmada.", "info")
     else:
-        current_user.confirmation = True
+        user.confirmation = True
         db.session.commit()
         flash("Has confirmado tu cuenta.", "success")
+
+    if not current_user.is_authenticated:
+        login_user(user)
+
     return redirect(url_for("main_routes.my_route"))
 
 

@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import flash, redirect, url_for, current_app, abort
+from flask import flash, redirect, render_template, url_for, current_app, abort
 from flask_login import current_user
 from itsdangerous import URLSafeTimedSerializer
 from flask_mailman import EmailMessage
@@ -110,7 +110,7 @@ def confirm_token(token, expiration):
 
 def handle_confirmation_error(message):
     flash(message, "danger")
-    return redirect(url_for("register_routes.confirmation"))
+    return render_template("register_routes.confirmation")
 
 
 def handle_reset_password_error(message):
