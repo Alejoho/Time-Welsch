@@ -1,4 +1,4 @@
-<!-- LATER: Make looking nicer the size of the different items of the navbar -->
+{# LATER: Make looking nicer the size of the different items of the navbar #}
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url_for('home_routes.index') }}">Time Welsch</a>
@@ -29,17 +29,21 @@
             </ul>
             <ul class="navbar-nav">
                 {% if current_user.is_authenticated %}
-                <li class="nav-item">
-                    <span class="nav-link">Hola, {{ current_user.username }}</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login_routes.logout') }}">Cerrar Sesión</a>
+                <li class="nav-item dropdown" data-bs-theme="dark">
+                    <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hola, {{ current_user.username }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Cambiar Contraseña</a></li>
+                        <li><a class="dropdown-item text-danger" href="#">Eliminar Cuenta</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('login_routes.logout') }}">Cerrar Sessión</a></li>
+                    </ul>
                 </li>
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login_routes.login') }}">Iniciar Sesión</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('register_routes.register') }}">Registrarse</a>
                 </li>

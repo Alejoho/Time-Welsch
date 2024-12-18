@@ -20,7 +20,7 @@
 </head>
 
 <body class="d-flex flex-column">
-    {% include "commons/navbar.html" %}
+    {% include "commons/navbar.html" +%}
 
 <div class="container expand mt-5 pt-3">
 
@@ -28,6 +28,7 @@
 
         {% block content %}{% endblock %}
 </div>
+
     {% include "commons/footer.html" %}
 
     <script src="{{ url_for('static',filename='Bootstrap/bootstrap.bundle.js') }}"></script>
