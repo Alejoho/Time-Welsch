@@ -12,6 +12,7 @@ class LoginForm(FlaskForm):
             UserExistance("No hay una cuenta registrada con este nombre de usuario"),
         ],
     )
+
     password = PasswordField(
         "Contraseña",
         validators=[

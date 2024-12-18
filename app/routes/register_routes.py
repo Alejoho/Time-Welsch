@@ -136,7 +136,6 @@ def confirmation():
     return render_template("register_login/confirmation.html", register=True)
 
 
-# TODO: Design a dropdown to manage the account
 # TODO: Design the forgot password logic
 # TODO: Design the change password logic
 # TODO: Desing the delete account logic

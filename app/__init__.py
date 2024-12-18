@@ -78,11 +78,13 @@ def create_app():
     from app.routes import main_routes_bp
     from app.routes import login_routes_bp
     from app.routes import register_routes_bp
+    from app.routes import settings_routes_bp
 
     app.register_blueprint(home_routes_bp)
     app.register_blueprint(error_routes_bp)
     app.register_blueprint(main_routes_bp)
     app.register_blueprint(login_routes_bp)
     app.register_blueprint(register_routes_bp)
+    app.register_blueprint(settings_routes_bp)
 
     return app

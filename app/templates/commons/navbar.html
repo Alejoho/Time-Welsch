@@ -34,7 +34,7 @@
                         Hola, {{ current_user.username }}
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Cambiar Contraseña</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('settings_routes.change_password') }}">Cambiar Contraseña</a></li>
                         <li><a class="dropdown-item text-danger" href="#">Eliminar Cuenta</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ url_for('login_routes.logout') }}">Cerrar Sessión</a></li>
