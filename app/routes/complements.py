@@ -74,9 +74,13 @@ def send_confirmation_email(recipient):
 
     msg.send()
 
+
+def send_reset_password_email(recipient):
+    link = generate_link("login_routes.reset_password", recipient)
+
     msg = EmailMessage(
-        "Account Activation",
-        f"To activate your account at Time Welsch, please follow this link:\n{activation_link}",
+        "Reestablecer Contraseña",
+        f"Para reestablecer tu contraseña en Time Welsch, por favor sigue este link:\n{link}",
         current_app.config["MAIL_USERNAME"],
         [recipient],
     )
