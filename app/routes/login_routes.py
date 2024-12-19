@@ -13,7 +13,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user
 from sqlalchemy import select
-from app.forms.login_form import LoginForm
+from app.forms import LoginForm, ForgotPassword
 from app.models import CurrentChapter
 from app.models.user import User
 from .complements import redirect_authenticated_users, verify_recaptcha
@@ -100,9 +100,11 @@ def demo_delete():
 # NEXT: Design the forgot password logic
 
 
-@bp.route("/contrasena-olvidada")
+@bp.route("/contrasena-olvidada", methods=["GET", "POST"])
 def forgot_password():
-    pass
+    form = ForgotPassword()
+
+    return render_template("register_login/forgot_password.html", form=form)
 
 
 # TODO: Implement the logic to create a demo user with 3 different status.

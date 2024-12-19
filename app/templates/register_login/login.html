@@ -9,7 +9,7 @@
 <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
 <script>
     function onSubmit(token) {
-        document.getElementById("registerForm").submit();
+        document.getElementById("loginForm").submit();
     }
 </script>
 {% endblock %}
@@ -18,7 +18,7 @@
 <main class="row justify-content-center">
     <div class="col-md-4">
         <h1 class="text-center mt-5">Iniciar Sesión</h1>
-        <form method="post" novalidate id="registerForm">
+        <form method="post" novalidate id="loginForm">
             {{ form.hidden_tag() }}
             {{ input(form.username) }}
             {{ input(form.password) }}
