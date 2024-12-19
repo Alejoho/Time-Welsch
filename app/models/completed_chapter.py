@@ -16,7 +16,10 @@ class CompletedChapter(db.Model):
     __table_args__ = (
         PrimaryKeyConstraint("user_id", "chapter_id", name="PK_completed_chapters"),
         ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name="FK_completed_chapters_user_id"
+            ["user_id"],
+            ["users.id"],
+            name="FK_completed_chapters_user_id",
+            ondelete="CASCADE",
         ),
         ForeignKeyConstraint(
             ["chapter_id"],

@@ -14,6 +14,7 @@ from flask import (
 from flask_login import login_user, logout_user
 from sqlalchemy import select
 from app.forms.login_form import LoginForm
+from app.models import CurrentChapter
 from app.models.user import User
 from .complements import redirect_authenticated_users, verify_recaptcha
 from app import db
@@ -71,6 +72,27 @@ def demo_unconfirm():
     user = db.session.scalars(
         select(User).where(User.username == "demo_unconfirm")
     ).one()
+    login_user(user)
+    return redirect(url_for("main_routes.my_route"))
+
+
+@bp.post("/demo_delete")
+def demo_delete():
+    user = User(
+        username="demo_delete",
+        email="demo@delete.com",
+        password="12345678",
+        confirmation=True,
+    )
+
+    db.session.add(user)
+    db.session.commit()
+
+    current_chapter = CurrentChapter(user_id=user.id)
+
+    db.session.add(current_chapter)
+    db.session.commit()
+
     login_user(user)
     return redirect(url_for("main_routes.my_route"))
 
