@@ -23,3 +23,7 @@ def page_not_found(error):
 @bp.app_errorhandler(NoResultFound)
 def no_result_found(error):
     return "No result was found"
+
+
+# LATER: Add the csrf error handler page
+# LATER: Add the method not allowed (405) handler page
