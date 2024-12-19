@@ -23,12 +23,15 @@
             {{ input(form.username) }}
             {{ input(form.password) }}
             <div class="form-group">
-                <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                <button class="btn btn-secondary g-recaptcha w-100 py-3" data-sitekey="{{ site_key }}" data-callback="onSubmit"
                     data-action="submit">Enviar</button>
             </div>
         </form>
-        <br>
-        <form action="/demo_confirm" method="post">
+        <!-- <br> -->
+        <p class="text-center mt-2">
+            <a href="{{ url_for('login_routes.forgot_password') }}" class="link-underline link-underline-opacity-0 fs-6">¿Olvidaste tu contraseña?</a>
+        </p>
+        <!--<form action="/demo_confirm" method="post">
             <button>Demo Confirm</button>
         </form>
         <form action="/demo_unconfirm" method="post">
@@ -36,7 +39,7 @@
         </form>
         <form action="/demo_delete" method="post">
             <button>Demo Delete</button>
-        </form>
+        </form> -->
     </div>
 </main>
 {% endblock %}

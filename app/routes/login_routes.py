@@ -97,6 +97,14 @@ def demo_delete():
     return redirect(url_for("main_routes.my_route"))
 
 
+# NEXT: Design the forgot password logic
+
+
+@bp.route("/contrasena-olvidada")
+def forgot_password():
+    pass
+
+
 # TODO: Implement the logic to create a demo user with 3 different status.
 # 1-Just registerd,
 # 2-Half complete the app
