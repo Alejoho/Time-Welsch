@@ -53,17 +53,26 @@ def verify_recaptcha(recaptcha_response):
     return result["success"] and result["score"] >= 0.5
 
 
-def generate_activation_link(recipient):
+def generate_link(route, recipient):
     serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = serializer.dumps(
         recipient, salt=current_app.config["SECURITY_PASSWORD_SALT"]
     )
-    link = url_for("register_routes.confirm_email", token=token, _external=True)
+    link = url_for(route, token=token, _external=True)
     return link
 
 
 def send_confirmation_email(recipient):
-    activation_link = generate_activation_link(recipient)
+    link = generate_link("register_routes.confirm_email", recipient)
+
+    msg = EmailMessage(
+        "Activación de cuenta",
+        f"Para activar tu cuenta en Time Welsch, por favor sigue este link:\n{link}",
+        current_app.config["MAIL_USERNAME"],
+        [recipient],
+    )
+
+    msg.send()
 
     msg = EmailMessage(
         "Account Activation",
