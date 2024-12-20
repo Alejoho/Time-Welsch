@@ -60,7 +60,7 @@ class UniqueEmail(object):
             raise ValidationError(self.message)
 
 
-class UserExistance(object):
+class RegisteredUsername(object):
     def __init__(self, message=None):
         if not message:
             self.message = "The username don't exist"

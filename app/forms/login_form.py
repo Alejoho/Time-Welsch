@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
-from .custom_validators import UserExistance, PasswordChecker
+from .custom_validators import RegisteredUsername, PasswordChecker
 
 
 class LoginForm(FlaskForm):
@@ -9,7 +9,9 @@ class LoginForm(FlaskForm):
         "Usuario",
         validators=[
             DataRequired("Campo requerido"),
-            UserExistance("No hay una cuenta registrada con este nombre de usuario"),
+            RegisteredUsername(
+                "No hay una cuenta registrada con este nombre de usuario"
+            ),
         ],
     )
 
