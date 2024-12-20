@@ -3,9 +3,7 @@ from wtforms import PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
-# LATER: Change the name to ResetPasswordForm
-# LATER: Move the equal to validation to the second password
-class ResetPassword(FlaskForm):
+class ResetPasswordForm(FlaskForm):
     password = PasswordField(
         "Contraseña",
         validators=[
@@ -14,10 +12,13 @@ class ResetPassword(FlaskForm):
                 min=8,
                 message="La contraseña debe tener más de 8 caracteres",
             ),
-            EqualTo("confirmation", "Las contraseñas deben coincidir"),
         ],
     )
 
     confirmation = PasswordField(
-        "Repite Contraseña", validators=[DataRequired("Campo requerido")]
+        "Repite Contraseña",
+        validators=[
+            DataRequired("Campo requerido"),
+            EqualTo("password", "Las contraseñas deben coincidir"),
+        ],
     )

@@ -4,9 +4,7 @@ from wtforms import StringField, EmailField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Email, Length
 
 
-# LATER: Validate all pages with the cs50 validator
-# LATER: Correct this name
-class RegisterFrom(FlaskForm):
+class RegisterForm(FlaskForm):
     username = StringField(
         "Usuario",
         validators=[
@@ -32,9 +30,12 @@ class RegisterFrom(FlaskForm):
                 min=8,
                 message="La contraseña debe tener más de 8 caracteres",
             ),
-            EqualTo("confirmation", "Las contraseñas deben coincidir"),
         ],
     )
     confirmation = PasswordField(
-        "Repite Contraseña", validators=[DataRequired("Campo requerido")]
+        "Repite Contraseña",
+        validators=[
+            DataRequired("Campo requerido"),
+            EqualTo("password", "Las contraseñas deben coincidir"),
+        ],
     )

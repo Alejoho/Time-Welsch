@@ -1,3 +1,6 @@
+# LATER: Document the majority of the code posible
+# LATER: Validate all pages with the cs50 validator
+
 #################
 #### imports ####
 #################

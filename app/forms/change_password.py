@@ -3,8 +3,6 @@ from wtforms import PasswordField, HiddenField
 from wtforms.validators import DataRequired, Length, EqualTo
 from app.forms.custom_validators import PasswordChecker
 
-# LATER: Document the majority of the code posible
-
 
 class ChangePassword(FlaskForm):
     username = HiddenField()
@@ -25,10 +23,13 @@ class ChangePassword(FlaskForm):
                 min=8,
                 message="La contraseña debe tener más de 8 caracteres",
             ),
-            EqualTo("confirmation", "Las contraseñas deben coincidir"),
         ],
     )
 
     confirmation = PasswordField(
-        "Repite Contraseña", validators=[DataRequired("Campo requerido")]
+        "Repite Contraseña",
+        validators=[
+            DataRequired("Campo requerido"),
+            EqualTo("new_password", "Las contraseñas deben coincidir"),
+        ],
     )

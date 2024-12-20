@@ -8,7 +8,7 @@ from flask import (
     url_for,
     flash,
 )
-from app.forms import RegisterFrom
+from app.forms import RegisterForm
 from app.models import User
 from app import db
 from flask_login import login_user, login_required, current_user
@@ -30,7 +30,7 @@ bp = Blueprint("register_routes", __name__)
 @bp.route("/registrarse", methods=["GET", "POST"])
 @redirect_authenticated_users
 def register():
-    form = RegisterFrom()
+    form = RegisterForm()
 
     if form.validate_on_submit():
         # reCaptcha verification

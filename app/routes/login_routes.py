@@ -14,7 +14,7 @@ from flask import (
 from flask_login import login_user, logout_user
 from itsdangerous import BadData, BadSignature, SignatureExpired
 from sqlalchemy import select
-from app.forms import LoginForm, ForgotPassword, ResetPassword
+from app.forms import LoginForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import CurrentChapter, User
 from .complements import (
     confirm_token,
@@ -110,7 +110,7 @@ def demo_delete():
 @bp.route("/reestablecer-contrasena", methods=["GET", "POST"])
 @redirect_authenticated_users
 def forgot_password():
-    form = ForgotPassword()
+    form = ResetPasswordRequestForm()
     # CHECK: If i need reCaptcha in every form
     if form.validate_on_submit():
         # recaptcha_response = request.form.get("g-recaptcha-response")
@@ -144,7 +144,7 @@ def reset_password(token):
             "El link de reestablecer contraseña que intentaste es inválido debido a malos datos."
         )
 
-    form = ResetPassword()
+    form = ResetPasswordForm()
 
     if form.validate_on_submit():
         # Get the user by email
