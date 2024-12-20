@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import DataRequired
 from .custom_validators import RegisteredUsername, PasswordChecker
 
@@ -22,3 +22,5 @@ class LoginForm(FlaskForm):
             PasswordChecker("Contraseña incorrecta", "username"),
         ],
     )
+
+    remember_me = BooleanField("Recuérdame", default=False)

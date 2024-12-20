@@ -45,8 +45,8 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
-        # NEXT: Implement the keep me logged in with a check box
-        login_user(user)
+        # CHECK: If the implementation remember me logged in works
+        login_user(user, remember=form.remember_me.data)
 
         next_page = request.args.get("next")
         if not next_page or urlparse(next_page).netloc != "":

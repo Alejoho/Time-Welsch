@@ -22,6 +22,8 @@
             {{ form.hidden_tag() }}
             {{ input(form.username) }}
             {{ input(form.password) }}
+            {{ form.remember_me(class_="ms-2") }}
+            {{ form.remember_me.label(class_="mb-3") }}
             <div class="form-group">
                 <button class="btn btn-secondary g-recaptcha w-100 py-2 fs-5" data-sitekey="{{ site_key }}" data-callback="onSubmit"
                     data-action="submit">Enviar</button>
