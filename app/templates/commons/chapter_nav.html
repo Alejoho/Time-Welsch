@@ -12,7 +12,7 @@
         </p>
         {% endif %}
     </div>
-    {% if current_user.current_chapter.current_chapter > number %}
+    {% if current_user.current_chapter > number %}
     <div class="col-md-6 col-sm-12">
         <p><strong>Siguiente</strong>:
             {%- if number < (chapters | length)-1 %} <a href="{{ url_for('main_routes.show_chapter',number=number+1) }}"

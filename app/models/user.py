@@ -16,8 +16,7 @@ class User(db.Model, UserMixin):
     password_hash: Mapped[str] = mapped_column(String(200))
     date_created: Mapped[datetime] = mapped_column(default=datetime.now(pytz.utc))
     confirmation: Mapped[bool] = mapped_column(default=False)
-    # LATER: add a property to get and set the current_chapter of the CurrentChapter class related directly
-    current_chapter: Mapped["CurrentChapter"] = relationship(
+    current_chapter_relationship: Mapped["CurrentChapter"] = relationship(
         cascade="save-update, merge, delete"
     )
 
@@ -33,6 +32,14 @@ class User(db.Model, UserMixin):
     @password.setter
     def password(self, password):
         self.password_hash = generate_password_hash(password)
+
+    @property
+    def current_chapter(self):
+        return self.current_chapter_relationship.current_chapter
+
+    @current_chapter.setter
+    def current_chapter(self, value):
+        self.current_chapter_relationship.current_chapter = value
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)

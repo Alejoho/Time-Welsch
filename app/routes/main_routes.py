@@ -55,7 +55,7 @@ def show_chapter(number):
 @check_chapter
 def mark_chapter_as_completed(number):
     # update the current_chapters row of the current user
-    current_user.current_chapter.current_chapter = number + 1
+    current_user.current_chapter = number + 1
     # add a new row to the completed_chapters table for the current chapter an user
     completed_chapter = CompletedChapter(
         user_id=current_user.id,
