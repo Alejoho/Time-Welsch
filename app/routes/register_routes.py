@@ -126,11 +126,11 @@ def resend_confirmation():
 def unconfirmed():
     if current_user.confirmation:
         return redirect(url_for("main_routes.my_route"))
-    return render_template("account_managment/confirmation.html")
+    return render_template("account_managment/account_confirmation.html")
 
 
 @bp.get("/confirmacion")
 @login_required
 @block_confirmed_users
 def confirmation():
-    return render_template("account_managment/confirmation.html", register=True)
+    return render_template("account_managment/account_confirmation.html", register=True)

@@ -119,7 +119,7 @@ def reset_password_request():
         #     return abort(401)
 
         send_reset_password_email(form.email.data)
-        return render_template("account_managment/reset_confirmation.html")
+        return render_template("account_managment/reset_password_confirmation.html")
 
     return render_template("account_managment/reset_password_request.html", form=form)
 
