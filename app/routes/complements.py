@@ -104,7 +104,7 @@ def handle_confirmation_error(message):
 
 def handle_reset_password_error(message):
     flash(message, "danger")
-    return redirect(url_for("login_routes.forgot_password"))
+    return redirect(url_for("login_routes.reset_password_request"))
 
 
 def chapter_dont_exist(number):

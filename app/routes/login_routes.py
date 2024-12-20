@@ -106,10 +106,9 @@ def demo_delete():
     return redirect(url_for("main_routes.my_route"))
 
 
-# LATER: Change the name to reset_password_request
 @bp.route("/reestablecer-contrasena", methods=["GET", "POST"])
 @redirect_authenticated_users
-def forgot_password():
+def reset_password_request():
     form = ResetPasswordRequestForm()
     # CHECK: If i need reCaptcha in every form
     if form.validate_on_submit():
@@ -122,7 +121,7 @@ def forgot_password():
         send_reset_password_email(form.email.data)
         return render_template("register_login/reset_confirmation.html")
 
-    return render_template("register_login/forgot_password.html", form=form)
+    return render_template("register_login/reset_password_request.html", form=form)
 
 
 @bp.get("/reestablecer-contrasena/<token>")
@@ -132,15 +131,15 @@ def reset_password(token):
         email = confirm_token(token, current_app.config["RESET_PASSWORD_MAX_AGE"])
     except SignatureExpired:
         return handle_reset_password_error(
-            "El link de reestablecer contraseña que intentaste ha expirado."
+            "El link de reestablecer contraseña que intentaste ha expirado. Inténtalo de nuevo."
         )
     except BadSignature:
         return handle_reset_password_error(
-            "El link de reestablecer contraseña que intentaste es inválido."
+            "El link de reestablecer contraseña que intentaste es inválido.  Inténtalo de nuevo."
         )
     except BadData:
         return handle_reset_password_error(
-            "El link de reestablecer contraseña que intentaste es inválido debido a malos datos."
+            "El link de reestablecer contraseña que intentaste es inválido debido a malos datos. Inténtalo de nuevo."
         )
 
     form = ResetPasswordForm()
