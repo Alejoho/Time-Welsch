@@ -21,7 +21,7 @@ def redirect_authenticated_users(func):
 def block_confirmed_users(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
-        if current_user.confirmation is True:
+        if current_user.is_authenticated and current_user.confirmation is True:
             return abort(401)
         return func(*args, **kwargs)
 

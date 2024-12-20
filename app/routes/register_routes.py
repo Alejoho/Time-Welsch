@@ -82,7 +82,6 @@ def register():
 
 
 @bp.get("/confirmar_email/<token>")
-@login_required
 @block_confirmed_users
 def confirm_email(token):
     try:

@@ -9,6 +9,7 @@ class LoginForm(FlaskForm):
         "Usuario",
         validators=[
             DataRequired("Campo requerido"),
+            # FIXME: The message is to large and don't show completely
             RegisteredUsername(
                 "No hay una cuenta registrada con este nombre de usuario"
             ),

@@ -29,7 +29,7 @@ class BaseConfig(object):
     ACCOUNT_CONFIRMATION_MAX_AGE = 3600
     RESET_PASSWORD_MAX_AGE = 300
 
-    REMEMBER_COOKIE_DURATION = 60
+    REMEMBER_COOKIE_DURATION = 2592000
 
 
 class DevelopmentConfig(BaseConfig):
