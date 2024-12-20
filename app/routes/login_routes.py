@@ -45,7 +45,7 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
-        # LATER: How to implement the keep me logged in
+        # NEXT: Implement the keep me logged in with a check box
         login_user(user)
 
         next_page = request.args.get("next")
@@ -70,7 +70,7 @@ def logout():
 @redirect_authenticated_users
 def demo_confirm():
     user = db.session.scalars(select(User).where(User.username == "demo_confirm")).one()
-    login_user(user)
+    login_user(user, remember=True)
     return redirect(url_for("main_routes.my_route"))
 
 
@@ -80,7 +80,7 @@ def demo_unconfirm():
     user = db.session.scalars(
         select(User).where(User.username == "demo_unconfirm")
     ).one()
-    login_user(user)
+    login_user(user, remember=True)
     return redirect(url_for("main_routes.my_route"))
 
 
@@ -102,7 +102,7 @@ def demo_delete():
     db.session.add(current_chapter)
     db.session.commit()
 
-    login_user(user)
+    login_user(user, remember=True)
     return redirect(url_for("main_routes.my_route"))
 
 

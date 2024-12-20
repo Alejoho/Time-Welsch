@@ -3,8 +3,7 @@
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
         {% for category, message in messages %}
-        {# LATER: Add a border for the warnning category since there a constract problem with the body background #}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <div class="alert alert-{{ category }} alert-dismissible fade show {{ 'border border-dark-subtle' if category=='warning' else '' }}" role="alert">
             {{message}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

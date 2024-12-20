@@ -13,20 +13,19 @@
                     <th scope="col" class="px-sm-5">Completado</th>
                 </tr>
             </thead>
-            {# LATER: Maybe add links to the chapters from the table rows(use the entire row as a link) #}
             <tbody class="table-group-divider hide-first">
                 {% for i in range( chapters | length ) %}
-                <tr>
-                    <th scope="row" class="ps-sm-4">{{ chapters[i].number }}</th>
-                    <td>{{ chapters[i].name }}</td>
-                    <td class="datetime pe-sm-5">
-                    {% if completed_chapters[i-1] is defined and i-1 >= 0%}
-                    {{completed_chapters[i-1].iso_completed_date }}
-                    {% else %}
-                    <div class="d-flex justify-content-center">-</div>
-                    {% endif %}
-                    </td>
-                </tr>
+                    <tr>
+                        <th scope="row" class="ps-sm-4">{{ chapters[i].number }}</th>
+                        <td>{{ chapters[i].name }}</td>
+                        <td class="datetime pe-sm-5">
+                            {% if completed_chapters[i-1] is defined and i-1 >= 0%}
+                            {{completed_chapters[i-1].iso_completed_date }}
+                            {% else %}
+                            <div class="d-flex justify-content-center">-</div>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
