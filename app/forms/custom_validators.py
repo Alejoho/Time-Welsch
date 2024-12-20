@@ -25,8 +25,14 @@ class EmailExistence(object):
             raise ValidationError("Verificación de correo fallida. Inténtalo de nuevo")
 
         data = response.json()
-        # FIXME: Redo the logic of the validation of emails
-        if not data.get("data", {}).get("result") == "deliverable":
+
+        status = data.get("data", {}).get("status")
+        result = data.get("data", {}).get("result")
+
+        if result == "undeliverable":
+            raise ValidationError(self.message)
+
+        if result == "risky" and status in ["invalid", "disposable", "unknown"]:
             raise ValidationError(self.message)
 
 
