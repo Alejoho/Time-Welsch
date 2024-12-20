@@ -54,7 +54,7 @@ def login():
         return redirect(next_page)
 
     return render_template(
-        "register_login/login.html",
+        "account_managment/login.html",
         form=form,
         site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"],
     )
@@ -119,9 +119,9 @@ def reset_password_request():
         #     return abort(401)
 
         send_reset_password_email(form.email.data)
-        return render_template("register_login/reset_confirmation.html")
+        return render_template("account_managment/reset_confirmation.html")
 
-    return render_template("register_login/reset_password_request.html", form=form)
+    return render_template("account_managment/reset_password_request.html", form=form)
 
 
 @bp.get("/reestablecer-contrasena/<token>")
@@ -156,7 +156,7 @@ def reset_password(token):
         # Redirect to the login page
         return redirect(url_for("login_routes.login"))
 
-    return render_template("register_login/reset_password.html", form=form)
+    return render_template("account_managment/reset_password.html", form=form)
 
 
 # TODO: Implement the logic to create a demo user with 3 different status.

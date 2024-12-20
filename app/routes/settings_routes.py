@@ -26,7 +26,7 @@ def change_password():
         flash("Tu contraseña ha sido cambiada.", "success")
         return redirect(url_for("main_routes.my_route"))
 
-    return render_template("register_login/change_password.html", form=form)
+    return render_template("account_managment/change_password.html", form=form)
 
 
 @bp.route("/eliminar-cuenta", methods=["GET"])
