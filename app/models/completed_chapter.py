@@ -5,10 +5,9 @@ from datetime import datetime
 import pytz
 
 
-# LATER: Clean up all the models like this one. first all the things related with the
-# table creation and the the things related with the logic of the app
 class CompletedChapter(db.Model):
     __tablename__ = "completed_chapters"
+
     user_id: Mapped[int]
     chapter_id: Mapped[int]
     completed_date: Mapped[datetime]

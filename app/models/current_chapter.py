@@ -1,11 +1,11 @@
 from app import db
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import UniqueConstraint, ForeignKeyConstraint, PrimaryKeyConstraint
-from app.models import User
 
 
 class CurrentChapter(db.Model):
     __tablename__ = "current_chapters"
+
     user_id: Mapped[int]
     current_chapter: Mapped[int] = mapped_column(default=1)
 
