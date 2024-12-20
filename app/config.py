@@ -25,6 +25,10 @@ class BaseConfig(object):
     # mail accounts
     MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER")
 
+    # token max ages
+    ACCOUNT_CONFIRMATION_MAX_AGE = 3600
+    RESET_PASSWORD_MAX_AGE = 300
+
 
 class DevelopmentConfig(BaseConfig):
     """Development configuration."""

@@ -125,12 +125,11 @@ def forgot_password():
     return render_template("register_login/forgot_password.html", form=form)
 
 
-# LATER: Add the reset pass token max age and the confirmation token max age in the app settings
 @bp.get("/reestablecer-contrasena/<token>")
 @redirect_authenticated_users
 def reset_password(token):
     try:
-        email = confirm_token(token)
+        email = confirm_token(token, current_app.config["RESET_PASSWORD_MAX_AGE"])
     except SignatureExpired:
         return handle_reset_password_error(
             "El link de reestablecer contraseña que intentaste ha expirado."

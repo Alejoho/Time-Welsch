@@ -88,7 +88,7 @@ def register():
 @user_confirmed_blocked
 def confirm_email(token):
     try:
-        email = confirm_token(token)
+        email = confirm_token(token, current_app.config["ACCOUNT_CONFIRMATION_MAX_AGE"])
     except SignatureExpired:
         return handle_confirmation_error(
             "El link de confirmación que intentaste ha expirado."
