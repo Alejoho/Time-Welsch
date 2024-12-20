@@ -1,0 +1,10 @@
+{% extends "errors/error_template.html" %}
+
+{% block description %}pagina de error 405{% endblock %}
+
+{% block title %}405{% endblock %}
+
+{% block error_content %}
+    <h1>405<br>Método no permitido</h1>
+    <p>Parece que la página que intentas acceder no permite el método usado</p>
+{% endblock %}

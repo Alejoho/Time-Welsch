@@ -18,8 +18,7 @@ def redirect_authenticated_users(func):
     return decorated_function
 
 
-# LATER: Change the name to confirmed_blocked
-def block_confirmed(func):
+def user_confirmed_blocked(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if current_user.confirmation is True:

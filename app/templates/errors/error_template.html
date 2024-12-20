@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center d-flex justify-content-center align-items-center custom">
+    <div class="col-md-6">
+{% block error_content %}{% endblock %}
+<p><a href="{{ url_for('home_routes.index') }}" class="btn btn-secondary">Regresa a la página de inicio</a>
+</p>
+    </div>
+</div>
+{% endblock %}
