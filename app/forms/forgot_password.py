@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField
-from wtforms.validators import DataRequired
-from .custom_validators import UniqueEmail, EmailExistence
+from wtforms.validators import DataRequired, Email
+from .custom_validators import RegisteredEmail, EmailExistence
 
 
 class ForgotPassword(FlaskForm):
@@ -9,7 +9,8 @@ class ForgotPassword(FlaskForm):
         "Correo",
         validators=[
             DataRequired("Campo requerido"),
-            UniqueEmail("No hay cuenta registrada con este correo"),
+            Email("Formato de correo inválido"),
+            RegisteredEmail("No hay cuenta registrada con este correo"),
             EmailExistence("Parece que este correo no está disponible"),
         ],
     )

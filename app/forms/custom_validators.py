@@ -75,6 +75,21 @@ class RegisteredUsername(object):
             raise ValidationError(self.message)
 
 
+class RegisteredEmail(object):
+    def __init__(self, message=None):
+        if not message:
+            self.message = "The email don't exist"
+        self.message = message
+
+    def __call__(self, form, field):
+        try:
+            user = db.session.scalars(
+                select(User).where(User.email == field.data)
+            ).one()
+        except:
+            raise ValidationError(self.message)
+
+
 class PasswordChecker(object):
     def __init__(self, message=None, username_field=None):
         if not message:

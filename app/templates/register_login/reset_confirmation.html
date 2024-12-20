@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block description %}Página de confirmación de link enviado para reestablecer contraseña{% endblock %}
+
+{% block title %}Reestablece contraseña{% endblock %}
+
+{% block head %}
+<style>
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="d-flex justify-content-center align-items-center custom">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="card-title">Reestablece Contraseña</h1>
+                    <p class="card-text">Por favor revisa tu buzón de entrada (y tu carpeta de span si es necesario) 
+                        para reestablecer tu contraseña.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

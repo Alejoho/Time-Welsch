@@ -16,7 +16,11 @@ from sqlalchemy import select
 from app.forms import LoginForm, ForgotPassword
 from app.models import CurrentChapter
 from app.models.user import User
-from .complements import redirect_authenticated_users, verify_recaptcha
+from .complements import (
+    redirect_authenticated_users,
+    verify_recaptcha,
+    send_reset_password_email,
+)
 from app import db
 
 
@@ -97,14 +101,29 @@ def demo_delete():
     return redirect(url_for("main_routes.my_route"))
 
 
-# NEXT: Design the forgot password logic
-
-
 @bp.route("/contrasena-olvidada", methods=["GET", "POST"])
 def forgot_password():
     form = ForgotPassword()
+    # CHECK: If i need reCaptcha in every form
+    if form.validate_on_submit():
+        # recaptcha_response = request.form.get("g-recaptcha-response")
+
+        # if not verify_recaptcha(recaptcha_response):
+        #     flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
+        #     return abort(401)
+
+        send_reset_password_email(form.email.data)
+        return render_template("register_login/reset_confirmation.html")
 
     return render_template("register_login/forgot_password.html", form=form)
+
+
+# NEXT: Design the reset password logic
+
+
+@bp.get("/reestablecer-contrasena")
+def reset_password():
+    pass
 
 
 # TODO: Implement the logic to create a demo user with 3 different status.
