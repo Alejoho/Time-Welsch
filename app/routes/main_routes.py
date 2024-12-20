@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, abort
 from flask_login import login_required, current_user
 from app import chapters, db
-from .complements import check_chapter, chapter_dont_exist
+from .complements import block_unconfirmed_users, check_chapter, chapter_dont_exist
 from sqlalchemy import select
 from app.models import CompletedChapter
 from datetime import datetime
@@ -13,10 +13,10 @@ bp = Blueprint("main_routes", __name__)
 
 @bp.before_request
 @login_required
-def check_confirmed():
-    if current_user.confirmation is False:
-        flash("Por favor confirma tu cuenta!", "warning")
-        return redirect(url_for("register_routes.unconfirmed"))
+@block_unconfirmed_users
+# This is just a function to avoid and error
+def bypass_error():
+    pass
 
 
 @bp.context_processor

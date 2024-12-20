@@ -18,11 +18,22 @@ def redirect_authenticated_users(func):
     return decorated_function
 
 
-def user_confirmed_blocked(func):
+def block_confirmed_users(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         if current_user.confirmation is True:
             return abort(401)
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+
+def block_unconfirmed_users(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.confirmation is False:
+            flash("Por favor confirma tu cuenta!", "warning")
+            return redirect(url_for("register_routes.unconfirmed"))
         return func(*args, **kwargs)
 
     return decorated_function

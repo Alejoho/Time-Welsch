@@ -19,7 +19,7 @@ from .complements import (
     send_confirmation_email,
     verify_recaptcha,
     handle_confirmation_error,
-    user_confirmed_blocked,
+    block_confirmed_users,
     redirect_authenticated_users,
 )
 from itsdangerous import SignatureExpired, BadSignature, BadData
@@ -85,7 +85,7 @@ def register():
 # I want even if im loggout confirm the account and then redirect to the login page
 @bp.get("/confirmar_email/<token>")
 @login_required
-@user_confirmed_blocked
+@block_confirmed_users
 def confirm_email(token):
     try:
         email = confirm_token(token, current_app.config["ACCOUNT_CONFIRMATION_MAX_AGE"])
@@ -113,7 +113,7 @@ def confirm_email(token):
 
 @bp.get("/reenviar_confirmacion")
 @login_required
-@user_confirmed_blocked
+@block_confirmed_users
 def resend_confirmation():
     send_confirmation_email(current_user.email)
     flash("Un nuevo link de confirmacion ha sido enviado.", "success")
@@ -122,7 +122,7 @@ def resend_confirmation():
 
 @bp.route("/no_confirmado")
 @login_required
-@user_confirmed_blocked
+@block_confirmed_users
 def unconfirmed():
     if current_user.confirmation:
         return redirect(url_for("main_routes.my_route"))
@@ -131,6 +131,6 @@ def unconfirmed():
 
 @bp.get("/confirmacion")
 @login_required
-@user_confirmed_blocked
+@block_confirmed_users
 def confirmation():
     return render_template("register_login/confirmation.html", register=True)
