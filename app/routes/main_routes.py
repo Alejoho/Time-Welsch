@@ -40,26 +40,27 @@ def summary():
     return render_template("main/summary.html", completed_chapters=completed_chapters)
 
 
-@bp.get("/capitulo/<int:number>")
+@bp.get("/capitulo/<int:chapter_number>")
 @check_chapter
-def show_chapter(number):
+def show_chapter(chapter_number):
 
-    if chapter_dont_exist(number):
+    if chapter_dont_exist(chapter_number):
         return render_template("chapters/chapter_in_process.html")
 
-    return render_template(f"chapters/chapter_{number}.html", number=number)
+    return render_template(
+        f"chapters/chapter_{chapter_number}.html", chapter_number=chapter_number
+    )
 
 
-# LATER: Change the number variable by chapter_number across the board
-@bp.get("/capitulo/<int:number>/completado")
+@bp.get("/capitulo/<int:chapter_number>/completado")
 @check_chapter
-def mark_chapter_as_completed(number):
+def mark_chapter_as_completed(chapter_number):
     # update the current_chapters row of the current user
-    current_user.current_chapter = number + 1
+    current_user.current_chapter = chapter_number + 1
     # add a new row to the completed_chapters table for the current chapter an user
     completed_chapter = CompletedChapter(
         user_id=current_user.id,
-        chapter_id=number,
+        chapter_id=chapter_number,
         completed_date=datetime.now(pytz.utc),
     )
 
@@ -71,4 +72,6 @@ def mark_chapter_as_completed(number):
         db.session.rollback()
         abort(500)
     # redirect the user to the next chapter
-    return redirect(url_for("main_routes.show_chapter", number=number + 1))
+    return redirect(
+        url_for("main_routes.show_chapter", chapter_number=chapter_number + 1)
+    )

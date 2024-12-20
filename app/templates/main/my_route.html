@@ -33,9 +33,9 @@
                                     </h2>
                                 </div>
                                 {%- if chapter.number <= current_user.current_chapter %} 
-                                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}" class="btn btn-outline-secondary btn-sm">Ir al capítulo</a>
+                                    <a href="{{ url_for('main_routes.show_chapter',chapter_number=chapter.number) }}" class="btn btn-outline-secondary btn-sm">Ir al capítulo</a>
                                 {%- else %}
-                                    <a href="{{ url_for('main_routes.show_chapter',number=chapter.number) }}" class="btn btn-outline-secondary btn-sm disabled">Ir al capítulo</a>
+                                    <a href="{{ url_for('main_routes.show_chapter',chapter_number=chapter.number) }}" class="btn btn-outline-secondary btn-sm disabled">Ir al capítulo</a>
                                 {% endif %}
                                 
                             </div>

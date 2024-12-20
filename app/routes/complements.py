@@ -31,7 +31,7 @@ def user_confirmed_blocked(func):
 def check_chapter(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
-        chapter_number = args[0] if args else kwargs.get("number")
+        chapter_number = args[0] if args else kwargs.get("chapter_number")
         if chapter_number > current_user.current_chapter:
             flash("Faltan capítulos por leer.", "info")
             return redirect(url_for("main_routes.my_route"))

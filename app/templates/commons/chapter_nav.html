@@ -1,24 +1,24 @@
-{% if number %}
+{% if chapter_number %}
 <hr class="mt-4">
 
 <nav class="row mt-4">
     <div class="col-md-6 col-sm-12">
-        {% if number > 1 %}
+        {% if chapter_number > 1 %}
         <p><strong>Anterior</strong>:
-            <a href="{{ url_for('main_routes.show_chapter',number=number-1) }}"
+            <a href="{{ url_for('main_routes.show_chapter',chapter_number=chapter_number-1) }}"
                 class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Capítulo
                 {{
-                chapters[number-1].number }}: {{ chapters[number-1].name }}</a>
+                chapters[chapter_number-1].number }}: {{ chapters[chapter_number-1].name }}</a>
         </p>
         {% endif %}
     </div>
-    {% if current_user.current_chapter > number %}
+    {% if current_user.current_chapter > chapter_number %}
     <div class="col-md-6 col-sm-12">
         <p><strong>Siguiente</strong>:
-            {%- if number < (chapters | length)-1 %} <a href="{{ url_for('main_routes.show_chapter',number=number+1) }}"
+            {%- if chapter_number < (chapters | length)-1 %} <a href="{{ url_for('main_routes.show_chapter',chapter_number=chapter_number+1) }}"
                 class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                 Capítulo {{
-                chapters[number+1].number }}: {{ chapters[number+1].name }}</a>
+                chapters[chapter_number+1].number }}: {{ chapters[chapter_number+1].name }}</a>
             {%- endif -%}
         </p>
     </div>

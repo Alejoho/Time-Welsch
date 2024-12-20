@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{% if number %}
-Capítulo {{ chapters[number].number }} - {{ chapters[number].name }}
+{% if chapter_number %}
+Capítulo {{ chapters[chapter_number].chapter_number }} - {{ chapters[chapter_number].name }}
 {%- else %}
 Capítulo en creación
 {%- endif %}
 {% endblock %}
 
 {% block description %}
-{% if number %}
-{{ chapters[number].description }}
+{% if chapter_number %}
+{{ chapters[chapter_number].description }}
 {%- else %}
 El contenido de este capítulo no está listo
 {%- endif %}
@@ -43,9 +43,9 @@ El contenido de este capítulo no está listo
         data-bs-smooth-scroll="true">
 
         {% block chapter_content %}{% endblock %}
-        {% if current_user.current_chapter == number %}
+        {% if current_user.current_chapter == chapter_number %}
         <div class="d-flex justify-content-md-start justify-content-center mb-4 mt-5">
-            <a href="{{ url_for('main_routes.mark_chapter_as_completed',number=number) }}" class="btn btn-primary btn-lg ms-md-5">Capítulo Completado</a>
+            <a href="{{ url_for('main_routes.mark_chapter_as_completed',chapter_number=chapter_number) }}" class="btn btn-primary btn-lg ms-md-5">Capítulo Completado</a>
         </div>
         {% endif %}
     </main>
