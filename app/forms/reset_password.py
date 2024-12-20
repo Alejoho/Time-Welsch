@@ -1,24 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, HiddenField
+from wtforms import PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo
-from app.forms.custom_validators import PasswordChecker
-
-# LATER: Document the majority of the code posible
 
 
-class ChangePassword(FlaskForm):
-    username = HiddenField()
-
-    old_password = PasswordField(
-        "Contraseña Antigua",
-        validators=[
-            DataRequired("Campo requerido"),
-            PasswordChecker("Contraseña incorrecta", "username"),
-        ],
-    )
-
-    new_password = PasswordField(
-        "Contraseña Nueva",
+# LATER: Change the name to ResetPasswordForm
+# LATER: Move the equal to validation to the second password
+class ResetPassword(FlaskForm):
+    password = PasswordField(
+        "Contraseña",
         validators=[
             DataRequired("Campo requerido"),
             Length(

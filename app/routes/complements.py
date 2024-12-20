@@ -75,6 +75,7 @@ def send_confirmation_email(recipient):
     msg.send()
 
 
+# LATER: Implement the functionality that only the reset password link works one time
 def send_reset_password_email(recipient):
     link = generate_link("login_routes.reset_password", recipient)
 
@@ -100,6 +101,11 @@ def confirm_token(token, expiration=3600):
 def handle_confirmation_error(message):
     flash(message, "danger")
     return redirect(url_for("register_routes.confirmation"))
+
+
+def handle_reset_password_error(message):
+    flash(message, "danger")
+    return redirect(url_for("login_routes.forgot_password"))
 
 
 def chapter_dont_exist(number):

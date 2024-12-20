@@ -12,11 +12,13 @@ from flask import (
     url_for,
 )
 from flask_login import login_user, logout_user
+from itsdangerous import BadData, BadSignature, SignatureExpired
 from sqlalchemy import select
-from app.forms import LoginForm, ForgotPassword
-from app.models import CurrentChapter
-from app.models.user import User
+from app.forms import LoginForm, ForgotPassword, ResetPassword
+from app.models import CurrentChapter, User
 from .complements import (
+    confirm_token,
+    handle_reset_password_error,
     redirect_authenticated_users,
     verify_recaptcha,
     send_reset_password_email,
@@ -65,6 +67,7 @@ def logout():
 
 
 @bp.post("/demo_confirm")
+@redirect_authenticated_users
 def demo_confirm():
     user = db.session.scalars(select(User).where(User.username == "demo_confirm")).one()
     login_user(user)
@@ -72,6 +75,7 @@ def demo_confirm():
 
 
 @bp.post("/demo_unconfirm")
+@redirect_authenticated_users
 def demo_unconfirm():
     user = db.session.scalars(
         select(User).where(User.username == "demo_unconfirm")
@@ -81,6 +85,7 @@ def demo_unconfirm():
 
 
 @bp.post("/demo_delete")
+@redirect_authenticated_users
 def demo_delete():
     user = User(
         username="demo_delete",
@@ -101,7 +106,9 @@ def demo_delete():
     return redirect(url_for("main_routes.my_route"))
 
 
-@bp.route("/contrasena-olvidada", methods=["GET", "POST"])
+# LATER: Change the name to reset_password_request
+@bp.route("/reestablecer-contrasena", methods=["GET", "POST"])
+@redirect_authenticated_users
 def forgot_password():
     form = ForgotPassword()
     # CHECK: If i need reCaptcha in every form
@@ -118,12 +125,40 @@ def forgot_password():
     return render_template("register_login/forgot_password.html", form=form)
 
 
-# NEXT: Design the reset password logic
+# LATER: Add the reset pass token max age and the confirmation token max age in the app settings
+@bp.get("/reestablecer-contrasena/<token>")
+@redirect_authenticated_users
+def reset_password(token):
+    try:
+        email = confirm_token(token)
+    except SignatureExpired:
+        return handle_reset_password_error(
+            "El link de reestablecer contraseña que intentaste ha expirado."
+        )
+    except BadSignature:
+        return handle_reset_password_error(
+            "El link de reestablecer contraseña que intentaste es inválido."
+        )
+    except BadData:
+        return handle_reset_password_error(
+            "El link de reestablecer contraseña que intentaste es inválido debido a malos datos."
+        )
 
+    form = ResetPassword()
 
-@bp.get("/reestablecer-contrasena")
-def reset_password():
-    pass
+    if form.validate_on_submit():
+        # Get the user by email
+        user = db.session.scalars(select(User).where(User.email == email)).one()
+        # Set the new password
+        user.password = form.password.data
+        # Commit to the db
+        db.session.commit()
+        # Flash the message
+        flash("Contraseña reestablecida.", "success")
+        # Redirect to the login page
+        return redirect(url_for("login_routes.login"))
+
+    return render_template("register_login/reset_password.html", form=form)
 
 
 # TODO: Implement the logic to create a demo user with 3 different status.

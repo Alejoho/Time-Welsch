@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Email
 from .custom_validators import RegisteredEmail, EmailExistence
 
 
+# LATER: Change the name to ResetPasswordRequestForm
 class ForgotPassword(FlaskForm):
     email = EmailField(
         "Correo",

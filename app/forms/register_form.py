@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, EqualTo, Email, Length
 
 
 # LATER: Validate all pages with the cs50 validator
+# LATER: Correct this name
 class RegisterFrom(FlaskForm):
     username = StringField(
         "Usuario",
