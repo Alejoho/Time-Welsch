@@ -99,30 +99,11 @@ def confirm_email(token):
             "El link de confirmación que intentaste es inválido debido a malos datos."
         )
 
-    # CHECK: The user is logged in (it has not been confirmed) so the current_user variable is instanciated.
-    # I query the db and return a result with the same user and set the confirm field to true.
-    # After I the commit the confirm field is updated in the current user as well?
-
     user = User.query.where(User.email == email).one()
 
-    if user.confirmation:
-        flash("Cuenta ya confirmada.", "info")
-    # CHECK: The user is logged in (it has not been confirmed) so the current_user variable is instanciated.
-    # I query the db and return a result with the same user and set the confirm field to true.
-    # After I the commit the confirm field is updated in the current user as well?
-
-    user = User.query.where(User.email == email).one()
-
-    if user.confirmation:
-        flash("Cuenta ya confirmada.", "info")
-    else:
-        user.confirmation = True
-        user.confirmation = True
-        db.session.commit()
-        flash("Has confirmado tu cuenta.", "success")
-
-    if not current_user.is_authenticated:
-        login_user(user)
+    user.confirmation = True
+    db.session.commit()
+    flash("Has confirmado tu cuenta.", "success")
 
     if not current_user.is_authenticated:
         login_user(user)
