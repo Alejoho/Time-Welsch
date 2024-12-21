@@ -18,6 +18,7 @@ from app.forms import LoginForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import CurrentChapter, User
 from .complements import (
     confirm_token,
+    create_demo_user,
     handle_reset_password_error,
     redirect_authenticated_users,
     verify_recaptcha,
@@ -163,3 +164,19 @@ def reset_password(token):
 # 1-Just registerd,
 # 2-Half complete the app
 # 3-Complete the app
+
+
+@bp.get("/iniciar_sesion_usuario_demo/<level>")
+def login_user_demo(level):
+    if level == "principiante":
+        user = create_demo_user(name="demo_principiante")
+    elif level == "intermedio":
+        user = create_demo_user(16, "demo_intermedio")
+    elif level == "avanzado":
+        user = create_demo_user(32, "demo_avanzado")
+    else:
+        abort(400)
+
+    login_user(user)
+
+    return redirect(url_for("main_routes.my_route"))

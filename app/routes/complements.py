@@ -6,6 +6,9 @@ from flask_mailman import EmailMessage
 from jinja2 import TemplateNotFound
 import requests
 
+from app.models import User, CurrentChapter, CompletedChapter
+from app import db
+
 
 def redirect_authenticated_users(func):
     @wraps(func)
@@ -125,3 +128,18 @@ def chapter_dont_exist(number):
         return False
     except TemplateNotFound:
         return True
+
+
+# I have to give different names and emails. What if two user start a demo of the same type one after the other
+def create_demo_user(current_chapter=0, name="usuario_demo"):
+    user = User(
+        username=name, email=f"{name}@user.demo", password="12345678", confirmation=True
+    )
+
+    with db.session.begin():
+        db.session.add(user)
+
+    current_chapter = CurrentChapter(user_id=user.id, current_chapter=current_chapter)
+
+    with db.session.begin():
+        db.session.add(current_chapter)
