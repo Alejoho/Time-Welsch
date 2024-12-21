@@ -1,4 +1,6 @@
 from functools import wraps
+from datetime import datetime, timedelta, UTC
+from random import randint
 
 import requests
 from flask import abort, current_app, flash, redirect, render_template, url_for
@@ -90,7 +92,7 @@ def send_confirmation_email(recipient):
     msg.send()
 
 
-# LATER: Implement the functionality that only the reset password link works one time
+# NEW_FUNC: Implement the functionality that only the reset password link works one time
 def send_reset_password_email(recipient):
     link = generate_link("login_routes.reset_password", recipient)
 
@@ -143,16 +145,59 @@ def chapter_dont_exist(number):
         return True
 
 
+def generate_completed_date(date: datetime):
+    date = date + timedelta(days=1)
+    date.hour = randint(0, 23)
+    date.minute = randint(0, 59)
+    date.second = randint(0, 59)
+
+    return date
+
+
 # I have to give different names and emails. What if two user start a demo of the same type one after the other
-def create_demo_user(current_chapter=0, name="usuario_demo"):
-    user = User(
-        username=name, email=f"{name}@user.demo", password="12345678", confirmation=True
+def create_demo_user(current_chapter=1, name="usuario_demo"):
+
+    # create the user
+    if current_chapter > 1:
+        creation_date = datetime.now(UTC) - timedelta(days=current_chapter - 1)
+
+        user = User(
+            username=name,
+            email=f"{name}@user.demo",
+            password="12345678",
+            date_created=creation_date,
+            confirmation=True,
+        )
+    else:
+        user = User(
+            username=name,
+            email=f"{name}@user.demo",
+            password="12345678",
+            confirmation=True,
+        )
+
+    db.session.add(user)
+    db.session.commit()
+
+    # Create the current_chapter for the new user
+    current_chapter_model = CurrentChapter(
+        user_id=user.id, current_chapter=current_chapter
     )
 
-    with db.session.begin():
-        db.session.add(user)
+    db.session.add(current_chapter_model)
+    db.session.commit()
 
-    current_chapter = CurrentChapter(user_id=user.id, current_chapter=current_chapter)
+    # Create the completed chapters for the new user
+    completed_date = user.date_created
 
-    with db.session.begin():
-        db.session.add(current_chapter)
+    for chapter_id in range(1, current_chapter):
+        completed_date = generate_completed_date(completed_date)
+
+        completed_chapter = CompletedChapter(
+            user_id=user.id, chapter_id=chapter_id, completed_date=completed_date
+        )
+        db.session.add(completed_chapter)
+
+    db.session.commit()
+
+    return user
