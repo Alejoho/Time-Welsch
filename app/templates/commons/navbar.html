@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('home_routes.contact_me') }}">Contáctame</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home_routes.test_modal') }}">test</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 {% if current_user.is_authenticated %}

@@ -6,3 +6,5 @@ from app.forms.reset_password import ResetPasswordForm
 
 # TODO: Use the reCaptchaField of WTF in all my form.
 # Check this repo: https://github.com/wtforms/flask-wtf/tree/main/examples/recaptcha
+
+# OFFLINE: Remove the "form" from the name of the files

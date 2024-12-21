@@ -22,3 +22,8 @@ def why_this_book():
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     return render_template("home/contact_me.html")
+
+
+@bp.get("/test-modal")
+def test_modal():
+    return render_template("test.html")
