@@ -1,7 +1,8 @@
-from .custom_validators import UniqueUsername, UniqueEmail, EmailExistence
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField
-from wtforms.validators import DataRequired, EqualTo, Email, Length
+from wtforms import EmailField, PasswordField, StringField
+from wtforms.validators import DataRequired, Email, EqualTo, Length
+
+from .custom_validators import EmailExistence, UniqueEmail, UniqueUsername
 
 
 class RegisterForm(FlaskForm):

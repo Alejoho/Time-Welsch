@@ -1,6 +1,5 @@
-# LATER: Look up how to organize my imports
-
 from urllib.parse import urlparse
+
 from flask import (
     Blueprint,
     abort,
@@ -14,18 +13,19 @@ from flask import (
 from flask_login import login_user, logout_user
 from itsdangerous import BadData, BadSignature, SignatureExpired
 from sqlalchemy import select
-from app.forms import LoginForm, ResetPasswordRequestForm, ResetPasswordForm
+
+from app import db
+from app.forms import LoginForm, ResetPasswordForm, ResetPasswordRequestForm
 from app.models import CurrentChapter, User
+
 from .complements import (
     confirm_token,
     create_demo_user,
     handle_reset_password_error,
     redirect_authenticated_users,
-    verify_recaptcha,
     send_reset_password_email,
+    verify_recaptcha,
 )
-from app import db
-
 
 bp = Blueprint("login_routes", __name__)
 

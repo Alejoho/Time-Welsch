@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField
 from wtforms.validators import DataRequired, Email
-from .custom_validators import RegisteredEmail, EmailExistence
+
+from .custom_validators import EmailExistence, RegisteredEmail
 
 
 class ResetPasswordRequestForm(FlaskForm):

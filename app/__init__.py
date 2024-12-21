@@ -7,15 +7,14 @@
 
 import os
 
-from flask import Flask
 from dotenv import load_dotenv
-from flask_sqlalchemy import SQLAlchemy
-from flask_wtf.csrf import CSRFProtect
-from flask_migrate import Migrate
+from flask import Flask
 from flask_login import LoginManager
 from flask_mailman import Mail
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 from sqlalchemy import select
-
 
 load_dotenv()
 
@@ -76,12 +75,14 @@ def create_app():
     #### blueprints ####
     ####################
 
-    from app.routes import home_routes_bp
-    from app.routes import error_routes_bp
-    from app.routes import main_routes_bp
-    from app.routes import login_routes_bp
-    from app.routes import register_routes_bp
-    from app.routes import settings_routes_bp
+    from app.routes import (
+        error_routes_bp,
+        home_routes_bp,
+        login_routes_bp,
+        main_routes_bp,
+        register_routes_bp,
+        settings_routes_bp,
+    )
 
     app.register_blueprint(home_routes_bp)
     app.register_blueprint(error_routes_bp)

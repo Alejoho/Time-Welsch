@@ -1,8 +1,10 @@
-from app import db
-from sqlalchemy.orm import Mapped
-from sqlalchemy import ForeignKeyConstraint, PrimaryKeyConstraint, Index
 from datetime import datetime
+
 import pytz
+from sqlalchemy import ForeignKeyConstraint, Index, PrimaryKeyConstraint
+from sqlalchemy.orm import Mapped
+
+from app import db
 
 
 class CompletedChapter(db.Model):

@@ -1,9 +1,10 @@
-from flask import current_app
 import requests
-from app import db
+from flask import current_app
 from sqlalchemy import select
-from app.models import User
 from wtforms.validators import ValidationError
+
+from app import db
+from app.models import User
 
 
 class EmailExistence(object):

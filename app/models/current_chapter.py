@@ -1,6 +1,7 @@
-from app import db
+from sqlalchemy import ForeignKeyConstraint, PrimaryKeyConstraint, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import UniqueConstraint, ForeignKeyConstraint, PrimaryKeyConstraint
+
+from app import db
 
 
 class CurrentChapter(db.Model):

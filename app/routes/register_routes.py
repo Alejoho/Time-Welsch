@@ -1,28 +1,28 @@
 from flask import (
     Blueprint,
-    render_template,
-    current_app,
-    request,
     abort,
-    redirect,
-    url_for,
+    current_app,
     flash,
+    redirect,
+    render_template,
+    request,
+    url_for,
 )
-from app.forms import RegisterForm
-from app.models import User
-from app import db
-from flask_login import login_user, login_required, current_user
+from flask_login import current_user, login_required, login_user
+from itsdangerous import BadData, BadSignature, SignatureExpired
 
-from app.models import CurrentChapter
+from app import db
+from app.forms import RegisterForm
+from app.models import CurrentChapter, User
+
 from .complements import (
+    block_confirmed_users,
     confirm_token,
+    handle_confirmation_error,
+    redirect_authenticated_users,
     send_confirmation_email,
     verify_recaptcha,
-    handle_confirmation_error,
-    block_confirmed_users,
-    redirect_authenticated_users,
 )
-from itsdangerous import SignatureExpired, BadSignature, BadData
 
 bp = Blueprint("register_routes", __name__)
 

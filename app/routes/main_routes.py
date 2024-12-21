@@ -1,12 +1,14 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, abort
-from flask_login import login_required, current_user
-from app import chapters, db
-from .complements import block_unconfirmed_users, check_chapter, chapter_dont_exist
-from sqlalchemy import select
-from app.models import CompletedChapter
 from datetime import datetime
-import pytz
 
+import pytz
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_login import current_user, login_required
+from sqlalchemy import select
+
+from app import chapters, db
+from app.models import CompletedChapter
+
+from .complements import block_unconfirmed_users, chapter_dont_exist, check_chapter
 
 bp = Blueprint("main_routes", __name__)
 

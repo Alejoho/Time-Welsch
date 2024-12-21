@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
 
-
 bp = Blueprint("home_routes", __name__)
 
 

@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import BooleanField, PasswordField, StringField
 from wtforms.validators import DataRequired
-from .custom_validators import RegisteredUsername, PasswordChecker
+
+from .custom_validators import PasswordChecker, RegisteredUsername
 
 
 class LoginForm(FlaskForm):

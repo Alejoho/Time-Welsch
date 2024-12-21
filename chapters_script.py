@@ -1,5 +1,6 @@
-from app import db, create_app
 import json
+
+from app import create_app, db
 from app.models import Chapter
 
 with open("chapters.json", encoding="utf-8") as chapter_file:

@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, redirect, request, url_for, flash
-from app.forms import ChangePasswordForm
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, logout_user
+
 from app import db
+from app.forms import ChangePasswordForm
+
 from .complements import block_unconfirmed_users
 
 bp = Blueprint("settings_routes", __name__)

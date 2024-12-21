@@ -1,13 +1,14 @@
 from functools import wraps
-from flask import flash, redirect, render_template, url_for, current_app, abort
-from flask_login import current_user
-from itsdangerous import URLSafeTimedSerializer
-from flask_mailman import EmailMessage
-from jinja2 import TemplateNotFound
-import requests
 
-from app.models import User, CurrentChapter, CompletedChapter
+import requests
+from flask import abort, current_app, flash, redirect, render_template, url_for
+from flask_login import current_user
+from flask_mailman import EmailMessage
+from itsdangerous import URLSafeTimedSerializer
+from jinja2 import TemplateNotFound
+
 from app import db
+from app.models import CompletedChapter, CurrentChapter, User
 
 
 def redirect_authenticated_users(func):

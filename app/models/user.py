@@ -1,10 +1,12 @@
-from app import db
+from datetime import datetime
+
+import pytz
+from flask_login import UserMixin
 from sqlalchemy import String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from datetime import datetime
-import pytz
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from app import db
 
 
 class User(db.Model, UserMixin):

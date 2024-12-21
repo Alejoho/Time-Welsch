@@ -1,6 +1,7 @@
-from app import db
-from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String, UniqueConstraint
+from sqlalchemy.orm import Mapped, mapped_column
+
+from app import db
 
 
 class Chapter(db.Model):

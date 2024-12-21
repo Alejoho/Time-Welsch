@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, HiddenField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms import HiddenField, PasswordField
+from wtforms.validators import DataRequired, EqualTo, Length
+
 from app.forms.custom_validators import PasswordChecker
 
 
