@@ -18,7 +18,7 @@ def why_this_book():
     return render_template("home/why_this_book.html")
 
 
-# TODO: Implement the contact me
+# NEXT: Implement the contact me
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     return render_template("home/contact_me.html")
