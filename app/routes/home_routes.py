@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
 
+from app.forms import ContactMeForm
+
 bp = Blueprint("home_routes", __name__)
 
 
@@ -21,4 +23,5 @@ def why_this_book():
 # NEXT: Implement the contact me
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
-    return render_template("home/contact_me.html")
+    form = ContactMeForm()
+    return render_template("home/contact_me.html", form=form)

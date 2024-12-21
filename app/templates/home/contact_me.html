@@ -1,8 +1,18 @@
 {% extends "layout.html" %}
+{% from "commons/macros.html" import input %}
 
 {% block description %}Ponte en contacto conmigo a traves de esta página{% endblock %}
 
 {% block title %}Contáctame{% endblock %}
+
+{% block head %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("contactMeForm").submit();
+    }
+</script>
+{% endblock %}
 
 {% block content %}
 <br>
@@ -12,22 +22,16 @@
         <p>¡Me encantaría saber de ti! Si tienes alguna pregunta, comentario o simplemente quieres decirme hola, no
             dudes en
             comunicarte conmigo mediante cualquiera de los métodos que se indican a continuación.</p>
-
-        <form action="/send-message" method="post">
+        <form method="post" novalidate id="contactMeForm">
+            {{ form.hidden_tag() }}
+            {{ input(form.name) }}
+            {{ input(form.email) }}
+            {# TODO: use kwargs to pass the number of rows to the text area #}
+            {{ input(form.message) }}
             <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                    data-action="submit">Enviar</button>
             </div>
-            <div class="form-group">
-                <label for="email">Correo:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Mensaje:</label>
-                <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
         </form>
     </div>
 </main>
