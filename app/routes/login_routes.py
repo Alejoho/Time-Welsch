@@ -124,7 +124,7 @@ def reset_password_request():
     return render_template("account_managment/reset_password_request.html", form=form)
 
 
-@bp.get("/reestablecer-contrasena/<token>")
+@bp.route("/reestablecer-contrasena/<token>", methods=["GET", "POST"])
 @redirect_authenticated_users
 def reset_password(token):
     try:
