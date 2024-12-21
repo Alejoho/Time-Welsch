@@ -27,6 +27,7 @@
             {{ input(form.name) }}
             {{ input(form.email) }}
             {# TODO: use kwargs to pass the number of rows to the text area #}
+            {# BUG: When the message is to large and need to scroll it passes behind the label #}
             {{ input(form.message) }}
             <div class="form-group">
                 <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"

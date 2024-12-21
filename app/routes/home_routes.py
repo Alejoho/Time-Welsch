@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, flash, render_template
 
 from app.forms import ContactMeForm
+from .complements import send_contact_me_email
 
 bp = Blueprint("home_routes", __name__)
 
@@ -20,8 +21,15 @@ def why_this_book():
     return render_template("home/why_this_book.html")
 
 
-# NEXT: Implement the contact me
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     form = ContactMeForm()
+
+    if form.validate_on_submit():
+        send_contact_me_email(form.name.data, form.email.data, form.message.data)
+        form.name.data = ""
+        form.email.data = ""
+        form.message.data = ""
+        flash("Mensaje enviado", "success")
+
     return render_template("home/contact_me.html", form=form)
