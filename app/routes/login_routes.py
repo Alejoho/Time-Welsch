@@ -165,12 +165,6 @@ def reset_password(token):
     return render_template("account_managment/reset_password.html", form=form)
 
 
-# TODO: Implement the logic to create a demo user with 3 different status.
-# 1-Just registerd,
-# 2-Half complete the app
-# 3-Complete the app
-
-
 @bp.get("/iniciar_sesion_usuario_demo/<level>")
 def login_user_demo(level):
     if level == "principiante":

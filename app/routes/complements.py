@@ -146,16 +146,21 @@ def chapter_dont_exist(number):
 
 
 def generate_completed_date(date: datetime):
-    date = date + timedelta(days=1)
-    date.hour = randint(0, 23)
-    date.minute = randint(0, 59)
-    date.second = randint(0, 59)
+    new_date = datetime(
+        year=date.year,
+        month=date.month,
+        day=date.day + 1,
+        hour=randint(0, 23),
+        minute=randint(0, 59),
+        second=randint(0, 59),
+    )
 
-    return date
+    return new_date
 
 
-# I have to give different names and emails. What if two user start a demo of the same type one after the other
+# TODO: Create the logic to auto delete the demo users
 def create_demo_user(current_chapter=1, name="usuario_demo"):
+    # NEXT: I have to give different names and emails. What if two user start a demo of the same type one after the other
 
     # create the user
     if current_chapter > 1:
