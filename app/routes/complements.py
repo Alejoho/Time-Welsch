@@ -90,7 +90,7 @@ def send_confirmation_email(recipient):
         [recipient],
     )
 
-    msg.send()
+    Thread(target=send_async_email, args=(msg)).start()
 
 
 # NEW_FUNC: Implement the functionality that only the reset password link works one time
@@ -104,7 +104,7 @@ def send_reset_password_email(recipient):
         [recipient],
     )
 
-    msg.send()
+    Thread(target=send_async_email, args=(msg)).start()
 
 
 def send_contact_me_email(name, contact_email, message):
@@ -115,7 +115,7 @@ def send_contact_me_email(name, contact_email, message):
         current_app.config["MAIL_CONTACT_ME_RECEIVER"],
     )
 
-    msg.send()
+    Thread(target=send_async_email, args=(msg)).start()
 
 
 def confirm_token(token, expiration):
