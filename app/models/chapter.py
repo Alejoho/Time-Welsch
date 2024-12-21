@@ -6,7 +6,6 @@ from sqlalchemy import String, UniqueConstraint
 class Chapter(db.Model):
     __tablename__ = "chapters"
 
-    # TODO: remove the column id and set the number as primary key but without autoincrementing
     id: Mapped[int] = mapped_column(primary_key=True)
     number: Mapped[int]
     name: Mapped[str] = mapped_column(String(100))

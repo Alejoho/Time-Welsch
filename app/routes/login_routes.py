@@ -46,7 +46,6 @@ def login():
             select(User).where(User.username == form.username.data)
         ).first()
 
-        # CHECK: If the implementation remember me logged in works
         login_user(user, remember=form.remember_me.data)
 
         next_page = request.args.get("next")
@@ -111,13 +110,12 @@ def demo_delete():
 @redirect_authenticated_users
 def reset_password_request():
     form = ResetPasswordRequestForm()
-    # CHECK: If i need reCaptcha in every form
     if form.validate_on_submit():
-        # recaptcha_response = request.form.get("g-recaptcha-response")
+        recaptcha_response = request.form.get("g-recaptcha-response")
 
-        # if not verify_recaptcha(recaptcha_response):
-        #     flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
-        #     return abort(401)
+        if not verify_recaptcha(recaptcha_response):
+            flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
+            return abort(401)
 
         send_reset_password_email(form.email.data)
         return render_template("account_managment/reset_password_confirmation.html")
@@ -146,6 +144,13 @@ def reset_password(token):
     form = ResetPasswordForm()
 
     if form.validate_on_submit():
+        # reCaptcha verification
+        recaptcha_response = request.form.get("g-recaptcha-response")
+
+        if not verify_recaptcha(recaptcha_response):
+            flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
+            return abort(401)
+
         # Get the user by email
         user = db.session.scalars(select(User).where(User.email == email)).one()
         # Set the new password

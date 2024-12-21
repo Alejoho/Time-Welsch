@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, EqualTo
 from app.forms.custom_validators import PasswordChecker
 
 
-class ChangePassword(FlaskForm):
+class ChangePasswordForm(FlaskForm):
     username = HiddenField()
 
     old_password = PasswordField(

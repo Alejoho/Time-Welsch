@@ -6,12 +6,12 @@
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block head %}
-<!-- <script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
 <script>
     function onSubmit(token) {
         document.getElementById("loginForm").submit();
     }
-</script> -->
+</script>
 {% endblock %}
 
 {% block content %}
@@ -25,9 +25,8 @@
             {{ form.remember_me(class_="ms-2") }}
             {{ form.remember_me.label(class_="mb-3") }}
             <div class="form-group">
-                <button class="btn btn-secondary w-100 py-2 fs-5">Enviar</button>
-                <!-- <button class="btn btn-secondary g-recaptcha w-100 py-2 fs-5" data-sitekey="{{ site_key }}" data-callback="onSubmit"
-                    data-action="submit">Enviar</button> -->
+                <button class="btn btn-secondary g-recaptcha w-100 py-2 fs-5" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                    data-action="submit">Enviar</button>
             </div>
         </form>
         <p class="text-center mt-2">

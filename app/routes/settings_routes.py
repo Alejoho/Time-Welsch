@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash
-from app.forms import ChangePassword
+from app.forms import ChangePasswordForm
 from flask_login import current_user, login_required, logout_user
 from app import db
 from .complements import block_unconfirmed_users
@@ -17,7 +17,7 @@ def bypass_error():
 
 @bp.route("/cambiar-contrasena", methods=["GET", "POST"])
 def change_password():
-    form = ChangePassword()
+    form = ChangePasswordForm()
     form.username.data = current_user.username
 
     if form.validate_on_submit():
