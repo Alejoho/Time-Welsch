@@ -19,11 +19,7 @@ def why_this_book():
     return render_template("home/why_this_book.html")
 
 
+# TODO: Implement the contact me
 @bp.route("/contáctame", methods=["GET", "POST"])
 def contact_me():
     return render_template("home/contact_me.html")
-
-
-@bp.get("/test-modal")
-def test_modal():
-    return render_template("test.html")
