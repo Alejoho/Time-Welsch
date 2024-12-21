@@ -24,6 +24,7 @@ class BaseConfig(object):
 
     # mail accounts
     MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER")
+    MAIL_CONTACT_ME_RECEIVER = os.getenv("MAIL_CONTACT_ME_RECEIVER")
 
     # token max ages
     ACCOUNT_CONFIRMATION_MAX_AGE = 3600

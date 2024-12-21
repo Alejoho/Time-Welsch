@@ -83,7 +83,7 @@ def send_confirmation_email(recipient):
     msg = EmailMessage(
         "Activación de cuenta",
         f"Para activar tu cuenta en Time Welsch, por favor sigue este link:\n{link}",
-        current_app.config["MAIL_USERNAME"],
+        current_app.config["MAIL_DEFAULT_SENDER"],
         [recipient],
     )
 
@@ -97,8 +97,19 @@ def send_reset_password_email(recipient):
     msg = EmailMessage(
         "Reestablecer Contraseña",
         f"Para reestablecer tu contraseña en Time Welsch, por favor sigue este link:\n{link}",
-        current_app.config["MAIL_USERNAME"],
+        current_app.config["MAIL_DEFAULT_SENDER"],
         [recipient],
+    )
+
+    msg.send()
+
+
+def send_contact_me_email(name, contact_email, message):
+    msg = EmailMessage(
+        "Contacto realizado",
+        f"Nombre: {name}\nCorreo: {contact_email}\nMensaje: {message}",
+        current_app.config["MAIL_DEFAULT_SENDER"],
+        current_app.config["MAIL_CONTACT_ME_RECEIVER"],
     )
 
     msg.send()
