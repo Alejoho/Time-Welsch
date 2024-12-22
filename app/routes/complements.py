@@ -117,6 +117,10 @@ def send_reset_password_email(recipient):
     ).start()
 
 
+async def send_async_email_2(msg):
+    await msg.send()
+
+
 def send_contact_me_email(name, contact_email, message):
     msg = EmailMessage(
         "Contacto realizado",
@@ -125,12 +129,7 @@ def send_contact_me_email(name, contact_email, message):
         [current_app.config["MAIL_CONTACT_ME_RECEIVER"]],
     )
 
-    Thread(
-        target=send_async_email,
-        args=[
-            msg,
-        ],
-    ).start()
+    asyncio.run(send_async_email_2(msg))
 
 
 def confirm_token(token, expiration):
