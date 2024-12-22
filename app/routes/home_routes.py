@@ -1,6 +1,7 @@
 from flask import Blueprint, flash, render_template
 
 from app.forms import ContactMeForm
+
 from .complements import send_contact_me_email
 
 bp = Blueprint("home_routes", __name__)

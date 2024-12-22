@@ -73,6 +73,11 @@ def mark_chapter_as_completed(chapter_number):
     except:
         db.session.rollback()
         abort(500)
+
+    # redirect the user to the completed course page after completion of the app
+    if chapter_number == (len(chapters) - 1):
+        return render_template("main/completed_course.html")
+
     # redirect the user to the next chapter
     return redirect(
         url_for("main_routes.show_chapter", chapter_number=chapter_number + 1)

@@ -146,6 +146,8 @@ def chapter_dont_exist(number):
         return True
 
 
+# BUG: Sometimes it returns two objects with the same date and the next one jumps one day.
+# It's not a big deal but when I design this function I want one chapter completed by day.
 def generate_completed_date(date: datetime):
     new_date = datetime(
         year=date.year,
