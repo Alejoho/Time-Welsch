@@ -26,9 +26,17 @@
             {{ form.hidden_tag() }}
             {{ input(form.name) }}
             {{ input(form.email) }}
-            {# TODO: use kwargs to pass the number of rows to the text area #}
-            {# BUG: When the message is to large and need to scroll it passes behind the label #}
-            {{ input(form.message) }}
+            {# LATER: use kwargs to pass the number of rows to the text area #}
+            {# BUG: When the message is to large and need to scroll it passes behind the label #}            
+            <div class="form-floating mb-4">
+                {{ form.message(class="form-control position-relative " + ("is-invalid" if form.message.errors else ""), id=form.message.id,
+                placeholder=form.message.label.text,style="height: 200px;") }}
+                {{ form.message.label(for=form.message.id,class_="form-label") }}
+                {% if form.message.errors %}
+                <div class="invalid-feedback ms-1 position-absolute">{{ form.message.errors[0] }}</div>
+                {% endif %}
+            </div>
+
             <div class="form-group">
                 <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
                     data-action="submit">Enviar</button>
