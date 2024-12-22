@@ -67,46 +67,6 @@ def logout():
     return redirect(url_for("login_routes.login"))
 
 
-@bp.post("/demo_confirm")
-@redirect_authenticated_users
-def demo_confirm():
-    user = db.session.scalars(select(User).where(User.username == "demo_confirm")).one()
-    login_user(user, remember=True)
-    return redirect(url_for("main_routes.my_route"))
-
-
-@bp.post("/demo_unconfirm")
-@redirect_authenticated_users
-def demo_unconfirm():
-    user = db.session.scalars(
-        select(User).where(User.username == "demo_unconfirm")
-    ).one()
-    login_user(user, remember=True)
-    return redirect(url_for("main_routes.my_route"))
-
-
-@bp.post("/demo_delete")
-@redirect_authenticated_users
-def demo_delete():
-    user = User(
-        username="demo_delete",
-        email="demo@delete.com",
-        password="12345678",
-        confirmation=True,
-    )
-
-    db.session.add(user)
-    db.session.commit()
-
-    current_chapter = CurrentChapter(user_id=user.id)
-
-    db.session.add(current_chapter)
-    db.session.commit()
-
-    login_user(user, remember=True)
-    return redirect(url_for("main_routes.my_route"))
-
-
 @bp.route("/reestablecer-contrasena", methods=["GET", "POST"])
 @redirect_authenticated_users
 def reset_password_request():

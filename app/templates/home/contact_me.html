@@ -26,7 +26,7 @@
             {{ form.hidden_tag() }}
             {{ input(form.name) }}
             {{ input(form.email) }}
-            {# LATER: use kwargs to pass the number of rows to the text area #}
+            {# NEW_FUNC: use kwargs to pass the number of rows to the text area #}
             {# BUG: When the message is to large and need to scroll it passes behind the label #}            
             <div class="form-floating mb-4">
                 {{ form.message(class="form-control position-relative " + ("is-invalid" if form.message.errors else ""), id=form.message.id,

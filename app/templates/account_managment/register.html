@@ -17,7 +17,7 @@
 {% block content %}
 <main class="row justify-content-center">
     <div class="col-md-4">
-        <h1 class="text-center mt-5">Registrarse</h1>
+        <h1 class="text-center mt-3">Registrarse</h1>
         <form method="post" novalidate id="registerForm">
             {{ form.hidden_tag() }}
             {{ input(form.username) }}
@@ -25,10 +25,13 @@
             {{ input(form.password) }}
             {{ input(form.confirmation) }}
             <div class="form-group">
-                <button class="btn btn-secondary g-recaptcha" data-sitekey="{{ site_key }}" data-callback="onSubmit"
+                <button class="btn btn-secondary g-recaptcha w-100 py-2 fs-5" data-sitekey="{{ site_key }}" data-callback="onSubmit"
                     data-action="submit">Enviar</button>
-            </div>
-        </form>
+                </div>
+            </form>
+            <p class="text-center my-1">
+                <a href="{{ url_for('login_routes.reset_password_request') }}" class="link-underline link-underline-opacity-0 fs-6">¿Ya tienes una cuenta?</a>
+            </p>
     </div>
 </main>
 {% endblock %}
