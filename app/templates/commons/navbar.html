@@ -32,8 +32,7 @@
                     <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Hola, {{ current_user.username }}
                     </button>
-                    {# FIXME: The dropdwon menu hides to the right if the name is to short #}
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="{{ url_for('settings_routes.change_password') }}">Cambiar Contraseña</a></li>                    
                         <li><button class="dropdown-item text-danger" type="button" data-bs-target="#deleteModal" data-bs-toggle="modal">Eliminar Cuenta</button>
                         </li>
