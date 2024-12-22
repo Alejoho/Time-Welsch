@@ -1,9 +1,11 @@
+import asyncio
 from datetime import UTC, datetime, timedelta
 from functools import wraps
 from random import randint
+from threading import Thread
 
 import requests
-from flask import abort, current_app, flash, redirect, render_template, url_for
+from flask import Flask, abort, current_app, flash, redirect, render_template, url_for
 from flask_login import current_user
 from flask_mailman import EmailMessage
 from itsdangerous import URLSafeTimedSerializer
@@ -80,6 +82,11 @@ def generate_link(route, recipient):
 
 
 # NEW_FUNC: Make the sending of the email asynchrously
+def send_async_email(msg: EmailMessage):
+    with current_app.app_context():
+        msg.send()
+
+
 def send_confirmation_email(recipient):
     link = generate_link("register_routes.confirm_email", recipient)
 
