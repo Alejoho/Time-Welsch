@@ -65,6 +65,7 @@ def create_app():
     login_manager.login_message = "Por favor inicia sessión para acceder a esta página."
     login_manager.login_message_category = "info"
 
+    # TODO: Change the user_loader to inside the User model
     @login_manager.user_loader
     def load_user(user_id):
         from app.models import User

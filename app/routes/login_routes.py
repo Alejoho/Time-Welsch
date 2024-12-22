@@ -8,6 +8,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    session,
     url_for,
 )
 from flask_login import login_user, logout_user
@@ -177,5 +178,7 @@ def login_user_demo(level):
         abort(400)
 
     login_user(user)
+    session["is_demo"] = True
+    session.permanent = False
 
     return redirect(url_for("main_routes.my_route"))
