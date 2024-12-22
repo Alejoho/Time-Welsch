@@ -79,7 +79,7 @@ def generate_link(route, recipient):
     return link
 
 
-# TODO: How to make sending the email asynchrously
+# NEW_FUNC: Make the sending of the email asynchrously
 def send_confirmation_email(recipient):
     link = generate_link("register_routes.confirm_email", recipient)
 

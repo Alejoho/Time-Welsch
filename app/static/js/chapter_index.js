@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         header.id = id;
 
         // Create a new link element
-        var link = document.createElement("a");
+        let link = document.createElement("a");
         link.href = "#" + id;
         link.textContent = header.textContent;
 
@@ -43,6 +43,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    //append the fragment to the index
+    // Add a link for the navigation panel at the bottom
+    let link = document.createElement("a");
+    link.href = "#navigationPanel";
+    link.textContent = "Panel de navegación";
+    link.className = `nav-link ${position} text-wrap text-dark`;
+    fragment.appendChild(link)
+
+    // Append the fragment to the index
     chapter_index.appendChild(fragment)
 });
