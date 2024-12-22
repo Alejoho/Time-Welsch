@@ -1,5 +1,5 @@
+from datetime import UTC, datetime, timedelta
 from functools import wraps
-from datetime import datetime, timedelta, UTC
 from random import randint
 
 import requests
@@ -8,6 +8,7 @@ from flask_login import current_user
 from flask_mailman import EmailMessage
 from itsdangerous import URLSafeTimedSerializer
 from jinja2 import TemplateNotFound
+from sqlalchemy import select
 
 from app import db
 from app.models import CompletedChapter, CurrentChapter, User
@@ -149,34 +150,51 @@ def generate_completed_date(date: datetime):
     new_date = datetime(
         year=date.year,
         month=date.month,
-        day=date.day + 1,
+        day=date.day,
         hour=randint(0, 23),
         minute=randint(0, 59),
         second=randint(0, 59),
     )
+    new_date += timedelta(days=1)
 
     return new_date
 
 
+def get_unique_name(name):
+    similar_users = db.session.scalars(
+        select(User.username).where(User.username.like(f"{name}%"))
+    ).all()
+
+    if not similar_users:
+        return f"{name}_1"
+
+    numbers = [int(user.split("_")[-1]) for user in similar_users]
+    max_number = max(numbers)
+    new_number = max_number + 1
+
+    prefix = similar_users[0].rsplit("_", 1)[0]
+    return f"{prefix}_{new_number}"
+
+
 # TODO: Create the logic to auto delete the demo users
 def create_demo_user(current_chapter=1, name="usuario_demo"):
-    # NEXT: I have to give different names and emails. What if two user start a demo of the same type one after the other
-
+    # Find a unique name for the user
+    username = get_unique_name(name)
     # create the user
     if current_chapter > 1:
         creation_date = datetime.now(UTC) - timedelta(days=current_chapter - 1)
 
         user = User(
-            username=name,
-            email=f"{name}@user.demo",
+            username=username,
+            email=f"{username}@user.demo",
             password="12345678",
             date_created=creation_date,
             confirmation=True,
         )
     else:
         user = User(
-            username=name,
-            email=f"{name}@user.demo",
+            username=username,
+            email=f"{username}@user.demo",
             password="12345678",
             confirmation=True,
         )
