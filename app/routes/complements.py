@@ -90,7 +90,12 @@ def send_confirmation_email(recipient):
         [recipient],
     )
 
-    Thread(target=send_async_email, args=(msg)).start()
+    Thread(
+        target=send_async_email,
+        args=[
+            msg,
+        ],
+    ).start()
 
 
 # NEW_FUNC: Implement the functionality that only the reset password link works one time
@@ -104,7 +109,12 @@ def send_reset_password_email(recipient):
         [recipient],
     )
 
-    Thread(target=send_async_email, args=(msg)).start()
+    Thread(
+        target=send_async_email,
+        args=[
+            msg,
+        ],
+    ).start()
 
 
 def send_contact_me_email(name, contact_email, message):
@@ -112,10 +122,15 @@ def send_contact_me_email(name, contact_email, message):
         "Contacto realizado",
         f"Nombre: {name}\nCorreo: {contact_email}\nMensaje: {message}",
         current_app.config["MAIL_DEFAULT_SENDER"],
-        current_app.config["MAIL_CONTACT_ME_RECEIVER"],
+        [current_app.config["MAIL_CONTACT_ME_RECEIVER"]],
     )
 
-    Thread(target=send_async_email, args=(msg)).start()
+    Thread(
+        target=send_async_email,
+        args=[
+            msg,
+        ],
+    ).start()
 
 
 def confirm_token(token, expiration):
