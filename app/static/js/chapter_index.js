@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Differentiate the header, applied the required class and indent
         // and append it to the fragment
         if (header.tagName === "H1") {
-            link.className = `navbar-brand ${position}`;
+            link.className = `navbar-brand ${position} text-wrap`;
             fragment.appendChild(link)
         }
         else if (header.tagName === "H2") {
-            link.className = `nav-link ${position}`;
+            link.className = `nav-link ${position} text-wrap`;
             fragment.appendChild(link)
         }
         else if (header.tagName === "H3") {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 new_div.className = "ms-3"
                 fragment.appendChild(new_div)
             }
-            link.className = `nav-link ${position}`;
+            link.className = `nav-link ${position} text-wrap`;
             fragment.lastElementChild.appendChild(link)
         }
     }

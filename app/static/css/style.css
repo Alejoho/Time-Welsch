@@ -170,3 +170,9 @@ html {
 .hide-first>tr:first-child {
     display: none;
 }
+
+#chapter-index {
+    max-height: 60vh;
+    overflow-y: auto;
+    flex-wrap: nowrap;
+}
