@@ -1,5 +1,7 @@
 # LATER: Document the majority of the code posible
 # LATER: Validate all pages with the cs50 validator
+# LATER: Add the path of all py file in its header*( relative path like)
+# app/__init__.py
 
 #################
 #### imports ####
@@ -51,6 +53,10 @@ def create_app():
     mail.init_app(app)
     login_manager.init_app(app)
 
+    ########################################
+    #### load in memory chapter details ####
+    ########################################
+
     from app.models import Chapter
 
     with app.app_context():
@@ -65,7 +71,6 @@ def create_app():
     login_manager.login_message = "Por favor inicia sessión para acceder a esta página."
     login_manager.login_message_category = "info"
 
-    # TODO: Change the user_loader to inside the User model
     @login_manager.user_loader
     def load_user(user_id):
         from app.models import User

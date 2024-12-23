@@ -192,6 +192,7 @@ def create_demo_user(current_chapter=1, name="usuario_demo"):
             password="12345678",
             date_created=creation_date,
             confirmation=True,
+            is_demo=True,
         )
     else:
         user = User(
@@ -199,6 +200,7 @@ def create_demo_user(current_chapter=1, name="usuario_demo"):
             email=f"{username}@user.demo",
             password="12345678",
             confirmation=True,
+            is_demo=True,
         )
 
     db.session.add(user)

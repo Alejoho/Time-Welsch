@@ -47,6 +47,9 @@
                     <div class="modal-header d-flex justify-content-center">
                         <h1 class="modal-title fs-5 text-center" id="demoModalLabel">Selecciona tu Usuario Demo</h1>
                     </div>
+                    <div class="modal-body">
+                        Estas son solo cuentas de prueba las cuales serán eliminadas al día de creadas.
+                    </div>
                     <div class="modal-body d-flex flex-column flex-md-row justify-content-around align-items-center">
                         <a type="button" class="btn btn-primary w-50 my-3 mx-3" href="{{ url_for('login_routes.login_user_demo',level='principiante') }}">Principiante</a>
                         <a type="button" class="btn btn-secondary w-50 my-3 mx-3" href="{{ url_for('login_routes.login_user_demo',level='intermedio') }}">Intermedio</a>
