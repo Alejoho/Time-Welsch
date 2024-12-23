@@ -8,7 +8,8 @@ from sqlalchemy import select
 from app import chapters, db
 from app.models import CompletedChapter
 
-from .complements import block_unconfirmed_users, chapter_dont_exist, check_chapter
+from .complements import chapter_dont_exist
+from .decorators import block_unconfirmed_users, check_chapter
 
 bp = Blueprint("main_routes", __name__)
 

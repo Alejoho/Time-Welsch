@@ -17,16 +17,16 @@ from sqlalchemy import select
 
 from app import db
 from app.forms import LoginForm, ResetPasswordForm, ResetPasswordRequestForm
-from app.models import CurrentChapter, User
+from app.models import User
 
 from .complements import (
     confirm_token,
     create_demo_user,
     handle_reset_password_error,
-    redirect_authenticated_users,
     send_reset_password_email,
     verify_recaptcha,
 )
+from .decorators import redirect_authenticated_users
 
 bp = Blueprint("login_routes", __name__)
 

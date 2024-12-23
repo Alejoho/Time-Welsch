@@ -16,13 +16,12 @@ from app.forms import RegisterForm
 from app.models import CurrentChapter, User
 
 from .complements import (
-    block_confirmed_users,
     confirm_token,
     handle_confirmation_error,
-    redirect_authenticated_users,
     send_confirmation_email,
     verify_recaptcha,
 )
+from .decorators import block_confirmed_users, redirect_authenticated_users
 
 bp = Blueprint("register_routes", __name__)
 
