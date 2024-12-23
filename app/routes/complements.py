@@ -228,3 +228,16 @@ def create_demo_user(current_chapter=1, name="usuario_demo"):
     db.session.commit()
 
     return user
+
+
+def delete_demo_users():
+    deadline = datetime.now(UTC) - timedelta(days=1)
+
+    user_to_delete = db.session.scalars(
+        select(User).where((User.is_demo == True) & (User.date_created < deadline))
+    ).all()
+
+    for user in user_to_delete:
+        db.session.delete(user)
+
+    db.session.commit()

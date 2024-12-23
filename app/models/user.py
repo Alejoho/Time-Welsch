@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     date_created: Mapped[datetime] = mapped_column(default=datetime.now(pytz.utc))
     confirmation: Mapped[bool] = mapped_column(default=False)
     is_demo: Mapped[bool] = mapped_column(default=False)
-    # TODO: Add a new column to the db to mark a user as a demo_user in order to delete it when the session is close or other condition is meet
+
     current_chapter_relationship: Mapped["CurrentChapter"] = relationship(
         cascade="save-update, merge, delete"
     )
