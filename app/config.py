@@ -39,6 +39,7 @@ class DevelopmentConfig(BaseConfig):
     """Development configuration."""
 
     DEBUG = True
+    RELOAD = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
 
@@ -47,6 +48,7 @@ class TestingConfig(BaseConfig):
     """Development configuration."""
 
     DEBUG = True
+    RELOAD = False
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     JOBS = [
@@ -63,6 +65,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration."""
 
     DEBUG = False
+    RELOAD = False
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     JOBS = [
