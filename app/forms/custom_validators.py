@@ -10,7 +10,9 @@ from app.models import User
 
 
 class EmailExistence(object):
-    def __init__(self, message=None):
+    """Validates that the email address really exists and it can receive emails."""
+
+    def __init__(self, message: str | None = None):
         if not message:
             message = "Email doesn't exist"
         self.message = message
@@ -40,7 +42,9 @@ class EmailExistence(object):
 
 
 class UniqueUsername(object):
-    def __init__(self, message=None):
+    """Checks that there's not another account register with a particular username."""
+
+    def __init__(self, message: str | None = None):
         if not message:
             message = "This username is taken"
         self.message = message
@@ -55,7 +59,9 @@ class UniqueUsername(object):
 
 
 class UniqueEmail(object):
-    def __init__(self, message=None):
+    """Checks that there's not another account register with a particular email."""
+
+    def __init__(self, message: str | None = None):
         if not message:
             message = "An account already use this email"
         self.message = message
@@ -70,7 +76,9 @@ class UniqueEmail(object):
 
 
 class RegisteredUsername(object):
-    def __init__(self, message=None):
+    """Validates that there is an account already register with a particular username."""
+
+    def __init__(self, message: str | None = None):
         if not message:
             self.message = "The username don't exist"
         self.message = message
@@ -85,7 +93,9 @@ class RegisteredUsername(object):
 
 
 class RegisteredEmail(object):
-    def __init__(self, message=None):
+    """Validates that there is an account already register with a particular email."""
+
+    def __init__(self, message: str | None = None):
         if not message:
             self.message = "The email don't exist"
         self.message = message
@@ -100,7 +110,9 @@ class RegisteredEmail(object):
 
 
 class PasswordChecker(object):
-    def __init__(self, message=None, username_field=None):
+    """Checks if a password match with the password of a particular user."""
+
+    def __init__(self, message: str | None = None, username_field: str | None = None):
         if not message:
             self.message = "Password incorrect"
         self.message = message

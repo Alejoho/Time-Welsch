@@ -8,6 +8,8 @@ from .custom_validators import EmailExistence, UniqueEmail, UniqueUsername
 
 
 class RegisterForm(FlaskForm):
+    """Form to register a user"""
+
     username = StringField(
         "Usuario",
         validators=[

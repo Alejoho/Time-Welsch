@@ -8,6 +8,8 @@ from .custom_validators import PasswordChecker, RegisteredUsername
 
 
 class LoginForm(FlaskForm):
+    """Form to login a user"""
+
     username = StringField(
         "Usuario",
         validators=[

@@ -1,6 +1,5 @@
 # LATER: Document the majority of the code posible
 # LATER: Validate all pages with the cs50 validator
-# LATER: Add the path of all py file in its header*( relative path like)
 # app/__init__.py
 
 #################

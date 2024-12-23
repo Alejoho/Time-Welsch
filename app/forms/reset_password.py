@@ -6,6 +6,8 @@ from wtforms.validators import DataRequired, EqualTo, Length
 
 
 class ResetPasswordForm(FlaskForm):
+    """Form to reset a forgotten password"""
+
     password = PasswordField(
         "Contraseña",
         validators=[

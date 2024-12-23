@@ -8,6 +8,8 @@ from .custom_validators import EmailExistence
 
 
 class ContactMeForm(FlaskForm):
+    """Form to send an email to contact the onwer of the web page."""
+
     name = StringField("Nombre", validators=[DataRequired("Campo requerido")])
     email = EmailField(
         "Correo",

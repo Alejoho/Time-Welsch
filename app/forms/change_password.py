@@ -8,6 +8,8 @@ from app.forms.custom_validators import PasswordChecker
 
 
 class ChangePasswordForm(FlaskForm):
+    """Form to change the password of a logged in user."""
+
     username = HiddenField()
 
     old_password = PasswordField(

@@ -8,6 +8,8 @@ from .custom_validators import EmailExistence, RegisteredEmail
 
 
 class ResetPasswordRequestForm(FlaskForm):
+    """Form to request the reset of a forgotten password."""
+
     email = EmailField(
         "Correo",
         validators=[
