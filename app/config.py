@@ -39,6 +39,14 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+
+
+class TestingConfig(BaseConfig):
+    """Development configuration."""
+
+    DEBUG = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     JOBS = [
         {
             "id": "delete_demo_users_job",
