@@ -1,3 +1,5 @@
+# app/forms/change_password.py
+
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Length

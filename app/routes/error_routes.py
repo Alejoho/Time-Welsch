@@ -1,3 +1,5 @@
+# app/routes/error_routes.py
+
 from flask import Blueprint, render_template
 from sqlalchemy.exc import NoResultFound
 

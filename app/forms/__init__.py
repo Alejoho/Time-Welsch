@@ -1,3 +1,5 @@
+# app/forms/__init__.py
+
 from app.forms.change_password import ChangePasswordForm
 from app.forms.contact_me import ContactMeForm
 from app.forms.login import LoginForm

@@ -1,3 +1,5 @@
+# app/models/chapter.py
+
 from sqlalchemy import String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 

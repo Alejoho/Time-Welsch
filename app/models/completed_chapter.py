@@ -1,3 +1,5 @@
+# app/models/completed_chapter.py
+
 from datetime import datetime
 
 import pytz

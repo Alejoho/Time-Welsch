@@ -1,3 +1,5 @@
+# app/models/current_chapter.py
+
 from sqlalchemy import ForeignKeyConstraint, PrimaryKeyConstraint, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 

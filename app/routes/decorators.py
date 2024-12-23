@@ -1,3 +1,5 @@
+# app/routes/decorators.py
+
 from functools import wraps
 
 from flask import abort, flash, redirect, url_for
