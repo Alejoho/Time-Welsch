@@ -42,7 +42,7 @@ class DevelopmentConfig(BaseConfig):
     JOBS = [
         {
             "id": "delete_demo_users_job",
-            "func": "app.routes.complements:delete_demo_users",
+            "func": "app.scheduled_jobs:delete_demo_users",
             "trigger": "interval",
             "seconds": 15,
         }
@@ -58,7 +58,7 @@ class ProductionConfig(BaseConfig):
     JOBS = [
         {
             "id": "delete_demo_users_job",
-            "func": "app.routes.complements:delete_demo_users",
+            "func": "app.scheduled_job:delete_demo_users",
             "trigger": "interval",
             "days": 1,
         }
