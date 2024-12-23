@@ -39,3 +39,27 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    JOBS = [
+        {
+            "id": "delete_demo_users_job",
+            "func": "app.routes.complements:delete_demo_users",
+            "trigger": "interval",
+            "seconds": 15,
+        }
+    ]
+
+
+class ProductionConfig(BaseConfig):
+    """Production configuration."""
+
+    DEBUG = False
+    WTF_CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    JOBS = [
+        {
+            "id": "delete_demo_users_job",
+            "func": "app.routes.complements:delete_demo_users",
+            "trigger": "interval",
+            "days": 1,
+        }
+    ]
