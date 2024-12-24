@@ -68,7 +68,12 @@ def create_app():
 
     with app.app_context():
         global chapters
-        chapters = db.session.scalars(select(Chapter).order_by(Chapter.number)).all()
+        try:
+            chapters = db.session.scalars(
+                select(Chapter).order_by(Chapter.number)
+            ).all()
+        except:
+            print("The table 'time_welsch_db.chapters' doesn't exist yet.")
 
     #####################
     #### flask-login ####
