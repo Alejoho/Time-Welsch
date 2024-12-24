@@ -1,3 +1,5 @@
+// Converts the UTC datimes stores in the db to the locale datetime
+
 document.addEventListener("DOMContentLoaded", () => {
     const tds = document.getElementsByClassName("datetime");
 

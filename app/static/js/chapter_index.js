@@ -1,3 +1,4 @@
+// Populates the index of the chapters
 
 document.addEventListener("DOMContentLoaded", function () {
 
