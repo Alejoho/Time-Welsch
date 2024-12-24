@@ -10,6 +10,8 @@ from app import db
 
 
 class CompletedChapter(db.Model):
+    """Represents a completed chapter for a certain user at a given date and time."""
+
     __tablename__ = "completed_chapters"
 
     user_id: Mapped[int]
@@ -34,6 +36,10 @@ class CompletedChapter(db.Model):
 
     @property
     def iso_completed_date(self):
+        """Returns a utc datetime in iso format.
+
+        :return str: An string ISO format datetime
+        """
         utc_datetime = self.completed_date.replace(tzinfo=pytz.utc)
         iso_format = utc_datetime.isoformat()
         return iso_format

@@ -7,6 +7,8 @@ from app import db
 
 
 class CurrentChapter(db.Model):
+    """Represents the current chapter that a certain user is currently reading."""
+
     __tablename__ = "current_chapters"
 
     user_id: Mapped[int]

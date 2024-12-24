@@ -7,6 +7,8 @@ from app import db
 
 
 class Chapter(db.Model):
+    """Represents a chapter with a number, a name and a description."""
+
     __tablename__ = "chapters"
 
     id: Mapped[int] = mapped_column(primary_key=True)

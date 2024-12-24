@@ -12,6 +12,8 @@ from app import db
 
 
 class User(db.Model, UserMixin):
+    """Represents a user."""
+
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -36,18 +38,25 @@ class User(db.Model, UserMixin):
         raise AttributeError("Password is not accesible")
 
     @password.setter
-    def password(self, password):
+    def password(self, password: str):
+        """The password of the user."""
         self.password_hash = generate_password_hash(password)
 
     @property
-    def current_chapter(self):
+    def current_chapter(self) -> int:
+        """The current chapter the user is currently reading."""
         return self.current_chapter_relationship.current_chapter
 
     @current_chapter.setter
-    def current_chapter(self, value):
+    def current_chapter(self, value: int) -> None:
         self.current_chapter_relationship.current_chapter = value
 
-    def verify_password(self, password):
+    def verify_password(self, password: str) -> bool:
+        """Checks if the password match with the one store in the db.
+
+        :param str password: The password to evaluate.
+        :return bool: Returns true if match, otherwise false.
+        """
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self) -> str:
