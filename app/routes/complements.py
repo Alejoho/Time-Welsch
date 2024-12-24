@@ -13,8 +13,6 @@ from sqlalchemy import select
 from app import db
 from app.models import CompletedChapter, CurrentChapter, User
 
-# TODO: Transcript 2 more chapters
-
 
 def verify_recaptcha(recaptcha_response: str) -> bool:
     """

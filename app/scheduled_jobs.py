@@ -9,7 +9,7 @@ from app.models import User
 
 
 def delete_demo_users():
-    """Deletes the demo users every day."""
+    """Deletes the demo users with a day of created."""
     deadline = datetime.now(UTC) - timedelta(days=1)
 
     with scheduler.app.app_context():
@@ -20,7 +20,6 @@ def delete_demo_users():
         for user in user_to_delete:
             db.session.delete(user)
 
-        print("Before commit")
         db.session.commit()
 
-    print("Demo users deleted!")
+    print("Task done. Demo users deleted successfully.")
