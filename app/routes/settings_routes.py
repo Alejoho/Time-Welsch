@@ -44,5 +44,6 @@ def delete_account():
         logout_user()
         flash("Cuenta eliminada.", "success")
         return redirect(url_for("login_routes.login"))
+
     flash("No se pudo eliminar la cuenta. No introdujo el usuario correcto.", "danger")
     return redirect(url_for("main_routes.my_route"))

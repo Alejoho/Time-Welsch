@@ -34,7 +34,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        # reCaptcha verification
+        # Verifies the reCaptcha score
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
@@ -85,6 +85,7 @@ def register():
 @bp.get("/confirmar_email/<token>")
 @block_confirmed_users
 def confirm_email(token):
+    # Deserialized the token to obtain the email
     try:
         email = confirm_token(token, current_app.config["ACCOUNT_CONFIRMATION_MAX_AGE"])
     except SignatureExpired:
@@ -100,6 +101,7 @@ def confirm_email(token):
             "El link de confirmación que intentaste es inválido debido a malos datos."
         )
 
+    # Confirm and login the user
     user = User.query.where(User.email == email).one()
 
     user.confirmation = True

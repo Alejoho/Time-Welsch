@@ -39,18 +39,21 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
+        # Verifies the reCaptcha score
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
             flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
             return abort(401)
 
+        # Login the user
         user = db.session.scalars(
             select(User).where(User.username == form.username.data)
         ).first()
 
         login_user(user, remember=form.remember_me.data)
 
+        # Redirects the user to a login required page
         next_page = request.args.get("next")
         if not next_page or urlparse(next_page).netloc != "":
             next_page = url_for("main_routes.my_route")
@@ -74,6 +77,7 @@ def logout():
 def reset_password_request():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
+        # Verifies the reCaptcha score
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
@@ -89,6 +93,7 @@ def reset_password_request():
 @bp.route("/reestablecer-contrasena/<token>", methods=["GET", "POST"])
 @redirect_authenticated_users
 def reset_password(token):
+    # Deserialized the token to obtain the email
     try:
         email = confirm_token(token, current_app.config["RESET_PASSWORD_MAX_AGE"])
     except SignatureExpired:
@@ -107,22 +112,19 @@ def reset_password(token):
     form = ResetPasswordForm()
 
     if form.validate_on_submit():
-        # reCaptcha verification
+        # Verifies the reCaptcha score
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not verify_recaptcha(recaptcha_response):
             flash("reCaptcha fallido. Inténtalo de nuevo", "danger")
             return abort(401)
 
-        # Get the user by email
+        # Sets the new password
         user = db.session.scalars(select(User).where(User.email == email)).one()
-        # Set the new password
         user.password = form.password.data
-        # Commit to the db
         db.session.commit()
-        # Flash the message
+
         flash("Contraseña reestablecida.", "success")
-        # Redirect to the login page
         return redirect(url_for("login_routes.login"))
 
     return render_template("account_managment/reset_password.html", form=form)
