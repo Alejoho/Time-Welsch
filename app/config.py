@@ -10,6 +10,9 @@ class BaseConfig(object):
     SECRET_KEY = os.getenv("SECRET_KEY")
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT")
 
+    # connection to the db
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.getenv("CONNECTION_USERNAME")}:{os.getenv("CONNECTION_PASSWORD")}@localhost/{os.getenv("DB_NAME")}"
+
     # API keys
     HUNTER_API_KEY = os.getenv("HUNTER_API_KEY")
     RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
@@ -41,7 +44,6 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     RELOAD = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
 
 
 class TestingConfig(BaseConfig):
@@ -50,7 +52,6 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     RELOAD = False
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     JOBS = [
         {
             "id": "delete_demo_users_job",
@@ -67,7 +68,6 @@ class ProductionConfig(BaseConfig):
     DEBUG = False
     RELOAD = False
     WTF_CSRF_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     JOBS = [
         {
             "id": "delete_demo_users_job",

@@ -12,11 +12,11 @@ def create_db():
 
     my_connection = pymysql.connect(
         host="localhost",
-        user=os.environ.get("USER_DB"),
-        password=os.environ.get("PASSWORD_DB"),
+        user=os.environ.get("CONNECTION_USERNAME"),
+        password=os.environ.get("CONNECTION_PASSWORD"),
     )
 
-    name_db = os.environ.get("NAME_DB")
+    name_db = os.environ.get("DB_NAME")
 
     try:
         with my_connection.cursor() as my_cursor:
