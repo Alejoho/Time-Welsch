@@ -5,12 +5,42 @@
 #### Description:
 
 TODO: Write the description asked for the cs50 stuff
+---
 
 #### How to test the app:
 
 Note: The major part of this setup is assuming that you are using MySql to manage your db's
 
-1. **Create a virtual enviroment**:TODO: Ask copilot to create for me this part of the readme for the differents platforms(win, mac, linux)
+1. **Create a virtual enviroment**:
+
+   In Windows run this to create the vm
+
+   ```sh
+   python -m venv myenv
+   ```
+
+   Then this to activate it
+
+   ```sh
+   myenv\Scripts\activate
+   ```
+
+   <br>
+   <br>
+
+   In macOS or Linux run this to create the vm
+
+   ```sh
+   python3 -m venv myenv
+   ```
+
+   Then this to activate it
+
+   ```sh
+   source myenv/bin/activate
+   ```
+
+   <br>
 
 2. **Install the needed packages**:
    Run this command in the terminal:
@@ -18,6 +48,8 @@ Note: The major part of this setup is assuming that you are using MySql to manag
    ```sh
    pip install -r requirements.txt
    ```
+
+   <br>
 
 3. **Create a `.env` File**:
    In the root directory of your project, create a file named `.env` and add these environment variables to this file:
@@ -32,7 +64,11 @@ Note: The major part of this setup is assuming that you are using MySql to manag
 
    Note: I recommend to use the same name of the app in the name of the db "time_welsch_db", but the name don't makes any difference.
 
+   <br>
+
 4. **Create the db**: Run the `db_script.py` file
+
+   <br>
 
 5. **Create the tables**:
    Run this command in the terminal:
@@ -41,8 +77,12 @@ Note: The major part of this setup is assuming that you are using MySql to manag
    flask db upgrade
    ```
 
+   <br>
+
 6. **Insert the chapters details**:
    Run the `chapters_script.py` file to insert the chapter details in the chapters table of the db.
+
+   <br>
 
 Whit this you have sets up the db. And now to run the app just run the `run.py` file and test it out. But with this configuration you can just access the app through the demo users. To use the full functionality of the app like normal registration with confirmation email, normal login, contact me and reset password continue with the next steps.
 
@@ -60,4 +100,6 @@ Whit this you have sets up the db. And now to run the app just run the `run.py` 
     MAIL_CONTACT_ME_RECEIVER=<The email address that will receive the messages of contact>
    ```
 
-With all this sets up your have access to all the functionality of the **Time Welsch** web app
+   <br>
+
+With all this sets up your have access to all the functionality of the **Time Welsch** web app.
