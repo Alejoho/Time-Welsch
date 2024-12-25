@@ -1,4 +1,3 @@
-# LATER: Validate all pages with the cs50 validator
 # app/__init__.py
 
 #################
