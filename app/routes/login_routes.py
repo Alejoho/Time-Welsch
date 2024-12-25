@@ -87,7 +87,11 @@ def reset_password_request():
         send_reset_password_email(form.email.data)
         return render_template("account_managment/reset_password_confirmation.html")
 
-    return render_template("account_managment/reset_password_request.html", form=form)
+    return render_template(
+        "account_managment/reset_password_request.html",
+        form=form,
+        site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"],
+    )
 
 
 @bp.route("/reestablecer-contrasena/<token>", methods=["GET", "POST"])
@@ -127,7 +131,11 @@ def reset_password(token):
         flash("Contraseña reestablecida.", "success")
         return redirect(url_for("login_routes.login"))
 
-    return render_template("account_managment/reset_password.html", form=form)
+    return render_template(
+        "account_managment/reset_password.html",
+        form=form,
+        site_key=current_app.config["RECAPTCHA_PUBLIC_KEY"],
+    )
 
 
 @bp.get("/iniciar_sesion_usuario_demo/<level>")
